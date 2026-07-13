@@ -23,7 +23,7 @@ function urgencyLevel(days) {
 
 function formatDate(dateString) {
   const d = new Date(dateString);
-  return d.toLocaleDateString("el-GR", { day: "2-digit", month: "2-digit", year: "numeric" });
+  return d.toLocaleDateString("en-GB", { day: "2-digit", month: "2-digit", year: "numeric" });
 }
 
 function BatchRow({ batch, trackingType }) {
@@ -31,14 +31,14 @@ function BatchRow({ batch, trackingType }) {
   const level = urgencyLevel(days);
 
   let daysLabel;
-  if (days < 0) daysLabel = `Έληξε πριν ${Math.abs(days)}d`;
-  else if (days === 0) daysLabel = "Λήγει σήμερα";
-  else daysLabel = `${days}d ακόμα`;
+  if (days < 0) daysLabel = `Expired ${Math.abs(days)}d ago`;
+  else if (days === 0) daysLabel = "Expires Today";
+  else daysLabel = `${days}d left`;
 
-  // Δείχνουμε γραμμάρια ή τεμάχια ανάλογα με το tracking_type
+  
   const quantityLabel = trackingType === "weight"
-    ? `${batch.grams_remaining}γρ`
-    : `${batch.units_remaining} τεμ`;
+    ? `${batch.grams_remaining}g`
+    : `${batch.units_remaining} units`;
 
   return (
     <div className={`batch-row batch-row--${level}`}>
@@ -63,7 +63,7 @@ function VarietySection({ variety, batches }) {
     ? varietyBatches.reduce((sum, b) => sum + b.grams_remaining, 0)
     : varietyBatches.reduce((sum, b) => sum + b.units_remaining, 0);
 
-  const totalLabel = isWeight ? `${total}γρ σύνολο` : `${total} τεμ σύνολο`;
+  const totalLabel = isWeight ? `${total}g total` : `${total} units total`;
 
   return (
     <section className="variety-section">
@@ -72,7 +72,7 @@ function VarietySection({ variety, batches }) {
         <span className="variety-section__total">{totalLabel}</span>
       </div>
       {varietyBatches.length === 0 ? (
-        <div className="variety-section__empty">Δεν υπάρχει απόθεμα</div>
+        <div className="variety-section__empty">Out of stock!</div>
       ) : (
         <div className="variety-section__batches">
           {varietyBatches.map((b) => (
@@ -114,11 +114,11 @@ export default function App() {
 
       if (!res.ok) {
         const data = await res.json().catch(() => null);
-        throw new Error(data?.detail || "Το barcode δεν βρέθηκε");
+        throw new Error(data?.detail || "Barcode not found");
       }
 
       const data = await res.json();
-      setScanMessage({ type: "success", text: `Αφαιρέθηκαν ${data.grams_removed}γρ` });
+      setScanMessage({ type: "success", text: `Removed ${data.grams_removed}g` });
       loadData();
     } catch (err) {
       setScanMessage({ type: "error", text: err.message });
@@ -136,7 +136,7 @@ export default function App() {
       ]);
 
       if (!varietiesRes.ok || !batchesRes.ok) {
-        throw new Error("Αποτυχία φόρτωσης δεδομένων");
+        throw new Error("Failed to load data");
       }
 
       const varietiesData = await varietiesRes.json();
@@ -168,20 +168,20 @@ export default function App() {
       <header className="app__header">
         <div className="app__heading-row">
           <div>
-            <h1 className="app__title">Απόθεμα</h1>
-            <p className="app__subtitle">Ξηροί καρποί &amp; αποξηραμένα φρούτα</p>
+            <h1 className="app__title">Stock</h1>
+            <p className="app__subtitle">Dried Nuts &amp; Fruits</p>
           </div>
           <button
             className="app__restock-button"
             onClick={() => setShowRestockModal(true)}
           >
-            + Νέα παραλαβή
+            + New Restock
           </button>
           <button
             className="app__deduct-button"
             onClick={() => setShowDeductModal(true)}
           >
-            − Αφαίρεση
+            − Remove
           </button>
         </div>
         <form className="scan-bar" onSubmit={handleScanSubmit}>
@@ -189,7 +189,7 @@ export default function App() {
             ref={scanInputRef}
             className="scan-bar__input"
             type="text"
-            placeholder="Σκανάρισμα barcode..."
+            placeholder="Scan barcode..."
             value={scanValue}
             onChange={(e) => setScanValue(e.target.value)}
             autoFocus
@@ -204,17 +204,17 @@ export default function App() {
         <input
           className="app__search"
           type="text"
-          placeholder="Αναζήτηση είδους..."
+          placeholder="Search products..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </header>
 
       <main className="app__main">
-        {loading && <div className="app__status">Φόρτωση...</div>}
+        {loading && <div className="app__status">Loading...</div>}
         {error && <div className="app__status app__status--error">{error}</div>}
         {!loading && !error && filteredVarieties.length === 0 && (
-          <div className="app__status">Δεν βρέθηκαν είδη.</div>
+          <div className="app__status">No products found.</div>
         )}
         {!loading &&
           !error &&

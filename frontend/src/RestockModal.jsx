@@ -10,9 +10,6 @@ export default function RestockModal({ varieties, onClose, onSuccess }) {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
-  // Βρίσκουμε το tracking_type του επιλεγμένου variety
-  // Το .find() επιστρέφει το πρώτο στοιχείο που ταιριάζει με τη συνθήκη
-  // Παρόμοιο με το .filter(...).first() στο SQLAlchemy
   const selectedVariety = varieties.find((v) => v.id === Number(varietyId));
   const isWeightBased = selectedVariety?.tracking_type === "weight";
   const isUnitBased = selectedVariety?.tracking_type === "units";
@@ -22,17 +19,17 @@ export default function RestockModal({ varieties, onClose, onSuccess }) {
     setError(null);
 
     if (!varietyId || !expiryDate) {
-      setError("Συμπλήρωσε όλα τα πεδία.");
+      setError("Fill in all fields.");
       return;
     }
 
     if (isWeightBased && !grams) {
-      setError("Συμπλήρωσε τα γραμμάρια.");
+      setError("Enter the grams.");
       return;
     }
 
     if (isUnitBased && !units) {
-      setError("Συμπλήρωσε τα τεμάχια.");
+      setError("Enter the units.");
       return;
     }
 
@@ -41,8 +38,6 @@ export default function RestockModal({ varieties, onClose, onSuccess }) {
       const body = {
         variety_id: Number(varietyId),
         expiry_date: expiryDate,
-        // Ανάλογα με το tracking_type, στέλνουμε το σωστό field
-        // Το άλλο μένει null (Optional στο Pydantic schema)
         grams_remaining: isWeightBased ? Number(grams) : null,
         units_remaining: isUnitBased ? Number(units) : null,
       };
@@ -53,7 +48,7 @@ export default function RestockModal({ varieties, onClose, onSuccess }) {
         body: JSON.stringify(body),
       });
 
-      if (!res.ok) throw new Error("Η αποθήκευση απέτυχε");
+      if (!res.ok) throw new Error("Save failed");
 
       onSuccess();
     } catch (err) {
@@ -67,58 +62,58 @@ export default function RestockModal({ varieties, onClose, onSuccess }) {
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
         <div className="modal__header">
-          <h2 className="modal__title">Νέα παραλαβή</h2>
+          <h2 className="modal__title">New Restock</h2>
           <button className="modal__close" onClick={onClose}>×</button>
         </div>
 
         <form className="modal__form" onSubmit={handleSubmit}>
           <label className="field">
-            <span className="field__label">Είδος</span>
+            <span className="field__label">Product</span>
             <select
               className="field__input"
               value={varietyId}
               onChange={(e) => setVarietyId(e.target.value)}
             >
-              <option value="">Επιλέξτε είδος...</option>
+              <option value="">Select a product...</option>
               {varieties.map((v) => (
                 <option key={v.id} value={v.id}>
-                  {v.name} ({v.tracking_type === "weight" ? "γρ" : "τεμ"})
+                  {v.name} ({v.tracking_type === "weight" ? "g" : "units"})
                 </option>
               ))}
             </select>
           </label>
 
-          {/* Δείχνουμε το σωστό field ανάλογα με το tracking_type */}
+          {/* Show the right field depending on tracking_type */}
           {isWeightBased && (
             <label className="field">
-              <span className="field__label">Γραμμάρια</span>
+              <span className="field__label">Grams</span>
               <input
                 className="field__input"
                 type="number"
                 min="1"
                 value={grams}
                 onChange={(e) => setGrams(e.target.value)}
-                placeholder="π.χ. 10000"
+                placeholder="e.g. 10000"
               />
             </label>
           )}
 
           {isUnitBased && (
             <label className="field">
-              <span className="field__label">Τεμάχια</span>
+              <span className="field__label">Units</span>
               <input
                 className="field__input"
                 type="number"
                 min="1"
                 value={units}
                 onChange={(e) => setUnits(e.target.value)}
-                placeholder="π.χ. 24"
+                placeholder="e.g. 24"
               />
             </label>
           )}
 
           <label className="field">
-            <span className="field__label">Ημερομηνία λήξης</span>
+            <span className="field__label">Expiry date</span>
             <input
               className="field__input"
               type="date"
@@ -130,7 +125,7 @@ export default function RestockModal({ varieties, onClose, onSuccess }) {
           {error && <div className="modal__error">{error}</div>}
 
           <button className="modal__submit" type="submit" disabled={submitting || !varietyId}>
-            {submitting ? "Αποθήκευση..." : "Καταχώρηση"}
+            {submitting ? "Saving..." : "Save"}
           </button>
         </form>
       </div>
