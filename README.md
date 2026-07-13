@@ -4,7 +4,7 @@
 
 ![Dashboard screenshot](docs/screenshot.png)
 
-*Deployed on FastAPI Cloud, backend and frontend served from a single app via `app.frontend()`. The demo UI is in English; the original version (built for actual café staff to use day-to-day) is in Greek — see `frontend/` for both.*
+*Deployed on FastAPI Cloud, backend and frontend served from a single app via `app.frontend()`. This demo UI is in English for portfolio purposes; the original day-to-day version (for actual café staff) was in Greek — the UI strings were translated for this public demo.*
 
 A barcode-based inventory system for a café/nut shop, built to solve a real problem: dried fruit and nuts have expiry dates, and every delivery batch expires on a different day. A single "current stock" number per product isn't enough — the system needs to know *which* batch is running out first.
 
