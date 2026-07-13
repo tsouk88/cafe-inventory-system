@@ -1,8 +1,10 @@
 # Café Inventory System
 
+**[🔴 Live demo](https://cafe-inventory.fastapicloud.dev)**
+
 ![Dashboard screenshot](docs/screenshot.png)
 
-*The UI is in Greek since it's built for actual café staff to use day-to-day; the code itself (models, logic, comments) is in English. Currently runs locally — not yet deployed publicly.*
+*Deployed on FastAPI Cloud, backend and frontend served from a single app via `app.frontend()`. The demo UI is in English; the original version (built for actual café staff to use day-to-day) is in Greek — see `frontend/` for both.*
 
 A barcode-based inventory system for a café/nut shop, built to solve a real problem: dried fruit and nuts have expiry dates, and every delivery batch expires on a different day. A single "current stock" number per product isn't enough — the system needs to know *which* batch is running out first.
 
@@ -11,7 +13,7 @@ A barcode-based inventory system for a café/nut shop, built to solve a real pro
 Instead of tracking one stock number per product, each restock creates a new **batch** with its own expiry date. When a product is sold (scanned), stock is deducted from the earliest-expiring batch first — and if that batch doesn't have enough left, the remainder spills over into the next batch in expiry order.
 
 ```
-Αμύγδαλα (Almonds):
+Almonds:
   Batch A — 3.2kg remaining, expires 12/7
   Batch B — 10kg remaining, expires 28/7
 
@@ -35,13 +37,14 @@ It's meant to run as a scheduled/cron job (not built into the live request path)
 ## Tech stack
 
 - **Backend:** FastAPI + SQLAlchemy, PostgreSQL (Supabase)
-- **Frontend:** React (Vite), served directly by FastAPI via `app.frontend()`
+- **Frontend:** React (Vite), served directly by FastAPI via `app.frontend()` — one deployment target instead of two
+- **Deployment:** FastAPI Cloud
 - **Scripts:** plain Python (SMTP email, no external services)
 
 ## Project structure
 
 ```
-main.py              FastAPI app + endpoints (scan, restock, manual deduction)
+main.py              FastAPI app + endpoints (scan, restock, manual deduction) + frontend serving
 models.py            SQLAlchemy models (Variety, Product, Batch, StockMovement)
 schemas.py           Pydantic request/response schemas
 database.py           DB session setup
@@ -71,4 +74,4 @@ Requires a `.env` file (not committed) with `DATABASE_URL` and, for the alert sc
 
 ## Status
 
-Core inventory tracking, manual deduction, and the low-stock script are complete and tested, running against a live Supabase (PostgreSQL) database. The FastAPI backend + frontend are not yet deployed publicly (currently run locally) — that's next, alongside a consumption-pattern analysis feature (which days/periods see higher demand, for promo/restock timing — likely starting deterministic, with an LLM layer added only where it adds real value).
+Core inventory tracking, manual deduction, and the low-stock script are complete and tested, running against a live Supabase (PostgreSQL) database. The app is deployed and live on FastAPI Cloud (link above). Next up: a consumption-pattern analysis feature (which days/periods see higher demand, for promo/restock timing — likely starting deterministic, with an LLM layer added only where it adds real value).

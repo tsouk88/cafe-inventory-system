@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends , HTTPException
+from fastapi import FastAPI, Depends , HTTPException 
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 from database import get_db
@@ -13,6 +13,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+app.frontend("/", directory="frontend/dist")
 
 @app.get("/varieties", response_model=list[VarietyOut])
 def get_varieties(db: Session = Depends(get_db)):

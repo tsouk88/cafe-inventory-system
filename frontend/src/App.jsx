@@ -3,7 +3,7 @@ import "./App.css";
 import RestockModal from "./RestockModal";
 import DeductModal from "./DeductModal";
 
-const API_BASE = "http://localhost:8000";
+const API_BASE = "";
 
 function daysUntil(dateString) {
   const today = new Date();
