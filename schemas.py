@@ -1,16 +1,17 @@
 from pydantic import BaseModel , model_validator
 from datetime import date , datetime
 from typing import Optional
+from models import TrackingType
 
 
 class VarietyCreate(BaseModel):
     name: str
-    tracking_type: str
+    tracking_type: TrackingType
 
 class VarietyOut(BaseModel):
     id: int
     name: str
-    tracking_type: Optional[str] = None
+    tracking_type: Optional[TrackingType] 
 
 class ProductCreate(BaseModel):
     barcode : str
