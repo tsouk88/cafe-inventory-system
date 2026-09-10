@@ -86,6 +86,14 @@ def scan_barcode(scan: ScanRequest, db: Session = Depends(get_db)):
             else:
                 remaining_to_subtract -= batch.grams_remaining
                 batch.grams_remaining = 0
+        # The package physically left the shop, so the movement always records the
+        # full package size. A leftover here means the batches on file could not
+        # cover it - the data disagrees with the shelf, and someone has to look.
+        stock_shortfall = remaining_to_subtract
+        if stock_shortfall == 0:
+            status = "completed"
+        else:
+            status = "stock_mismatch"
         new_movement = StockMovement(
         barcode=scan.barcode,
         direction=Direction.OUT,
@@ -95,7 +103,8 @@ def scan_barcode(scan: ScanRequest, db: Session = Depends(get_db)):
         db.commit()
         return  {"barcode": product.barcode,
                 "grams_removed": product.package_size_grams,
-                "status": "completed"
+                "stock_shortfall": stock_shortfall,
+                "status": status
                 }
     else:
         batch = db.query(Batch).filter(Batch.variety_id == product.variety_id).filter(Batch.units_remaining > 0).order_by(Batch.expiry_date).first()
@@ -143,18 +152,28 @@ def manual_deduct(deduct: ProductDeduct, db: Session = Depends(get_db)):
                 "status": "completed"
                 }
     else :
-        batch = db.query(Batch).filter(Batch.variety_id == deduct.variety_id).filter(Batch.units_remaining > 0).order_by(Batch.expiry_date).first()
-        if batch is None:
+        batches = db.query(Batch).filter(Batch.variety_id == deduct.variety_id).filter(Batch.units_remaining > 0).order_by(Batch.expiry_date).all()
+        if not batches:
             raise HTTPException(status_code=404, detail="Batch not found")
-        batch.units_remaining -= deduct.units
+        remaining_to_subtract = deduct.units
+        for batch in batches:
+            if remaining_to_subtract == 0:
+                break
+            elif batch.units_remaining >= remaining_to_subtract:
+                batch.units_remaining -= remaining_to_subtract
+                remaining_to_subtract = 0
+            else:
+                remaining_to_subtract -= batch.units_remaining
+                batch.units_remaining = 0
+        units_removed = deduct.units - remaining_to_subtract
         new_movement = StockMovement(
         barcode=None,
         direction=Direction.OUT,
-        grams=deduct.units
+        grams=units_removed
             )
         db.add(new_movement)
         db.commit()
         return  {"barcode": "MANUAL",
-            "units_removed": deduct.units,
-            "status": "completed"
+            "units_removed": units_removed,
+            "status": "completed" if remaining_to_subtract == 0 else "stock_mismatch"
             }
