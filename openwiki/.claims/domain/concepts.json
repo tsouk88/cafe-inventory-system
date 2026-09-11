@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:5296032b8b59bed09ba196c14f29b559b8d4d04ebc48b461715895dd6a73d465",
+  "claims": [
+    {
+      "id": "claim_e816e291cb5f4108a51cd85190e36cf1",
+      "statement": "The four core entities are Variety, Product, Batch, and StockMovement defined in models.py; products and batches both carry a variety_id foreign key, and stock_movements.barcode is a nullable FK to products.barcode so manual deductions and batch restocks are not tied to a product.",
+      "evidence": [
+        {
+          "resource": "repo://models.py#L14-L45",
+          "version": "repo-lines-v1:sha256:55544ad6ed77bdde7800d5566f21f30ef41247073193959278febb7ed7679425:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhNzExN2U2ODIwMzg1MGUwZGRlN2Y1YmFjMzFmODg4ZTdkYjY1MDQwNjc3NTA3MmJmZjQ0ZWUzNmRlZjIwM2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4YzM5ZDc2ZjczOTY0MDcwYjY4ODU5YmUyMzNhMzI1ZDVhMGEzYmEwMzQ3ZjUzYzdlNWU2ZjMwZjQxYmFlNzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA2MTM4ZjY0YTk2NTAwNDk1NGEwY2M0M2I3NmQ3ODQ0MzhkNDZiN2M3YmJjZDU2ZDZiOWMwNjMwMzAwYTM4NWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ea72d62ac3b8439b88ca01a1cdcc4310",
+      "statement": "Variety.tracking_type (TrackingType enum: WEIGHT or UNITS) is the branch that governs how stock is consumed: scanning resolves the product, then uses the variety's tracking_type to decide the deduction path.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L69-L124",
+          "version": "repo-lines-v1:sha256:1c4d0cdd3c4765682e2dd96feabbdfc9f70132aecf825be663976db680782d4f:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyNTU5NDI3M2FjMDE4OTAwMDRiYmMxMWMwOWJkMWYzMzEzYjZlZjFlNjkxNDk4ZDY1ZGE2ZTRjYzk1OWQ2YmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYzYmVjODk1NjNiZGMyZjU4NjdhNjQwMGY5MGJhOWZlZDIwZjE0NmY2YzA4NzAwNGMzNTI4NjlkYmRmYWE2NDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1MGUzN2E4NzgyYjJjNmE0NjkyZDUyYWJiMTRkYTQ1YTRjYzM0NGExZmE5OWE4Njg4NjJlZTE4MWFiNmZiNTMifQ"
+        },
+        {
+          "resource": "repo://models.py#L10-L12",
+          "version": "repo-lines-v1:sha256:1cfa4cb54b0ec01718f7393b011c7ca8c9ef8fb0ba4c0ee124fb90d6ed26a789:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzc4OGUxMTBmZjE3MzQzNTQ3YTI0ZjUwMjNlODljN2Q5OThkNjI0ODJlYmNjZTA5YTZlNzk3YWNjN2M2ZTlkZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTU5ZWRlNTQzNzIzYWYzOTk1ZDdiNDQzYWIxNmI4OWYwYjA2YWUzNzkzZGY1NmI4ZjA1MWNkOWU2ZTZhNzFmYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWQxNTgzYTFiMjEzZmE2MWI1NWQ4MjcyMDhlYWY5OGQ4ZTUyOWUxNmRmYWVlZTM5MzgwZjk0YWJjMWM0ZjU4OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDQyZDFiMTk3MmFhYjA4MjlhNWYwOTBkZDI5NTI1NWMzY2ViYmZlZDE2MTI5MDI5OTdhNTIyY2UyN2NmZGIzMCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f88d3542099e42ed9f8f3433ca2983c6",
+      "statement": "Product.barcode is the primary key of products; package_size_grams is nullable but required for weight-tracked products because a scan consumes exactly that many grams.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L75-L78",
+          "version": "repo-lines-v1:sha256:c109a3ba549b3427462eb54b59a70d3d4f8cf42b7c6501623140f3206ba93244:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzdkNmMxNGYxOTdjYWM2ZmIyZGE3NjlmMTg5ZjdlNjE2MzQ5MmNhNmExMmVjNzhhMDFlNzM5NzNhYTg3MTVjYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDY0MWMyMjNlZTU3YjFkZjEzYjAyNjczNTc1M2IzZGQxMTY1MWI5ZjUwZWI0YjJmMjc3NzQ2NzFhY2I2MDdiNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjBlNzhiMmYxMjdkYTc2MDQzZTU2NzM4ZDUwZDYzNGY2NmVhOGNlNjM3YWU0NWYzODNmNjMxNGVkMmU0NDQ4YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWE3ZGMyYTcwODMwZGIwNjJmMzBkNzZkMzZkYzBjNjZiNDU1MTU0ZjIxNDQxY2Q5ODE1YWE0YmM1MGY0MjNmZiJ9"
+        },
+        {
+          "resource": "repo://models.py#L21-L26",
+          "version": "repo-lines-v1:sha256:ba00bc478236aaa399c7e4d1b7454dc63c788cec4e8d5f0ee967a10c7e671c28:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDdmZDdhM2ZhNWM0YzBlNWM4YzJiN2M1OGY3OTg0YzVmNDVhY2E3YzM5ZmM5YTVmNzRlNTk4ZjFjZDY5YjI1NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWM1NjYxZjVjMWU5NzYxZGQ5N2U4ZWU3NWFmYWQ4YmNmNWM4YjkxY2Y5OGQxZTkwZWJiYjU0ZDA3ZjMwMjhkNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzM1ZjZhOWFiYjU2NmE2MTYwM2JjNTkyZmM1N2IzM2EyZGQzYTM5NmY4YTIyZmNhOTc3ODQ0YmRmZTQxNzgyNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzA2ZGVjM2E5ZmNhNmJlNzI1ZjEwYmNiNTA5ZmZmYzY1NzgyNjA5NGY1MDQyOWY2NGIxZDA5ZjJmMzRlODAxMCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_8ece0dec6ed0448f87870edb5127e54f",
+      "statement": "FIFO is by earliest expiry_date first, not by insertion order: scan_barcode and manual_deduct order batches by Batch.expiry_date and spill remaining demand across later batches when the earliest is exhausted; this is the central invariant to preserve.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L133-L167",
+          "version": "repo-lines-v1:sha256:bbcfe551a02e2b27a3a5ddbbc967c03030f962b970230e8c4be64f339eca736c:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhNTg5ZGEyNmYxZGYxNzNhOGEzOTdmNjVkOTdjMjNmZTJkMjBkMTcyMTk1MjBlYzFiOTRkN2EzNjk5M2RjZjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY1ZTAzOTdiMzc1Y2NmOGQxMTQyNmFlY2YzZjZkYWUxNTE4ZGM0YTcyYjM5YzE4ZTVhNzVjNzM0NTI2ZWM5MjUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZmOWQ3MzYxMTE4NDhiYmQwOTg2NWY4MDY0NjVjNTdjYzlmNGFjYTNjY2JhZDIyOTA4YjllYTMxNDRjNzQyMjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ2OTU5YTljNWQyNTM4YjgxZjJiMDZjZDM2NzY3YTM3Mjc0MzA5MmFhZGExMzYwYzlkYWZmMmJhN2ZiMjJhY2YifQ"
+        },
+        {
+          "resource": "repo://main.py#L79-L88",
+          "version": "repo-lines-v1:sha256:1863f9331a824f880cf5547a0830516b159678c29922d86447aa25adb4dae5b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwODMyMGMxYTNmNjYyMzlhODU3ZmMzNDI1ODMwNTg1Mzg5MDlmNjk2NTkzZGRhNmQxYTEwNzg1YWQxNmFiNjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlkM2VhMWE2MGNiN2I1M2MzYTZhYmI2MjczNjIwYzE3MGE2MGQ1MWFlNzdiMWQ2YTQ1Y2E0ZDdhOTI0ZTcxNjQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJjNDRlYTU5YTQ1MDdjY2JiODA1NjUwOGZlZDBlODBiMzI0N2VhZjFlMThhOTZiNjNjNmFmNjlkOThkZGFhNzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjExOTBmNWZmYmU3YWI4Njk2OTRkZDExZWY0YmNkODc4YjRlYmU0MGY2NDZlYWY5OTg1ZDYxODg3Y2E0ODRkNzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_17b1689c63844d509e402650c36613fa",
+      "statement": "The StockMovement.grams column is overloaded: it stores gram amounts for weight-tracked items but unit counts for unit-tracked items. create_batch stores units_remaining in grams for unit batches and scan_barcode stores grams=1 per unit scan, and scripts/low_stock.py sums movement.grams across both tracking types to estimate weekly consumption.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L113-L118",
+          "version": "repo-lines-v1:sha256:51347acd506515bfe3c7b958afd96cdcd6d428f34565a9cb78617f4652b6205f:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzVlZWEwYjRmMzc5NzU1OWM1YTg1MzIyNDc0ZTU4Y2MwMGNhYjIzZGUzMDJmZmJiMGViMWQ2MjMyZDQ2MmRlZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTUwMzJlOTY0ZDA5MzIzNTFlNWQxODUyNjkyODFiMTcxYTNhMDliMDhiMjg2ZTY2MWVhNDcwMzIzYzgyZWI0ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzkzMmFmZWJjM2U1NDI1YzIyMjAzOWEzZDUzZWFkOWQ0ZmU3OTY3NzQ3MTE1YWU3NjY5NjBiYjJiZDk5ZDBmYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWNkZjllYmRlMzM5MTZlYTNiNjEwMWI3N2I0MTdjZmIxNWExMjhiMjVkZmI2ZTRhYTUzMThkY2UxOTQ3MmJmOCJ9"
+        },
+        {
+          "resource": "repo://main.py#L47-L58",
+          "version": "repo-lines-v1:sha256:dc0b1ea09a140166165f43b02d2fff01af5cde09549461dd14885e99c2abd1d5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlZTg2N2I0MzlhMzk2MDIzYzI4ZjUxYjkyOGMwZjhiZGU5OTIyN2ZhMzQxNjU1YzljOGZmNjFkMGYyNzcwYTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwMDEwNWUwYTY4NTIxYzNkMzMyNjE1MzkwZTg1OWUzOWNmMjQxMjc0YTdkNzgxZDE5NmEzYWRhMDdiMTBmZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI4OTU0ZjQ1NzZkNGVhMjg2MTRkOGE0NjgzZDIzY2IxZDgzMzBmZjNmYzg4ZWQwM2NiZDgzZTI1ZmZhZWE0NTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQyMzhlNGRhNjc2NWY5Y2VhNmUxMDI0NGIyMzVkYWY4MTBkOWJjY2VhZjVlN2U2NmY5YmQzZWE5NjliYjZjZjMifQ"
+        },
+        {
+          "resource": "repo://scripts/low_stock.py#L17-L18",
+          "version": "repo-lines-v1:sha256:255a5f196bea2d066574ec0d85d0acd3365dfd9475293e6c0203dab9ec8687c9:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTY0M2ViZDYzYThmYTJlMmMzNmYwODkwZTBhNDA5ZjY0NmU5OGFlMzZiMThmZmQ1YTNkMzkxNTlkODc5ZjBkMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDQxZTY0ZjlhZGQ4NjIyYjI4OGUwYWZkODBhMzdlMmU3M2NiNDkyMDg5MTQ4NjMxNGQ2NjFkMTA0M2U2OTliYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzkyODdkMjZkMGI2YmI0Zjg5MzlhNjM3NjgzN2YzM2RkY2RkNDNiYTdjZDVlZTNhM2EwNTU4ZmM0YWViM2FlNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTY1NTgzYjYwMGE0NjAwNTk3ZGQwNjcxNzcyYTg4ZTY0YmQxNDI1OGI3NjYwNzQyMTc5NzljODExZGM4NDNhZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_e08a2c9b91bb4863a806c69fa5a3d654",
+      "statement": "Direction enum has IN (restocks recorded by create_batch) and OUT (scans and manual deductions); StockMovement.barcode is nullable and set to None for manual deductions and batch restocks.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L143-L146",
+          "version": "repo-lines-v1:sha256:e86c256ac06263a49c2852c74fe73deef9f41868b765564cd930678f37945e3a:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmVlNjRkNDU0NzI4NTJmYWE3Njc0Njk0YTUyYmM0Yjg4MDA0MmQzNzBkNWNiNzAyM2YxZGU2MzJkNmE2MzVkMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTU4ZjIxMjI5ZDUwNDg4MzE2N2E2NTE3NDEzOGE1OWIzYzg4Njc1NThiNmM5ZmQxYTU1ZThhOTVmYTEwNzhiMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDNlMTg5OTYxNjNhMmUyZGNmYTk2ODVkZDZmYzhiODBlY2FiNGZlOWI5YTA3ZTg5ZmQ5Y2Q0YzQ1NDdjOGU3MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWUwY2M5MmRkM2E2YjhhMzZkZWRmNjc1NjczMzNmZmIxMWUxOWYyZjMwYTc2ZDU5ODkwMjRjOWMxZTE4NjlhMCJ9"
+        },
+        {
+          "resource": "repo://main.py#L48-L58",
+          "version": "repo-lines-v1:sha256:cd6c9af12356472c77bcdfb54661b1be1b344de17c607549275af74535bc0ba6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlZTY0ZDQ1NDcyODUyZmFhNzY3NDY5NGE1MmJjNGI4ODAwNDJkMzcwZDVjYjcwMjNmMWRlNjMyZDZhNjM1ZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwMDEwNWUwYTY4NTIxYzNkMzMyNjE1MzkwZTg1OWUzOWNmMjQxMjc0YTdkNzgxZDE5NmEzYWRhMDdiMTBmZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMjY0YjIwZmU5ZjVlZWQ1ZjJmY2QwYzIyNDFkOThjODUzMWRjYTQ3ZGFmNGZlY2EzNGU4MDMxOTIxZDI4YzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQyMzhlNGRhNjc2NWY5Y2VhNmUxMDI0NGIyMzVkYWY4MTBkOWJjY2VhZjVlN2U2NmY5YmQzZWE5NjliYjZjZjMifQ"
+        },
+        {
+          "resource": "repo://models.py#L6-L8",
+          "version": "repo-lines-v1:sha256:ab9a418c4f088239b7a57bb2ca9a7e7f104ce466b104f4384a14d739f8afadf8:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZmM2NGVlYTczNDZiZTY4NzZlNTdkYjkyODFkMmM5M2U1ZjkwMWQ4MjUyOTFmZTNmNDMxNGVhN2Y2ZjlhOTk1YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTBkNjVhNTliYTNlY2QzY2E4YmE3NDcyYjYwZGQ2YmJmMTNmNDM3ZDEwM2QxZTk5MjlhMmY0ZTYwMDAzOWFhOSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDExMjgyZDQ2ZWEwYzUyNWVjZmIyMjk1YTRkNWM3ZTExNTdhNWY5ZTk5NGNiNDNkYTYxMzg3ZmZiNTZmMGJjOSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZDI4NTc1NGM4NzllZmMxYzUzNjYzM2IzMDA5ZGQ0MzU4OGE1MjVmOTFjMWY1MGFmZjQxNTI1ZDI4MTM4MjU2NCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a6e8e0e6f9e44d3fb29cbfa98f2c38cf",
+      "statement": "ProductDeduct and BatchCreate in schemas.py each use a model_validator(mode after) requiring at least one quantity field, raising Greek error messages ('Πρέπει να δώσεις είτε grams είτε units' and 'Πρέπει να δώσεις είτε grams_remaining είτε units_remaining').",
+      "evidence": [
+        {
+          "resource": "repo://schemas.py#L27-L47",
+          "version": "repo-lines-v1:sha256:bf9b7590aa30d3b1a38177325c2d70a8d30817b711780ac6e9c3047db15385be:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI4NTMxOTliNjJjMGFkNzRjY2QwMDY2MTYzYzEyMDBhZDI0MmM5YWEwYmExNWQ4ZDI5NWNhMmIyZmNhMDk2YTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEyYWIwOTBiY2QxNjIwZmE2MmVhZWUxNTdhNzRmY2E2MzVhYTI5ZTEyY2JmZmQ2MThiNTc5MmQ4N2JjMDNhM2YiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImViZjhkYTE3MmFhZGRhZTg2ODQ3ZWU1MTgwMzUwMTBlMzUzYTM3NjZhYmM2MmYwZDk5YzZlMGZjNWU0MGQxY2QiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMzOGVhM2M3MDk1OWQxYzc0ZjZlYTMwNzBjYTJiMjYzOWEyNTljOTMwMTcyYTlkYjkzMjI1MjJlZDRiM2FjY2EifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_026721d089944377b3b157dbc4792456",
+      "statement": "When a scan cannot be fully covered by on-file batches, scan_barcode records the full package_size_grams as the OUT movement and returns status 'stock_mismatch' with the stock_shortfall; only full coverage returns 'completed'.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L89-L108",
+          "version": "repo-lines-v1:sha256:3fd82d9b62196fbd108cb808c131869e24465a848b7d6118199f94d136f015f4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU1NDA5ODE4YjRkMzkzYzVkNzg1ZGExOTQ2YzkyNGUzODVjMWRlNmQ5Y2EyYjY1ZTRkOGY5NzdhN2YwMDkxMWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjNjQ3OWNjMjMwNDQwZmQ0MWU4MjI0MjE4Njc5Njk4NTU5ZDI4OTNiZDY3YjQzODBhZmFiODExYjM4YTU1YWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQzZTE4OTk2MTYzYTJlMmRjZmE5Njg1ZGQ2ZmM4YjgwZWNhYjRmZTliOWEwN2U4OWZkOWNkNGM0NTQ3YzhlNzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1OWM4MGE2MDM3MjFlZGViYmZkMDRiMDM2ZDU2NmFkMDMwZjY5MWM4NTgyNmIxMjcwNGU0OWY2MmU5OTIyOGYifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.1",
+    "at": "2026-09-11T18:21:42.744Z"
+  }
+}
