@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:f24d3f9f11d01459733178773729ebf14654a0d355c82a7689f3cdfab8e66a64",
+  "claims": [
+    {
+      "id": "claim_c5f7316cc624418299505b44bca1d19b",
+      "statement": "The app is a single-deployment full-stack system: main.py mounts the built React SPA with app.frontend(\"/\", directory=\"frontend/dist\") and the frontend uses an empty API_BASE so all fetch calls are same-origin relative paths against the FastAPI process that owns the API.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx#L6-L6",
+          "version": "repo-lines-v1:sha256:cc206438df451e7329f5bc74877716031f1871eac4b00b7766627f127e3c42c8:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2MyMDY0MzhkZjQ1MWU3MzI5ZjViYzc0ODc3NzE2MDMxZjE4NzFlYWM0YjAwYjc3NjY2MjdmMTI3ZTNjNDJjOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2MyMDY0MzhkZjQ1MWU3MzI5ZjViYzc0ODc3NzE2MDMxZjE4NzFlYWM0YjAwYjc3NjY2MjdmMTI3ZTNjNDJjOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjhlOTMwZjI2ODUxOGQyMTNjNTE5N2RkZWE5ZDQ4NGYyZjNlNTM2MTZjNDM3NmI2MjBjY2UyNGM3NWQwNTM2MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTM2NGI2MDg2YjVjYzFkNDc2NjQ2ZjYwN2FlZTM1NDQ1Y2YwZjVlMzk5YTE5YzlkOTJiZDE5MzA3Y2Y5MjE0OCJ9"
+        },
+        {
+          "resource": "repo://main.py#L16-L16",
+          "version": "repo-lines-v1:sha256:b540061c89ec5e121a1e981bd149a3c05351d938475025b84ff639c16abadb23:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjU0MDA2MWM4OWVjNWUxMjFhMWU5ODFiZDE0OWEzYzA1MzUxZDkzODQ3NTAyNWI4NGZmNjM5YzE2YWJhZGIyMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjU0MDA2MWM4OWVjNWUxMjFhMWU5ODFiZDE0OWEzYzA1MzUxZDkzODQ3NTAyNWI4NGZmNjM5YzE2YWJhZGIyMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmU2NTE0NTM5ZDliNmM3MmE4YjIxOGZiYzg1NGEzZGE3MDU3YzYxNWVkMWNjODg4ZmNjN2EzZDQ5MzVjY2QzMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTEwYTkyOGQxZDA0MzRhNzQ3MzU1MzkyMWU1Y2U3OGZmMGI0MjAyYTk1Mzk4MDJlOGMyMTU4ZmNiMTYwMGRmOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_02885f2277214bc7afeb3c40ec8ab3e6",
+      "statement": "CORS is configured for the local Vite dev server origin only (allow_origins=[\"http://localhost:5173\"]); in same-origin deployed serving the SPA does not need CORS, so this middleware exists solely for local development where the SPA runs on port 5173.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/vite.config.js",
+          "version": "repo-file-v1:sha256:4d36db3522a7b2dd10e0936e1004373c7ee65f10f7cd7920cd76410459c15a45"
+        },
+        {
+          "resource": "repo://main.py#L10-L15",
+          "version": "repo-lines-v1:sha256:d5e71ed9ec15ebcdabc33d712006d10abeba9f09664e00c8b3ce180e6c3b3511:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzJmOTA3ZGVjNmZiMjUxZmU5N2RhYjhhNWViYmIyYmViMjc5N2FmNDAxNmVmOGY1NWU0NDQ2MmRkYjg2YjE0OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmFmYmEwNTI3YzM5NTNjNGI2ZTBlNWI1NzM5YmE4MzYxMmY4MDUzYmNkYzk0NjY3MzAxOTNjZDFkNTkwYjQwOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjExOGY5ZGExM2E0NTczMDMxY2JmMjBmM2U2YmQ1OTJlMTU0MjdkNjI5ZGE2ZmJlZWM4NDhkZmFmNmY1ODNjMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiODcyNjk2MTY3YTg0ZDcyNDFlMTJmNmVkYjM4MjNlMzQ5N2U1MWZiNGYxMTNmMmNlYWZhZDRjMjE0MjIxOWJlZiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_8757b0dab16e47cd92329007037cfd61",
+      "statement": "FastAPI Cloud does not upload the built SPA as source: .fastapicloudignore excludes frontend/dist via !frontend/dist, while the app.frontend mount serves the built output.",
+      "evidence": [
+        {
+          "resource": "repo://.fastapicloudignore#L1-L1",
+          "version": "repo-lines-v1:sha256:8700cd04896414b57f349192892e1ad8dcdb47cd07228dd82917d4de53a6a6f4:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODcwMGNkMDQ4OTY0MTRiNTdmMzQ5MTkyODkyZTFhZDhkY2RiNDdjZDA3MjI4ZGQ4MjkxN2Q0ZGU1M2E2YTZmNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiODcwMGNkMDQ4OTY0MTRiNTdmMzQ5MTkyODkyZTFhZDhkY2RiNDdjZDA3MjI4ZGQ4MjkxN2Q0ZGU1M2E2YTZmNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://main.py#L16-L16",
+          "version": "repo-lines-v1:sha256:b540061c89ec5e121a1e981bd149a3c05351d938475025b84ff639c16abadb23:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjU0MDA2MWM4OWVjNWUxMjFhMWU5ODFiZDE0OWEzYzA1MzUxZDkzODQ3NTAyNWI4NGZmNjM5YzE2YWJhZGIyMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjU0MDA2MWM4OWVjNWUxMjFhMWU5ODFiZDE0OWEzYzA1MzUxZDkzODQ3NTAyNWI4NGZmNjM5YzE2YWJhZGIyMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmU2NTE0NTM5ZDliNmM3MmE4YjIxOGZiYzg1NGEzZGE3MDU3YzYxNWVkMWNjODg4ZmNjN2EzZDQ5MzVjY2QzMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTEwYTkyOGQxZDA0MzRhNzQ3MzU1MzkyMWU1Y2U3OGZmMGI0MjAyYTk1Mzk4MDJlOGMyMTU4ZmNiMTYwMGRmOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_449479beb87644a398f3f4f1105c1715",
+      "statement": "database.py loads DATABASE_URL from the environment (via dotenv), builds the SQLAlchemy engine and SessionLocal session factory, and exposes get_db() as the FastAPI dependency that yields a session per request.",
+      "evidence": [
+        {
+          "resource": "repo://database.py#L1-L18",
+          "version": "repo-lines-v1:sha256:653f05f3e51983b36643a1ea2355886c68b1517e1c47cfa830c1a1e8c0526102:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3MjdhZGZmNTI0ZTA2MTYwMjJlYWRkOGY0YWYyMWEwNzc4YjI5ZmM0Yzc3YmRmZWZkMWFmY2UyY2JmNWU0YjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmNjVjMmJiZTNmNTYwY2IwMGQ3YjEwY2IwZWUzNDI1MDc4NTk0YTY5N2Y2YTc2ZWJkZjk0NDQ1MjhmNTFmMDUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://main.py#L19-L21",
+          "version": "repo-lines-v1:sha256:76dafb733dfead966b715fc796ba80ebd02f50c30e6849c16a2597053d6228ad:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOGY4NmMzNDEwYmRlNzlhODFhM2U1YmE0MDk2OGE4NDNlY2I1ZmNkNjBiZTYwOGYxZmQxZTIyMmFkYmUwMjgzMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmViNzc1YjQ5OTMxMzk4MTViMjVjMTg0M2FkOWRkZjQ3OWMyNWQyYWU1OTgyMTQ4MzZlNzQ5YmRkNmNhYWFkMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODcyNjk2MTY3YTg0ZDcyNDFlMTJmNmVkYjM4MjNlMzQ5N2U1MWZiNGYxMTNmMmNlYWZhZDRjMjE0MjIxOWJlZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTRmZGRkMmViNzVkNjk5N2IzNTVmNWRjNDAyZTIzY2E4ZmU5OWYyNTIwYTIzMWJlMjA5NmRmNmIyNzlhODBjNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_9e1905bdea74402b9f91bd21a639f95a",
+      "statement": "The React dashboard loads by fetching /varieties and /batches in parallel and re-fetches both every 10 seconds via a setInterval, and after any successful scan/restock/deduct mutation it calls loadData() to refresh immediately.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx#L131-L160",
+          "version": "repo-lines-v1:sha256:a307432c87e5c6ece18ecd7aeef3c29e4f5d3e689464eda1a349f4802e03df34:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Yjc1NTA0NDdlOTRmODhjZjI3Y2UxZDdmZDZkYmVlMTM5Y2JmOGM0ZDRlNGJjMmY1NTM0NDE2OGI3YTg2MzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkYzUyZjA4YjM5YjA4YjAxYzhkMzA4YmY4ODBiMGJlZjAyZmQxZGZjYzlkOWFhOTNhNGQxYjVmNGQ1OGI2Y2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlY2UzYTI0ZGE2MDZlNmI2MjU5ZjMyNjYzNGQyNGEwNzdiOGFkMWY2NzNlYWRkM2I0NGVkMzExOTg1OGNmYzIifQ"
+        },
+        {
+          "resource": "repo://main.py#L18-L21",
+          "version": "repo-lines-v1:sha256:1800165f4b95bd02c705fc40eb3e7b5f8fdd834396ec2a800a46ce827b87b3ee:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZWRiNDc0MDAzZDIwZDI5OWNjMTExMmI3ZmY3MmM2NDgwMGRjODJiZmQzMThlNmI0Y2M5OWIzMDg3ZGE5NmU5MCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNmViNzc1YjQ5OTMxMzk4MTViMjVjMTg0M2FkOWRkZjQ3OWMyNWQyYWU1OTgyMTQ4MzZlNzQ5YmRkNmNhYWFkMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjRmMTM5ZmNmOWQ2ODA2NmIwZDQ0NTkxOWFjN2Q1NTJkMTc0OGE5NjA5YTZjMTM3YmJjZDY4YmNhMGExMzM3OSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTRmZGRkMmViNzVkNjk5N2IzNTVmNWRjNDAyZTIzY2E4ZmU5OWYyNTIwYTIzMWJlMjA5NmRmNmIyNzlhODBjNSJ9"
+        },
+        {
+          "resource": "repo://main.py#L64-L67",
+          "version": "repo-lines-v1:sha256:0f293a77875afd8b93e3986c7cde32d87b945eac2fa33caf0499529f4ea1120b:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1MTA3NTJlMWI3YjFiOWE0NzlmODQ0NGY4YTgxYzc1NDBjZTRjYzdkYTVkMDNiYmVmYWQwYjVlYTlhMWE4MiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDk0ZDcwYTYwMzc0NGZjZTUyNWU5NTFmMWQ0Zjc3NjJhYzM0OWY1ODFmYWFmZWNlYTMyZGJjODYyNDc4NjhiZiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYmUxODkwZTI0M2I3NjNlNWMzYzE3ZWM2MmE0NDk4YWYxYzg5MDBlYmRkNzhkYjdmZDc4NGZiMjA1OTFhNmYyZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzU1NzUyZjdiNTIwNmE5MzMyYTdhOWU1Y2NiOTYxMjM2M2UyODExZjQ5NTdkNTI0NmUxOTY5MGVlM2EzM2MzYiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d6233694c6a345d8bf98abfcd7d256f6",
+      "statement": "POST /scan resolves a barcode to a product and variety, then for weight-tracked varieties deducts the package_size_grams from batches ordered by expiry_date, spilling any remainder into the next batch in expiry order; for unit-tracked varieties it decrements one unit from the earliest-expiring batch that still has units_remaining > 0.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx#L103-L128",
+          "version": "repo-lines-v1:sha256:0005b9ebbcfb16454885215ea34d81637aea5ca3854b7582c87a5a38cc739221:eyJzZWxlY3RlZExpbmVDb3VudCI6MjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY5YWNlMjJkZTg3M2RiZTUwMDZlODhkMjQ0NDYzN2NhMjlmYjMzODhjZTJkN2FhODg0MGNkZmJmZWViZDgzMTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJlMGQyYjAxYmY3NGE0OTdjOWQ0Nzk5MjMzYzFlZDdmYzYwYmMyOWIyOTEwMjQyNTc4MTI3YThjZjI1MGJmYjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA4ZDFhMDI0N2ZhYjUxMTQ0OWM3MDU0NDg4MGJjYmNkOTQyNTM1MzAxMDhjYTI5ODk0Y2M4NGE0YjNhODVhNmUifQ"
+        },
+        {
+          "resource": "repo://main.py#L126-L179",
+          "version": "repo-lines-v1:sha256:74f04598339ca28bfaa7f42f96e44c6e6b56b3601debbe63552fc8510d07ae7b:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0MTEzMmY0ZmYxZTc0MWZkOTdkYTFjZTMwODJkYTk0NWE5ZGNmZDIxODQ5ZmIxMDlhNjY5Y2NlYjM0OGE2ODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2YWZkZjcwYTk1NDM2ZTg4M2FhN2ZjNWMwNmEyYWIwODM3MTkwNTQ0MzhmMTIxOGQxNWViZGFmMjg3YjRiYWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgxODRlZjZmZTFmODAyNTU3ZTBkMjlhMGY5YjRiODk1YTJhYjA1NWFiMGY1MGViZmVhYjRhZDcwOTM5NjMzYzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://main.py#L69-L124",
+          "version": "repo-lines-v1:sha256:1c4d0cdd3c4765682e2dd96feabbdfc9f70132aecf825be663976db680782d4f:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyNTU5NDI3M2FjMDE4OTAwMDRiYmMxMWMwOWJkMWYzMzEzYjZlZjFlNjkxNDk4ZDY1ZGE2ZTRjYzk1OWQ2YmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYzYmVjODk1NjNiZGMyZjU4NjdhNjQwMGY5MGJhOWZlZDIwZjE0NmY2YzA4NzAwNGMzNTI4NjlkYmRmYWE2NDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1MGUzN2E4NzgyYjJjNmE0NjkyZDUyYWJiMTRkYTQ1YTRjYzM0NGExZmE5OWE4Njg4NjJlZTE4MWFiNmZiNTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_333b115dce01472f995fa15e662a1517",
+      "statement": "Every restock (/batches), scan (/scan), and manual deduction (/deduct) appends a StockMovement row and commits it within the same request, making stock_movements an authoritative IN/OUT audit trail rather than a view derived from current totals.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L143-L175",
+          "version": "repo-lines-v1:sha256:acc1796f200d73720715f7326ffaa251de1948be1d16371bfdc87aef3d7db9a3:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlZTY0ZDQ1NDcyODUyZmFhNzY3NDY5NGE1MmJjNGI4ODAwNDJkMzcwZDVjYjcwMjNmMWRlNjMyZDZhNjM1ZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlkOTgwYTM0MTdmZjYxNmMzMzI4NzJkYWU5MTkyMjYwNmZkYThmM2ZjYjMwZGM5ZTAwODlhZTAwYzE0MzJhZWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQzZTE4OTk2MTYzYTJlMmRjZmE5Njg1ZGQ2ZmM4YjgwZWNhYjRmZTliOWEwN2U4OWZkOWNkNGM0NTQ3YzhlNzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhmMTYxYzhlYWM0ZDQ2MmNkNGIxNzgxNjRlNDVhYjViNTQ3NmM3Y2E2ZmJjOWFmNGU5ZWFmOThmYWE2NTI5MGMifQ"
+        },
+        {
+          "resource": "repo://main.py#L43-L62",
+          "version": "repo-lines-v1:sha256:3a2a601822b082df21b43a3bae1f1034be41daf270aaa9bff9a4317d05bd6b39:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYzMDgyNzEzMDI3ZjkxMTMzODg4YzVhMGZiNGM1Y2ZiZmZlNDA3ZmMwZDFjOTQ5NWNlYTI3YTljZDEwZDQ3MGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwM2JiMGNlMzU3MzcxMDQ1MzJiOWVjMzg2Mzk5ZWJlZjc0YzY3NjM3YzUzNTQyMGY1Zjg2ODMwYzgzZGZjMzIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUwYzI5MDM1NGY3MjRiZTVjZDBjMjQyZjUxZDE3MzRlNTU0OTg5NTg1NGU3OTU2NTNlNThlNGVjMzgwY2I3N2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIzNDYyOWY1YmM5YjU5OGEwOGM5Yzk1YTY0YjQxYTY3ZGNjYmE4ZjJmZDE4NWE0ZDNkMzY5MWEyZWQwMDIwNWIifQ"
+        },
+        {
+          "resource": "repo://main.py#L97-L103",
+          "version": "repo-lines-v1:sha256:f01ee93d98a150feb9f98cd4ca8a85feec1c1e40dfa624a1432b67bf2131d37b:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmVlNjRkNDU0NzI4NTJmYWE3Njc0Njk0YTUyYmM0Yjg4MDA0MmQzNzBkNWNiNzAyM2YxZGU2MzJkNmE2MzVkMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiOWQ5ODBhMzQxN2ZmNjE2YzMzMjg3MmRhZTkxOTIyNjA2ZmRhOGYzZmNiMzBkYzllMDA4OWFlMDBjMTQzMmFlYyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNWRhZmVlNzcxYmRmZDRmYTNiNTU1YTk0NDc0NjBiOWEzMzRhYTE2NGY1NmFlZGQ1YmIwYWUyOTM5NjE1ZWZjZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmRhMjlhYjI0MTVjOTMzMmU3NWY0Y2IyZTk4MGRjMDVmZDQ4MDBmOTc0ZTY2NWE1Y2E5YWYzNDVkNTY2YzhmMCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_1a0d706fb08f493d8293262573baf9c5",
+      "statement": "The architecture's core constraint is expiry-aware FIFO consumption: each restock creates a new batch with its own expiry_date, and deduction always targets the earliest-expiring batch first, spilling across subsequent batches in expiry order for weight products so older inventory is consumed before it expires.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx#L29-L60",
+          "version": "repo-lines-v1:sha256:e9e88061adb50842ba0f0e7e67cf157e6c4e60f070428891f44f0be39f5a7430:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFmMjlkZmNiMmNhM2I2ZWMyNDkxZGZiYzJiMmE2NjZhNzY1OTc1OGQxMDVjMzU1MmJlMGE2MGZkZDVmNmY3MjYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjUyYzZhYjMwYmVlYzliMzVjZmM5NmNiMjY4MzJmNjNkMzJlNjIyMjI3MjIwMWQwYjA5OTc5ZmI0OWYwMzczN2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY0MzZjYWJlMGRiZDZmZjg0ZmU0MTExNWQwYzM4MDQ5ZWI3YjI1ZjJjMzQyZjRlMzY0ZDQ3YjFiOTUwOTUxNzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjZjMjE4OTQ3ODdiNzI3MDY5Y2YyOWE4YzY3NTZkZmJhNjdjM2E0OWU3YzdlMjhmMTNmZGQ0MjcyYzU2YzgwNWEifQ"
+        },
+        {
+          "resource": "repo://main.py#L133-L142",
+          "version": "repo-lines-v1:sha256:bd3523882a94b1c84a281e18dd36f1e32899872f0da6a1a5700c5478be6d1160:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhNTg5ZGEyNmYxZGYxNzNhOGEzOTdmNjVkOTdjMjNmZTJkMjBkMTcyMTk1MjBlYzFiOTRkN2EzNjk5M2RjZjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlkM2VhMWE2MGNiN2I1M2MzYTZhYmI2MjczNjIwYzE3MGE2MGQ1MWFlNzdiMWQ2YTQ1Y2E0ZDdhOTI0ZTcxNjQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZmOWQ3MzYxMTE4NDhiYmQwOTg2NWY4MDY0NjVjNTdjYzlmNGFjYTNjY2JhZDIyOTA4YjllYTMxNDRjNzQyMjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZmNTc0ODc1ZTY4Y2M1ZjZjNDJhOTllOTQyYjZkNjkwYTYyMTk2NDJmNTIzZTI3MDk5NDhkYjk2YzkzYzFkMmYifQ"
+        },
+        {
+          "resource": "repo://main.py#L79-L88",
+          "version": "repo-lines-v1:sha256:1863f9331a824f880cf5547a0830516b159678c29922d86447aa25adb4dae5b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwODMyMGMxYTNmNjYyMzlhODU3ZmMzNDI1ODMwNTg1Mzg5MDlmNjk2NTkzZGRhNmQxYTEwNzg1YWQxNmFiNjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlkM2VhMWE2MGNiN2I1M2MzYTZhYmI2MjczNjIwYzE3MGE2MGQ1MWFlNzdiMWQ2YTQ1Y2E0ZDdhOTI0ZTcxNjQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJjNDRlYTU5YTQ1MDdjY2JiODA1NjUwOGZlZDBlODBiMzI0N2VhZjFlMThhOTZiNjNjNmFmNjlkOThkZGFhNzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjExOTBmNWZmYmU3YWI4Njk2OTRkZDExZWY0YmNkODc4YjRlYmU0MGY2NDZlYWY5OTg1ZDYxODg3Y2E0ODRkNzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_db1b1837e2e24fc29562b278bdf078d6",
+      "statement": "The frontend mirrors the expiry model: it filters batches by variety, sorts them by expiry_date, keeps only batches with remaining quantity, and derives urgency states (expired, critical, soon, fresh) from days-until-expiry.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx#L17-L22",
+          "version": "repo-lines-v1:sha256:14acb93deeb325d11e89cee192710c332d6099133d409b7fe13b51d238900cb9:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmM5NTNlZDE0MWE5ZWFkZjFjNGY4ZDhjYzQ5YTMzZDAxNDYwNjMwOThlYjkxYTNjM2U5MWEzY2U0ZDQ0MTUzNCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmY3ZTk3ZDZmOTEwZWE2MTc5ODYzYjg5YTI5NWUyYTJiNWFmYmM5NGIzMTA3OGY4MGRjYWQ2OGE4NDZiN2E4NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTU2Y2JjZWZhYjc3NmY2ZGI4NzU2ODAxOGRlNTAzMGE1ZmMyNTYzNjRmMzAzZWYxMGI4ODE1ZTMxMTJlMjNlNCJ9"
+        },
+        {
+          "resource": "repo://frontend/src/App.jsx#L54-L60",
+          "version": "repo-lines-v1:sha256:4f35824c03fbb3c15306048e15add0c4026873e3e2539f7b302e181f3b41ef99:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYWQ2NzY0ZDY3NDU2Nzk2MDBiN2IzNjliNGM4NDU0ZGRhNGVhYTliMzI3MjY3YjY1M2Q4N2FlNmZlOWZmMjMxMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTJjNmFiMzBiZWVjOWIzNWNmYzk2Y2IyNjgzMmY2M2QzMmU2MjIyMjcyMjAxZDBiMDk5NzlmYjQ5ZjAzNzM3YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDk0ZmMwYzE3M2QxZWMzZmM1MDFkN2RmYTkyODU1MDFjNTI3Y2ZiNDcxMjU4M2RhM2NjMzYxODA1NjZiNGJlMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNmMyMTg5NDc4N2I3MjcwNjljZjI5YThjNjc1NmRmYmE2N2MzYTQ5ZTdjN2UyOGYxM2ZkZDQyNzJjNTZjODA1YSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_407be6a8f4584ea1a0b2547785ef4108",
+      "statement": "/scan returns 404 when the barcode is not found in products and 400 when a weight-tracked product has no package_size_grams; a weight scan that cannot be fully covered by on-shelf batches still records the full package size as an OUT movement and returns status stock_mismatch with a stock_shortfall value.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L69-L73",
+          "version": "repo-lines-v1:sha256:f7799fe9d083f425b266580b3115b4d1b35101d42e0495e4336eb29e50cd8ac3:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTI1NTk0MjczYWMwMTg5MDAwNGJiYzExYzA5YmQxZjMzMTNiNmVmMWU2OTE0OThkNjVkYTZlNGNjOTU5ZDZiZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmQxMGYxODhlYTVjMzQ2MTg1MTQwZmNmNzg4NGE3ZWIzYWRjMTAzOGFlYTZmNmM5NzZmMjgzNWZiNzc1ZWI3MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjNiZWM4OTU2M2JkYzJmNTg2N2E2NDAwZjkwYmE5ZmVkMjBmMTQ2ZjZjMDg3MDA0YzM1Mjg2OWRiZGZhYTY0MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNjY1NjkyYWRiOWU0MmJmMmY2Yjc3NmIwOWNjOWRhZTlhNTcwZTIyYmY1ZTc1ZjE1NjJmZDQ1MTQyNGI5ODc5NSJ9"
+        },
+        {
+          "resource": "repo://main.py#L75-L77",
+          "version": "repo-lines-v1:sha256:3eb28e1146b40696f36bf3546c388772feb28b77f4fc06fefa411b187050e2ff:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzdkNmMxNGYxOTdjYWM2ZmIyZGE3NjlmMTg5ZjdlNjE2MzQ5MmNhNmExMmVjNzhhMDFlNzM5NzNhYTg3MTVjYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTg0NmRjZjhhNTdkN2M0MWNkNjllOTZjNzdiMGFjNjRjMTU0MDM1ZDg0Mzk2YjllN2FlOWQwMzM0ZTgxMGU0OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjBlNzhiMmYxMjdkYTc2MDQzZTU2NzM4ZDUwZDYzNGY2NmVhOGNlNjM3YWU0NWYzODNmNjMxNGVkMmU0NDQ4YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmYzODJhZDRhNmZlMWE1OTYwNTYzMjFlYzQzODM5YmM5N2Q3ZTcwYWYwZWM2ZGM1NDRhZjA1NTJiZmY4NTAzNiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_b7ed30a03316404d8703455bc9b247e5",
+      "statement": "Low-stock alerting is a standalone deterministic script (scripts/low_stock.py) that projects days-until-empty from OUT movements and remaining stock, intended to run as a scheduled job outside the FastAPI request path, not as a built-in endpoint.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L29-L35",
+          "version": "repo-lines-v1:sha256:85417b7e2bba6b82c07c2ef22725f955d98e7f61332144743b1b832990ff6822:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiOTJjMTIzN2VhY2YxZDA4MmVmZmNiNzZmZTc2ZTYzZTFlZmRiMGQ5ZTJkZjE0OTk4OWU1YzkzZmZiNDdiZGQxOCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGMzY2Y5OWQ3ZGJiNGJmMDM5MzkzYjUwZTNkOGRmYmE3NDE2Y2IwMWQxNTU2YmRjZTNjYTkxOWI3MTBjYTU4YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmFhNjM2ZDdjMjY1OWYwZmFlMjJkMWYzZWYyOTYzN2MwYmM0ODAxOTdmZDc2YzhlOTBkN2JiNjhkNDExYTdkMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTE1MDI4MWJmNzU3ODk2ZWM3ZWY3NWJjMjNhMjE4NjU4NjM4ZWI3YThmOWZmNzQ3ZjM1MjRjODIyNmUwYjZmYyJ9"
+        },
+        {
+          "resource": "repo://main.py",
+          "version": "repo-file-v1:sha256:202c2193eadc98f18ea6c19642c5663daf9c5ddbbf4fd7f20e06bc2d130e9733"
+        }
+      ]
+    },
+    {
+      "id": "claim_b4f3f06cbd8846fa878fda9435be5cab",
+      "statement": "Table creation is explicit and out-of-band: create_tables.py creates the schema from the SQLAlchemy models and is not invoked by the running FastAPI app, which relies on the tables already existing in the PostgreSQL database.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L46-L55",
+          "version": "repo-lines-v1:sha256:2311df57d4366b323ff8beca355c748b852720a0d7ee3e7a352657ca2a7b6ee6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3YzA2YzU2MWQ1YzMyNzM0MzY4NTI2OGE0NmIzMzkxZjM5OThlZWU4OTBkMmJlNTFmMGQyMWNjNGE1M2FlNmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3YzA2YzU2MWQ1YzMyNzM0MzY4NTI2OGE0NmIzMzkxZjM5OThlZWU4OTBkMmJlNTFmMGQyMWNjNGE1M2FlNmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZlYjBiYmI4MzcwNTUxZGE4NDE5ZDZmZWY4NWZlMDJkNmNmZTNkMTBmYjE0ZmUxMjBjNTk0Y2VjNDBkMTNhNzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFmMWUyMmI5NWYzYWM4OTdmMTQyZDFlN2ViOWNiOWM3ZTI2ZDZjMDViOGNiZjFmZmRkZWI4NzJiYmRhNjBiODYifQ"
+        },
+        {
+          "resource": "repo://main.py",
+          "version": "repo-file-v1:sha256:202c2193eadc98f18ea6c19642c5663daf9c5ddbbf4fd7f20e06bc2d130e9733"
+        }
+      ]
+    },
+    {
+      "id": "claim_044a7b0291994902a38365b8c74c5b19",
+      "statement": "Product is the integration seam binding a barcode to a Variety (and an optional package_size_grams for weight items); /products creates and /scan consumes this mapping, so adding a sellable item requires registering its barcode against a variety.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L31-L41",
+          "version": "repo-lines-v1:sha256:d5a95274e14d1cfa09b26ed7725487c1f7b1e013e940cff123e3e8f775135080:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQyZmQyMGFhZTgyYmU0MDYyZjI0YWE5MTA3OTBiOTJhZWE5YzZiOWI4N2JhN2Q0Zjk2YTExMWZiMDI1ZWNjNTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIyMTk1YWEyN2M2NGVhMjQ3MDUwZjBiZThiMTY2NWEzMGMyNWJiNjRjOTgwZTkwZDUyMjYzNDk2YWYxNTQ2YmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImI0MmZkZDhjMjZhN2M0ODVjMGYxOGJmYzIxOWFkMDVkY2QwZGM5NWRhMzIxM2IzZmUwMzcxYjFjM2EwNDI4N2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQzMTRmZWQ1MGVmNGFkYjg5MGZjODA5ZTk0YWY5ZWQxNGE2NTM5YjJmMmVkOTIxYmQ2OGYwMDAwZjQ0ODNiZmMifQ"
+        },
+        {
+          "resource": "repo://main.py#L69-L77",
+          "version": "repo-lines-v1:sha256:a06b78c49f35ad3a3817f0c285e5c4575ded56b97a5865d67d7af2697c0f81d9:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZTI1NTk0MjczYWMwMTg5MDAwNGJiYzExYzA5YmQxZjMzMTNiNmVmMWU2OTE0OThkNjVkYTZlNGNjOTU5ZDZiZiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZTg0NmRjZjhhNTdkN2M0MWNkNjllOTZjNzdiMGFjNjRjMTU0MDM1ZDg0Mzk2YjllN2FlOWQwMzM0ZTgxMGU0OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZjNiZWM4OTU2M2JkYzJmNTg2N2E2NDAwZjkwYmE5ZmVkMjBmMTQ2ZjZjMDg3MDA0YzM1Mjg2OWRiZGZhYTY0MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMmYzODJhZDRhNmZlMWE1OTYwNTYzMjFlYzQzODM5YmM5N2Q3ZTcwYWYwZWM2ZGM1NDRhZjA1NTJiZmY4NTAzNiJ9"
+        },
+        {
+          "resource": "repo://models.py#L21-L26",
+          "version": "repo-lines-v1:sha256:ba00bc478236aaa399c7e4d1b7454dc63c788cec4e8d5f0ee967a10c7e671c28:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDdmZDdhM2ZhNWM0YzBlNWM4YzJiN2M1OGY3OTg0YzVmNDVhY2E3YzM5ZmM5YTVmNzRlNTk4ZjFjZDY5YjI1NiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZWM1NjYxZjVjMWU5NzYxZGQ5N2U4ZWU3NWFmYWQ4YmNmNWM4YjkxY2Y5OGQxZTkwZWJiYjU0ZDA3ZjMwMjhkNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYzM1ZjZhOWFiYjU2NmE2MTYwM2JjNTkyZmM1N2IzM2EyZGQzYTM5NmY4YTIyZmNhOTc3ODQ0YmRmZTQxNzgyNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzA2ZGVjM2E5ZmNhNmJlNzI1ZjEwYmNiNTA5ZmZmYzY1NzgyNjA5NGY1MDQyOWY2NGIxZDA5ZjJmMzRlODAxMCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_ab538d5960c14808b16d585ca1891d0f",
+      "statement": "The FastAPI app exposes GET /varieties, POST /varieties, GET /products, POST /products, GET /batches, POST /batches, POST /scan, and POST /deduct; these eight endpoints plus the static frontend mount constitute the entire API surface in main.py.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L18-L179",
+          "version": "repo-lines-v1:sha256:e69c81028a285f3642708bb89c1895cd82d1218a3fc9a68ffbc120257a630a39:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYyLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJlZGI0NzQwMDNkMjBkMjk5Y2MxMTEyYjdmZjcyYzY0ODAwZGM4MmJmZDMxOGU2YjRjYzk5YjMwODdkYTk2ZTkwIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI4NmFmZGY3MGE5NTQzNmU4ODNhYTdmYzVjMDZhMmFiMDgzNzE5MDU0NDM4ZjEyMThkMTVlYmRhZjI4N2I0YmFjIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI2NGYxMzlmY2Y5ZDY4MDY2YjBkNDQ1OTE5YWM3ZDU1MmQxNzQ4YTk2MDlhNmMxMzdiYmNkNjhiY2EwYTEzMzc5IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.1",
+    "at": "2026-09-11T18:21:42.744Z"
+  }
+}

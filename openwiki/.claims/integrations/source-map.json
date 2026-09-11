@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:2f2e112c98cd6cce59715f5c7ba2673847a10522c653ada4a0330b6e18a360a6",
+  "claims": [
+    {
+      "id": "claim_f04b9026704c466bb61bcd44001e9fb9",
+      "statement": "main.py is the FastAPI app entrypoint: it defines the /varieties, /products, /batches, /scan, and /deduct endpoints, implements FIFO/expiry-ordered stock deduction for both weight and unit tracking, and serves the built frontend via app.frontend().",
+      "evidence": [
+        {
+          "resource": "repo://main.py",
+          "version": "repo-file-v1:sha256:202c2193eadc98f18ea6c19642c5663daf9c5ddbbf4fd7f20e06bc2d130e9733"
+        }
+      ]
+    },
+    {
+      "id": "claim_58b6f20a30ae42cbb598ca12e021f06d",
+      "statement": "database.py constructs the SQLAlchemy engine and SessionLocal from the DATABASE_URL environment variable (loaded via dotenv) and exposes get_db as the FastAPI session dependency.",
+      "evidence": [
+        {
+          "resource": "repo://database.py",
+          "version": "repo-file-v1:sha256:653f05f3e51983b36643a1ea2355886c68b1517e1c47cfa830c1a1e8c0526102"
+        }
+      ]
+    },
+    {
+      "id": "claim_c0ff477ba01641d1ade274f4090a447e",
+      "statement": "models.py defines the SQLAlchemy tables Variety, Product, Batch, and StockMovement plus the Direction (IN/OUT) and TrackingType (weight/units) enums that drive stock behavior.",
+      "evidence": [
+        {
+          "resource": "repo://models.py",
+          "version": "repo-file-v1:sha256:015f4db10375b4f5626d489f6feee959f9a82fd2a7cc161a5e36f59044793fef"
+        }
+      ]
+    },
+    {
+      "id": "claim_d0277c643aab4d2c91f5b1f4aba4a472",
+      "statement": "schemas.py provides Pydantic request/response models and enforces that BatchCreate and ProductDeduct supply a quantity (grams or units) via model_validator.",
+      "evidence": [
+        {
+          "resource": "repo://schemas.py",
+          "version": "repo-file-v1:sha256:44cbd965e4946c5288f4b08bce782eb4a12e74bd9c153916ccb063db11a68cbf"
+        }
+      ]
+    },
+    {
+      "id": "claim_a7357b1fbad34ac499f1f3f37ae9d009",
+      "statement": "create_tables.py is a one-off bootstrap that runs Base.metadata.create_all against the configured engine to create the schema.",
+      "evidence": [
+        {
+          "resource": "repo://create_tables.py",
+          "version": "repo-file-v1:sha256:bbfe5bbfa6db71932d257bdff714087a1533895c87b936c5a963011abbe531e8"
+        }
+      ]
+    },
+    {
+      "id": "claim_244baab85a55428a9aea8a5b32c92073",
+      "statement": "frontend/src/App.jsx is the dashboard: it polls /varieties and /batches, renders varieties and batches with expiry urgency, and runs the barcode scan flow.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx",
+          "version": "repo-file-v1:sha256:0c02a3f27010d577861834ef313ed1ba66fd6a32a59102c89655473a1dc8d2bc"
+        }
+      ]
+    },
+    {
+      "id": "claim_0ce1efbc84124e6e91e1747ecf511160",
+      "statement": "frontend/src/RestockModal.jsx collects variety, quantity, and expiry inputs and POSTs a new batch to /batches.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/RestockModal.jsx",
+          "version": "repo-file-v1:sha256:e3dfd7033dc851b785dd7cd0b1f4a8ce7092986b5bfae8eb73e910d8c108927e"
+        }
+      ]
+    },
+    {
+      "id": "claim_69cc4cc2fc15405d9c6c09ec299c2419",
+      "statement": "frontend/src/DeductModal.jsx collects variety and quantity inputs and POSTs a manual removal to /deduct.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/DeductModal.jsx",
+          "version": "repo-file-v1:sha256:ccef13e9880fa44b00241b4e5765d91ae0607739ffb3cb4aa2533771f7c1a35e"
+        }
+      ]
+    },
+    {
+      "id": "claim_4ee2d3e0f3024115bbac6de1e7dc4a31",
+      "statement": "frontend/package.json defines the Vite/React toolchain scripts dev, build, lint (oxlint), and preview.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/package.json",
+          "version": "repo-file-v1:sha256:e91528893b7929c81de593d5863aa5a5e8c1a7e4a01e6e6e3acf2a3881a8c601"
+        }
+      ]
+    },
+    {
+      "id": "claim_1e9a7cb2bade4721b3512b591b2f8dc0",
+      "statement": "scripts/low_stock.py is a deterministic alert job: it sums OUT movements over the last 7 days, projects days-until-empty per variety, and emails low-stock warnings via SMTP using GMAIL_ADDRESS/GMAIL_PASSWORD; it is intended for scheduled/cron use, not the live request path.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/low_stock.py",
+          "version": "repo-file-v1:sha256:6e84b969d0782f05a894aacd4abfd43e3964a0c496594569be466a74c375840e"
+        }
+      ]
+    },
+    {
+      "id": "claim_8ab303d155d5472ca085cc5cf5cc50ac",
+      "statement": ".github/workflows/openwiki-update.yml is a monthly scheduled GitHub Action that installs and runs `openwiki code --update` and opens a pull request to refresh the generated wiki.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/openwiki-update.yml",
+          "version": "repo-file-v1:sha256:5054696365b9043839d13ee8defab0094e9749a0781f442df76e52df3bf1bbc3"
+        }
+      ]
+    },
+    {
+      "id": "claim_58e87a41afc6428e8334330930c32077",
+      "statement": "AGENTS.md instructs agents to treat source code and tests as authoritative and to avoid hand-editing generated OpenWiki pages unless explicitly asked.",
+      "evidence": [
+        {
+          "resource": "repo://AGENTS.md",
+          "version": "repo-file-v1:sha256:e196ae5aef70399b7f4cd655c0440c5c589dbecac5863d6178aa1c195d5a4325"
+        }
+      ]
+    },
+    {
+      "id": "claim_a0e6b1ac09134b0183a79fdda1ad6712",
+      "statement": "README.md provides the product summary, FIFO/expiry tracking explanation, local run instructions, and tech stack; CLAUDE.md points to AGENTS.md.",
+      "evidence": [
+        {
+          "resource": "repo://CLAUDE.md",
+          "version": "repo-file-v1:sha256:31060379798cd019458c941e0c10846d7b7ad856616f025414ea67f326bfe1d6"
+        },
+        {
+          "resource": "repo://README.md",
+          "version": "repo-file-v1:sha256:7125251e6f70a458ea0e5af7e272842b36a60b1b194c148763ca4569fea342d6"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.1",
+    "at": "2026-09-11T18:21:42.744Z"
+  }
+}

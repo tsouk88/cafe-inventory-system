@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:ecca5b80f4119363d86296762ef58c775cab688dcac472ed4db9b03a66575095",
+  "claims": [
+    {
+      "id": "claim_9b2966fb109a4eb28eb0669d8fdd4ce5",
+      "statement": "The React dashboard polls `/varieties` and `/batches` on a 10-second interval so stock levels stay current without a manual refresh.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx#L99-L160",
+          "version": "repo-lines-v1:sha256:ea7ae1da194b9c33f9f986bbdd7a315b97e5b6ae0107166b5963cc3ffd1035b2:eyJzZWxlY3RlZExpbmVDb3VudCI6NjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5NjZmYmZhODg5OThkYTc0NjU2YzUwMTk0OTU2YzI1ZjA4NDk0NTc2NjBjMDA5ZmU2M2QxZTlmYTlkYzkzMWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkYzUyZjA4YjM5YjA4YjAxYzhkMzA4YmY4ODBiMGJlZjAyZmQxZGZjYzlkOWFhOTNhNGQxYjVmNGQ1OGI2Y2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImU5NzcwZjQzYjhjZGVhMTVlMjZlNmZlMGFiMGIwYzJmZjgwNDg2Y2VkMzQ0OTQ2NWVmNDE5NTg5YzU2ZWEzZjQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlY2UzYTI0ZGE2MDZlNmI2MjU5ZjMyNjYzNGQyNGEwNzdiOGFkMWY2NzNlYWRkM2I0NGVkMzExOTg1OGNmYzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e4af40db0b594d27a78d9fea23b3d418",
+      "statement": "Every restock (`POST /batches`), scan (`POST /scan`), and manual removal (`POST /deduct`) writes a `StockMovement` row with direction IN or OUT, which the low-stock script aggregates over the last 7 days of OUT movements.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L126-L179",
+          "version": "repo-lines-v1:sha256:74f04598339ca28bfaa7f42f96e44c6e6b56b3601debbe63552fc8510d07ae7b:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0MTEzMmY0ZmYxZTc0MWZkOTdkYTFjZTMwODJkYTk0NWE5ZGNmZDIxODQ5ZmIxMDlhNjY5Y2NlYjM0OGE2ODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2YWZkZjcwYTk1NDM2ZTg4M2FhN2ZjNWMwNmEyYWIwODM3MTkwNTQ0MzhmMTIxOGQxNWViZGFmMjg3YjRiYWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgxODRlZjZmZTFmODAyNTU3ZTBkMjlhMGY5YjRiODk1YTJhYjA1NWFiMGY1MGViZmVhYjRhZDcwOTM5NjMzYzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://main.py#L43-L62",
+          "version": "repo-lines-v1:sha256:3a2a601822b082df21b43a3bae1f1034be41daf270aaa9bff9a4317d05bd6b39:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYzMDgyNzEzMDI3ZjkxMTMzODg4YzVhMGZiNGM1Y2ZiZmZlNDA3ZmMwZDFjOTQ5NWNlYTI3YTljZDEwZDQ3MGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwM2JiMGNlMzU3MzcxMDQ1MzJiOWVjMzg2Mzk5ZWJlZjc0YzY3NjM3YzUzNTQyMGY1Zjg2ODMwYzgzZGZjMzIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUwYzI5MDM1NGY3MjRiZTVjZDBjMjQyZjUxZDE3MzRlNTU0OTg5NTg1NGU3OTU2NTNlNThlNGVjMzgwY2I3N2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIzNDYyOWY1YmM5YjU5OGEwOGM5Yzk1YTY0YjQxYTY3ZGNjYmE4ZjJmZDE4NWE0ZDNkMzY5MWEyZWQwMDIwNWIifQ"
+        },
+        {
+          "resource": "repo://main.py#L69-L124",
+          "version": "repo-lines-v1:sha256:1c4d0cdd3c4765682e2dd96feabbdfc9f70132aecf825be663976db680782d4f:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyNTU5NDI3M2FjMDE4OTAwMDRiYmMxMWMwOWJkMWYzMzEzYjZlZjFlNjkxNDk4ZDY1ZGE2ZTRjYzk1OWQ2YmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYzYmVjODk1NjNiZGMyZjU4NjdhNjQwMGY5MGJhOWZlZDIwZjE0NmY2YzA4NzAwNGMzNTI4NjlkYmRmYWE2NDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1MGUzN2E4NzgyYjJjNmE0NjkyZDUyYWJiMTRkYTQ1YTRjYzM0NGExZmE5OWE4Njg4NjJlZTE4MWFiNmZiNTMifQ"
+        },
+        {
+          "resource": "repo://scripts/low_stock.py#L14-L33",
+          "version": "repo-lines-v1:sha256:5f425b18a8ef8b46271fa727d444b51892cdaf322446fe2908c7925c4f02f09b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAyYjcxMTE3NzUzMDA3MjI0ODkxMWIxYWJlMTUxMjUwMjc1YzQ4YzQ2MzFhNmZiOGRjZmQ1MDdmNDJlZWU2NDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRhZmU2YzE4ODExMTk1NGRlYTkxNDIzODI4OTRlNmU5YzM4ZTY5NDA0ODMyZDkzZDNkMzEwNzJkNWE2YWU2Y2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgxZGU1MTc1MzAzMGZjYmJhZTg2ZTZkNTc4OThmYWMzY2FmZjMyZjkwOWZkNzQ2NjFmZjczMTk2MDRjNmQ1MzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdmNWViNDQ4ODNjMjQxZTM0ZjgxNmU2YWVmMDRkMTVmMTZhZGNhNmE0MzFjZTA5MDEyZWIwNWYyMWNjMmE4YjEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_273d21425da846fea2789306702d31ae",
+      "statement": "Each endpoint branches on the variety's `TrackingType` (weight vs units): weight products deduct grams from the earliest-expiring batch, unit products deduct whole units.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L126-L179",
+          "version": "repo-lines-v1:sha256:74f04598339ca28bfaa7f42f96e44c6e6b56b3601debbe63552fc8510d07ae7b:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0MTEzMmY0ZmYxZTc0MWZkOTdkYTFjZTMwODJkYTk0NWE5ZGNmZDIxODQ5ZmIxMDlhNjY5Y2NlYjM0OGE2ODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2YWZkZjcwYTk1NDM2ZTg4M2FhN2ZjNWMwNmEyYWIwODM3MTkwNTQ0MzhmMTIxOGQxNWViZGFmMjg3YjRiYWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgxODRlZjZmZTFmODAyNTU3ZTBkMjlhMGY5YjRiODk1YTJhYjA1NWFiMGY1MGViZmVhYjRhZDcwOTM5NjMzYzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://main.py#L69-L124",
+          "version": "repo-lines-v1:sha256:1c4d0cdd3c4765682e2dd96feabbdfc9f70132aecf825be663976db680782d4f:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyNTU5NDI3M2FjMDE4OTAwMDRiYmMxMWMwOWJkMWYzMzEzYjZlZjFlNjkxNDk4ZDY1ZGE2ZTRjYzk1OWQ2YmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYzYmVjODk1NjNiZGMyZjU4NjdhNjQwMGY5MGJhOWZlZDIwZjE0NmY2YzA4NzAwNGMzNTI4NjlkYmRmYWE2NDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1MGUzN2E4NzgyYjJjNmE0NjkyZDUyYWJiMTRkYTQ1YTRjYzM0NGExZmE5OWE4Njg4NjJlZTE4MWFiNmZiNTMifQ"
+        },
+        {
+          "resource": "repo://models.py#L10-L12",
+          "version": "repo-lines-v1:sha256:1cfa4cb54b0ec01718f7393b011c7ca8c9ef8fb0ba4c0ee124fb90d6ed26a789:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzc4OGUxMTBmZjE3MzQzNTQ3YTI0ZjUwMjNlODljN2Q5OThkNjI0ODJlYmNjZTA5YTZlNzk3YWNjN2M2ZTlkZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTU5ZWRlNTQzNzIzYWYzOTk1ZDdiNDQzYWIxNmI4OWYwYjA2YWUzNzkzZGY1NmI4ZjA1MWNkOWU2ZTZhNzFmYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWQxNTgzYTFiMjEzZmE2MWI1NWQ4MjcyMDhlYWY5OGQ4ZTUyOWUxNmRmYWVlZTM5MzgwZjk0YWJjMWM0ZjU4OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDQyZDFiMTk3MmFhYjA4MjlhNWYwOTBkZDI5NTI1NWMzY2ViYmZlZDE2MTI5MDI5OTdhNTIyY2UyN2NmZGIzMCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f66c994156cd4d30b42d12bed85aa9db",
+      "statement": "Frontend forms are coupled to backend endpoints: RestockModal posts a BatchCreate payload to `/batches`, DeductModal posts a ProductDeduct payload to `/deduct`, and App.jsx posts a barcode to `/scan`; the backend assumes the weight/unit distinction defined by the selected variety.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx#L103-L129",
+          "version": "repo-lines-v1:sha256:8c88b02e57cf1fdf57aaedb522cef86427a0803a99c3fc6333948382d4df8121:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY5YWNlMjJkZTg3M2RiZTUwMDZlODhkMjQ0NDYzN2NhMjlmYjMzODhjZTJkN2FhODg0MGNkZmJmZWViZDgzMTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJlMGQyYjAxYmY3NGE0OTdjOWQ0Nzk5MjMzYzFlZDdmYzYwYmMyOWIyOTEwMjQyNTc4MTI3YThjZjI1MGJmYjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhlNmNkNWZkYjI1N2YwZGRkYWJmNTljNGUyNzczNDE5NTNmNDgwMWY0MjYxNDYyNDRjOGFiNTIxMzU1MDU3OTgifQ"
+        },
+        {
+          "resource": "repo://frontend/src/DeductModal.jsx#L36-L48",
+          "version": "repo-lines-v1:sha256:3be70116de5322defc64c1e31b30fe6f3ae1364969c6dfbe21ef67095f2c9ff7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwNzY3MGQ1ZTM4ODUwNTkyMDUxZGM1NWNjMzRjNTlhM2MyNzFmZDdjNTc5YTg2MTZkOWI4MTRkYWMxOWRmYzAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxN2FmMTEwMWM5N2I3YzJmNTI1NDA3ODJlNjM0Y2M0NDQwZjBlOTcwMzQxZTUyZjk3NTIzMTFkNzhiN2Q3ZDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhNDFkNzNjNDUyMmJlYTM5ZmY4MTVlMjRiY2YxMzExODUzMWQ2NzFlYjNjZjUzMTIxODg1ZTExYTFjNDcyNGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImFlNTdjNWZhYjU5ZjdiMGJhMzU3NzMyMTJiYTAwMTc1Y2RjNGFmMjM5NWRhMmYyY2I2MmE4NWY4YTJhMjA0MDYifQ"
+        },
+        {
+          "resource": "repo://frontend/src/RestockModal.jsx#L37-L49",
+          "version": "repo-lines-v1:sha256:95410719672a3ee0c284fe39607bd2349ec23added5546ab3fba07ffa3188abb:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjExZGY4N2E0NzMxNmM3MDhjNTUwMjA5OGU5YWY2YzQ0NTM0ZWI4MGJlYWRjZjYwNjMwMjhlZmNhODU5MzdhYmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxN2FmMTEwMWM5N2I3YzJmNTI1NDA3ODJlNjM0Y2M0NDQwZjBlOTcwMzQxZTUyZjk3NTIzMTFkNzhiN2Q3ZDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEyNzI5ZDU0NjZlOWQ1ODJjNDFlYWZlOGVlYWYzZTM0OTFmMjFiNjIwZDk0ZDM1NzZmMzM4N2JjYjNjMzIxMTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwZjhiNTk1ODI1MjZkZDExOTA5MmM4YjYzYTg2OTQ1MGFiNjZjODg5MDBlYzY0ODk0MzkwNDUwMzNhMDVjNmMifQ"
+        },
+        {
+          "resource": "repo://main.py#L43-L179",
+          "version": "repo-lines-v1:sha256:a76a1c4711c35a28def0ea25af9a36986c045f3cc129ae993d50100abb554e3c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTM3LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJmMzA4MjcxMzAyN2Y5MTEzMzg4OGM1YTBmYjRjNWNmYmZmZTQwN2ZjMGQxYzk0OTVjZWEyN2E5Y2QxMGQ0NzBiIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI4NmFmZGY3MGE5NTQzNmU4ODNhYTdmYzVjMDZhMmFiMDgzNzE5MDU0NDM4ZjEyMThkMTVlYmRhZjI4N2I0YmFjIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI1MGMyOTAzNTRmNzI0YmU1Y2QwYzI0MmY1MWQxNzM0ZTU1NDk4OTU4NTRlNzk1NjUzZTU4ZTRlYzM4MGNiNzdjIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_f5da593551884a4c9f17e616932d9ef9",
+      "statement": "`scripts/low_stock.py` is a standalone deterministic scheduled/cron job, not part of the live request path; it emails the owner when a variety is projected to run out within 5 days.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L28-L35",
+          "version": "repo-lines-v1:sha256:ce8b05e905a1656503cde2ebc92ecb8282e83db9b0992ba5dfa773b50319b7b6:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDFiYTQ3MTljODBiNmZlOTExYjA5MWE3YzA1MTI0YjY0ZWVlY2U5NjRlMDljMDU4ZWY4Zjk4MDVkYWNhNTQ2YiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZGMzY2Y5OWQ3ZGJiNGJmMDM5MzkzYjUwZTNkOGRmYmE3NDE2Y2IwMWQxNTU2YmRjZTNjYTkxOWI3MTBjYTU4YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGM5NThhZjczYWJlNDhjMWY2NmJjMTgzMjIzN2JhZWEyYTQ4Mjc2NGUyMmEzNjYxYzljMDFhMDBhZWI3MDBmZSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMTE1MDI4MWJmNzU3ODk2ZWM3ZWY3NWJjMjNhMjE4NjU4NjM4ZWI3YThmOWZmNzQ3ZjM1MjRjODIyNmUwYjZmYyJ9"
+        },
+        {
+          "resource": "repo://scripts/low_stock.py#L11-L51",
+          "version": "repo-lines-v1:sha256:b2ab7c566d771967539e93446f99f5e9e27fc90d923a55193002646fb643a7cd:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2N2I5YjY0ZTU5NzEwNTNkM2RiZmZjODY1MTY5ZjU1YTc4N2UzYTM5NGMwMjExMmVhODAxZWNiNWI2YTNhMDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlMTVkMGY1N2I1NTg1MTU5NmFmZTFiYmRmNThiYTkyN2NlYWE5MGMyM2ExNGY0NzYzNTg1MjQyZDRhYmI3M2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgwMjI4MzcyMmVmNmZkNmQzMWQwNDBkOTQ4OWU0NzlkZDRiMGVmMTlmYzM5ZmVmNjY5NjE2ODYxNzNkNzk1Y2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f4affff665614a5cade3e811f023cdb3",
+      "statement": "The persistence layer is split across `models.py` (SQLAlchemy models and enums), `schemas.py` (Pydantic request/response types with quantity validators), and `database.py` (engine, session factory, `get_db` dependency); `create_tables.py` bootstraps the schema via `Base.metadata.create_all`.",
+      "evidence": [
+        {
+          "resource": "repo://create_tables.py#L1-L4",
+          "version": "repo-lines-v1:sha256:d83bcae376a34dac6f81d1021d93c2cf260a2d90e669fde9a16d9a6cdbd75035:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODI4NGJhMmMwMTAzM2E2NzUyNzc2MWQyMzc0YjRlOGY4YmRlNDlhNDEzYWYxYWYyYmYzMGYzYjAyZTJkMGIyZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDg5MmUyNGQ2YWQwMDZhODI2NTMyM2VjNjYzM2UwZGJlZDQ3ZWFkZjEwYTg2ZWNkZmY5MmMzMzJmNjIwN2E2YiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzJhZTNjODU1NGJjNjM3YTZhMDE3ZWNlZjZkN2Q3MWU0ZTNmNWU0OTdjMDNkYjU4ZWE2ZjBiNmZjMmIwM2I5OCJ9"
+        },
+        {
+          "resource": "repo://database.py#L1-L18",
+          "version": "repo-lines-v1:sha256:653f05f3e51983b36643a1ea2355886c68b1517e1c47cfa830c1a1e8c0526102:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3MjdhZGZmNTI0ZTA2MTYwMjJlYWRkOGY0YWYyMWEwNzc4YjI5ZmM0Yzc3YmRmZWZkMWFmY2UyY2JmNWU0YjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRmNjVjMmJiZTNmNTYwY2IwMGQ3YjEwY2IwZWUzNDI1MDc4NTk0YTY5N2Y2YTc2ZWJkZjk0NDQ1MjhmNTFmMDUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://models.py#L1-L45",
+          "version": "repo-lines-v1:sha256:015f4db10375b4f5626d489f6feee959f9a82fd2a7cc161a5e36f59044793fef:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZlMGNmMzdkYTA1NTQ1NGEzNDA1ZTE4NDNlMmU4YTBiYWQxYzBkYWU0YjY2NjUzY2RlYTI5Nzg3NzUzZDhiY2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4YzM5ZDc2ZjczOTY0MDcwYjY4ODU5YmUyMzNhMzI1ZDVhMGEzYmEwMzQ3ZjUzYzdlNWU2ZjMwZjQxYmFlNzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://schemas.py#L1-L62",
+          "version": "repo-lines-v1:sha256:44cbd965e4946c5288f4b08bce782eb4a12e74bd9c153916ccb063db11a68cbf:eyJzZWxlY3RlZExpbmVDb3VudCI6NjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk2MTY5MTkwNjE5N2VmZDdhMmJmMWVjOTkxZGQ1YTc0M2NiNjNmMDRlNWNlNmM2MWI5MjdmNTJlYTZlNTEyOGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFhMGY1NjRkZGM2MDM5NDU3YjJmYjI2YjNkNmEzMTZjMTVlYmEyMGE4ODY0NDk4NDdjMzIxMGMzNTgyMWE2OTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.1",
+    "at": "2026-09-11T18:21:42.744Z"
+  }
+}

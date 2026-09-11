@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:f2d6fb9e058fa8606dd1be1e56f712eb8c4d549f44cdf837167a933591fb0441",
+  "claims": [
+    {
+      "id": "claim_ed3fd7af05e54e40b46e5184fcfc1004",
+      "statement": "POST /scan branches on variety.tracking_type: the WEIGHT branch subtracts product.package_size_grams by walking batches ordered by Batch.expiry_date ascending, zeroing batches and tracking an uncovered stock_shortfall, returning status 'completed' when the shortfall is 0 and 'stock_mismatch' otherwise; the UNITS branch finds the first batch (by expiry_date) with units_remaining > 0 and decrements exactly 1, always returning units_removed=1 and status 'completed'.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L69-L124",
+          "version": "repo-lines-v1:sha256:1c4d0cdd3c4765682e2dd96feabbdfc9f70132aecf825be663976db680782d4f:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyNTU5NDI3M2FjMDE4OTAwMDRiYmMxMWMwOWJkMWYzMzEzYjZlZjFlNjkxNDk4ZDY1ZGE2ZTRjYzk1OWQ2YmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYzYmVjODk1NjNiZGMyZjU4NjdhNjQwMGY5MGJhOWZlZDIwZjE0NmY2YzA4NzAwNGMzNTI4NjlkYmRmYWE2NDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1MGUzN2E4NzgyYjJjNmE0NjkyZDUyYWJiMTRkYTQ1YTRjYzM0NGExZmE5OWE4Njg4NjJlZTE4MWFiNmZiNTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e1da804bbd2a4e7a88c6a7b0e00e6a13",
+      "statement": "POST /scan for a WEIGHT product always records a StockMovement with grams equal to the full product.package_size_grams regardless of shortfall, while the UNITS branch records grams=1 (the overloaded unit count).",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L97-L118",
+          "version": "repo-lines-v1:sha256:28355a70509cc8340221bb1e0aacf5d583801f09c9bfba5c4d166a847333f76e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlZTY0ZDQ1NDcyODUyZmFhNzY3NDY5NGE1MmJjNGI4ODAwNDJkMzcwZDVjYjcwMjNmMWRlNjMyZDZhNjM1ZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MDMyZTk2NGQwOTMyMzUxZTVkMTg1MjY5MjgxYjE3MWEzYTA5YjA4YjI4NmU2NjFlYTQ3MDMyM2M4MmViNGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVkYWZlZTc3MWJkZmQ0ZmEzYjU1NWE5NDQ3NDYwYjlhMzM0YWExNjRmNTZhZWRkNWJiMGFlMjkzOTYxNWVmY2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFjZGY5ZWJkZTMzOTE2ZWEzYjYxMDFiNzdiNDE3Y2ZiMTVhMTI4YjI1ZGZiNmU0YWE1MzE4ZGNlMTk0NzJiZjgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_90a6f2834fd945228b8e8b1dc5418207",
+      "statement": "POST /deduct applies FIFO by Batch.expiry_date but behaves inconsistently: the WEIGHT branch always returns status 'completed' and never reports a shortfall even when batches cannot cover the requested grams, whereas the UNITS branch subtracts deduct.units with spillover, computes units_removed, and returns 'stock_mismatch' when remaining_to_subtract is non-zero.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L126-L179",
+          "version": "repo-lines-v1:sha256:74f04598339ca28bfaa7f42f96e44c6e6b56b3601debbe63552fc8510d07ae7b:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0MTEzMmY0ZmYxZTc0MWZkOTdkYTFjZTMwODJkYTk0NWE5ZGNmZDIxODQ5ZmIxMDlhNjY5Y2NlYjM0OGE2ODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2YWZkZjcwYTk1NDM2ZTg4M2FhN2ZjNWMwNmEyYWIwODM3MTkwNTQ0MzhmMTIxOGQxNWViZGFmMjg3YjRiYWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgxODRlZjZmZTFmODAyNTU3ZTBkMjlhMGY5YjRiODk1YTJhYjA1NWFiMGY1MGViZmVhYjRhZDcwOTM5NjMzYzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_a61bcf5716294167bc6e42ce26d62ae3",
+      "statement": "POST /batches (restock) creates a Batch and an IN StockMovement whose grams column carries the restock quantity regardless of tracking type: new_batch.grams_remaining for weight, new_batch.units_remaining for units.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L43-L62",
+          "version": "repo-lines-v1:sha256:3a2a601822b082df21b43a3bae1f1034be41daf270aaa9bff9a4317d05bd6b39:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYzMDgyNzEzMDI3ZjkxMTMzODg4YzVhMGZiNGM1Y2ZiZmZlNDA3ZmMwZDFjOTQ5NWNlYTI3YTljZDEwZDQ3MGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwM2JiMGNlMzU3MzcxMDQ1MzJiOWVjMzg2Mzk5ZWJlZjc0YzY3NjM3YzUzNTQyMGY1Zjg2ODMwYzgzZGZjMzIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUwYzI5MDM1NGY3MjRiZTVjZDBjMjQyZjUxZDE3MzRlNTU0OTg5NTg1NGU3OTU2NTNlNThlNGVjMzgwY2I3N2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIzNDYyOWY1YmM5YjU5OGEwOGM5Yzk1YTY0YjQxYTY3ZGNjYmE4ZjJmZDE4NWE0ZDNkMzY5MWEyZWQwMDIwNWIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e5643c877eb04011a84e6500d5e86038",
+      "statement": "StockMovement.grams is a single overloaded integer column storing grams for weight movements and a unit count for unit movements across the /scan, /deduct, and /batches write paths, so the audit trail and the low-stock consumption sum both read one integer field.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L143-L173",
+          "version": "repo-lines-v1:sha256:2fde54f82c4669b0de024e84273bf3a24b3f042b734d477e47470bedda97c9fb:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlZTY0ZDQ1NDcyODUyZmFhNzY3NDY5NGE1MmJjNGI4ODAwNDJkMzcwZDVjYjcwMjNmMWRlNjMyZDZhNjM1ZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MDMyZTk2NGQwOTMyMzUxZTVkMTg1MjY5MjgxYjE3MWEzYTA5YjA4YjI4NmU2NjFlYTQ3MDMyM2M4MmViNGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQzZTE4OTk2MTYzYTJlMmRjZmE5Njg1ZGQ2ZmM4YjgwZWNhYjRmZTliOWEwN2U4OWZkOWNkNGM0NTQ3YzhlNzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUxMzBmMTQyOTg3MDYzZmJjYWNmN2YyNjFjZDI5OWQ1ZWIwODAxZDY3NjgwODAzZDMwNWI3Y2I1MDU1YmNjYWYifQ"
+        },
+        {
+          "resource": "repo://main.py#L43-L62",
+          "version": "repo-lines-v1:sha256:3a2a601822b082df21b43a3bae1f1034be41daf270aaa9bff9a4317d05bd6b39:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYzMDgyNzEzMDI3ZjkxMTMzODg4YzVhMGZiNGM1Y2ZiZmZlNDA3ZmMwZDFjOTQ5NWNlYTI3YTljZDEwZDQ3MGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwM2JiMGNlMzU3MzcxMDQ1MzJiOWVjMzg2Mzk5ZWJlZjc0YzY3NjM3YzUzNTQyMGY1Zjg2ODMwYzgzZGZjMzIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUwYzI5MDM1NGY3MjRiZTVjZDBjMjQyZjUxZDE3MzRlNTU0OTg5NTg1NGU3OTU2NTNlNThlNGVjMzgwY2I3N2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIzNDYyOWY1YmM5YjU5OGEwOGM5Yzk1YTY0YjQxYTY3ZGNjYmE4ZjJmZDE4NWE0ZDNkMzY5MWEyZWQwMDIwNWIifQ"
+        },
+        {
+          "resource": "repo://main.py#L97-L118",
+          "version": "repo-lines-v1:sha256:28355a70509cc8340221bb1e0aacf5d583801f09c9bfba5c4d166a847333f76e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlZTY0ZDQ1NDcyODUyZmFhNzY3NDY5NGE1MmJjNGI4ODAwNDJkMzcwZDVjYjcwMjNmMWRlNjMyZDZhNjM1ZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MDMyZTk2NGQwOTMyMzUxZTVkMTg1MjY5MjgxYjE3MWEzYTA5YjA4YjI4NmU2NjFlYTQ3MDMyM2M4MmViNGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVkYWZlZTc3MWJkZmQ0ZmEzYjU1NWE5NDQ3NDYwYjlhMzM0YWExNjRmNTZhZWRkNWJiMGFlMjkzOTYxNWVmY2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFjZGY5ZWJkZTMzOTE2ZWEzYjYxMDFiNzdiNDE3Y2ZiMTVhMTI4YjI1ZGZiNmU0YWE1MzE4ZGNlMTk0NzJiZjgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_205edf13ef5e4060a69c02294e2bba3c",
+      "statement": "scripts/low_stock.py is a standalone scheduled script (not an API route) that queries OUT StockMovements from the last 7 days joined to Product on barcode to recover variety_id, sums movement.grams per variety, sums remaining stock (grams_remaining for WEIGHT, units_remaining for UNITS) per variety, computes days_left = remaining * 7 / consumed, flags varieties with days_left < 5, and emails via smtplib to smtp.gmail.com:587 using GMAIL_ADDRESS/GMAIL_PASSWORD, printing 'No low stocks detected' when nothing is low.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/low_stock.py#L11-L51",
+          "version": "repo-lines-v1:sha256:b2ab7c566d771967539e93446f99f5e9e27fc90d923a55193002646fb643a7cd:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2N2I5YjY0ZTU5NzEwNTNkM2RiZmZjODY1MTY5ZjU1YTc4N2UzYTM5NGMwMjExMmVhODAxZWNiNWI2YTNhMDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlMTVkMGY1N2I1NTg1MTU5NmFmZTFiYmRmNThiYTkyN2NlYWE5MGMyM2ExNGY0NzYzNTg1MjQyZDRhYmI3M2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgwMjI4MzcyMmVmNmZkNmQzMWQwNDBkOTQ4OWU0NzlkZDRiMGVmMTlmYzM5ZmVmNjY5NjE2ODYxNzNkNzk1Y2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_18c3c5da6dbe45dd8253641befba131d",
+      "statement": "database.py loads a .env file and builds the SQLAlchemy engine and SessionLocal from DATABASE_URL via os.getenv, so DATABASE_URL must be set before the app or script starts.",
+      "evidence": [
+        {
+          "resource": "repo://database.py#L1-L11",
+          "version": "repo-lines-v1:sha256:768883ac5c1686c564a6a69eb73d97eb476c2733f4399b2918793e39ca13e1da:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM3MjdhZGZmNTI0ZTA2MTYwMjJlYWRkOGY0YWYyMWEwNzc4YjI5ZmM0Yzc3YmRmZWZkMWFmY2UyY2JmNWU0YjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhYTVhMGExZjA3NzBhNWE0NGUwMGFlMTA4MTQ3ZGJiZjllYmZmYjVhMmNkODA2YzE3YTg2ZTI2YmFmOGM4YjUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhiN2EyNTdlMmVkMzA4OGJhMGYxNDlhN2M3ZWQwMTYyMjE1YWQzMjg1M2ViZDMyZTVlYzI4ZDI1MDA2MGY4YjQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e0b3d21238824a41b6504c2dcd0586b6",
+      "statement": "The dashboard (App.jsx) polls /varieties and /batches every 10 seconds via setInterval(loadData, 10000) and also calls loadData immediately after a successful scan, restock, or deduct.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx#L155-L160",
+          "version": "repo-lines-v1:sha256:48e6d2339fa72e021de2935e4ff58cd7a338ee1b3cf25a705484b8f698000e53:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTk2NmZiZmE4ODk5OGRhNzQ2NTZjNTAxOTQ5NTZjMjVmMDg0OTQ1NzY2MGMwMDlmZTYzZDFlOWZhOWRjOTMxYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmRjNTJmMDhiMzliMDhiMDFjOGQzMDhiZjg4MGIwYmVmMDJmZDFkZmNjOWQ5YWE5M2E0ZDFiNWY0ZDU4YjZjYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTdkODYzMmU1NGU5Mjk4YWJiOTU4NzI3ZTJkNTE0MDhhYmFmMTM2NjAzNTM3OTEwMTQwYWJmNjViMzBhYjYxMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWVjZTNhMjRkYTYwNmU2YjYyNTlmMzI2NjM0ZDI0YTA3N2I4YWQxZjY3M2VhZGQzYjQ0ZWQzMTE5ODU4Y2ZjMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_910c713dbb2a4914872dbd3352aa3caa",
+      "statement": "The local setup runbook from README.md is: create a venv, pip install -r requirements.txt, run python create_tables.py once, start the backend with uvicorn main:app --reload, then in frontend/ run npm install and npm run dev.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L57-L71",
+          "version": "repo-lines-v1:sha256:105750944de89ac171ee94d7ac82b0edd1e84931a3d582322fc50ea1329e9759:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE3Y2Q4NTY2ZjAwYTA3YzgwZWZhYzExNTI3M2E5NjgwZTVkYzllYTU4ZGIzYWIzNDk0MTY1MmQxNWQwNjgxMjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3YzA2YzU2MWQ1YzMyNzM0MzY4NTI2OGE0NmIzMzkxZjM5OThlZWU4OTBkMmJlNTFmMGQyMWNjNGE1M2FlNmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ0NzU3ODM3NTRlZmUwZTU2ZmVkNDIzMzI3YjU3MmZlOWM3ZjlkOTg1M2FiNTgzYWRiMzRlZDI4ZGVlOWY1YTYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkwMmQxNGZlMzJjNWFlZDhmMzhkNTJkMmRkNmMxNGQ3ZGVhYzE4ZGJkMGE1MDFkNDZiMTE0MzY1YTdmYTFkZmYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9c155b5ff4a54b629c3bc5344251ed0e",
+      "statement": "main.py serves the built frontend at / from frontend/dist via app.frontend('/', directory='frontend/dist') and the CORS middleware allows http://localhost:5173, the Vite dev origin.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L8-L16",
+          "version": "repo-lines-v1:sha256:353ea14820ef80356e0e08e24a1e411cc0cb049cc6a23d5cf32d29128b5be896:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzZjZDFlYzMwMjJkOWZjNzFjMzAyYmFhZWI4YzhlODE5ZTllMGQwYzlmYjI2ZTIyZDBiOGJhZDAwY2RkZTMwMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjU0MDA2MWM4OWVjNWUxMjFhMWU5ODFiZDE0OWEzYzA1MzUxZDkzODQ3NTAyNWI4NGZmNjM5YzE2YWJhZGIyMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDMwMzhkNWRjYjk3OTlhMmExODg4NDc2YTlhNmMxMmU1MmNmZDM1NjcyZGJiYzhhZDNmYTAxNDNmNzcwOTkwZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTEwYTkyOGQxZDA0MzRhNzQ3MzU1MzkyMWU1Y2U3OGZmMGI0MjAyYTk1Mzk4MDJlOGMyMTU4ZmNiMTYwMGRmOCJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.1",
+    "at": "2026-09-11T18:21:42.744Z"
+  }
+}

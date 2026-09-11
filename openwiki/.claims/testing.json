@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:305114312a19161d0333bb0410484a113d38785111ab5499b27d06a9193b8e0e",
+  "claims": [
+    {
+      "id": "claim_fee5978164f84a66b745aa59105b3de7",
+      "statement": "The repository has no formal Python test suite: no test_*.py, *_test.py, or conftest.py files exist anywhere in the tree, and no test runner is configured; frontend/package.json defines only dev/build/lint/preview scripts with no assertion runner.",
+      "evidence": [
+        {
+          "resource": "repo://create_tables.py",
+          "version": "repo-file-v1:sha256:bbfe5bbfa6db71932d257bdff714087a1533895c87b936c5a963011abbe531e8"
+        },
+        {
+          "resource": "repo://frontend/package.json#L6-L11",
+          "version": "repo-lines-v1:sha256:0a8ea48ccabaf2034425f040cc31fbca7fdbba7f9ea88b73b2769e7ff04f6167:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQ4MzNkNTk0OWMwM2E0MGNhOTUyNDkxNjEwYTY2NTk2NDRiM2FhNDY2MzYyZjc5OTAyMGRiZjE5ODE1NDdkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2E2M2JmMDk0ZjUzYTg5MTIzMjc5MjRlMjllMTE5MzIzYjJjOTU5YWNjMDEzMmZhZmEyNzE1MmI1YmQ5Zjg2NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDRlMTEwYzkwZDk3ZTNmODI1Mzc4OWQ3Zjc5Y2MzODQyMDU0NzkwNGI0NzE0OTM3MGMzN2M1YmU0OWYwMTQzMiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f833916b573c4354b0a41cfe3393dabc",
+      "statement": "Backend validation is manual: start the API with `uvicorn main:app --reload`, exercise affected endpoints (notably /scan, /deduct, /batches which carry weight-vs-unit branching), and run `python create_tables.py` against a disposable DB when schema changes occur.",
+      "evidence": [
+        {
+          "resource": "repo://create_tables.py#L1-L5",
+          "version": "repo-lines-v1:sha256:bbfe5bbfa6db71932d257bdff714087a1533895c87b936c5a963011abbe531e8:eyJzZWxlY3RlZExpbmVDb3VudCI6NSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODI4NGJhMmMwMTAzM2E2NzUyNzc2MWQyMzc0YjRlOGY4YmRlNDlhNDEzYWYxYWYyYmYzMGYzYjAyZTJkMGIyZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzJhZTNjODU1NGJjNjM3YTZhMDE3ZWNlZjZkN2Q3MWU0ZTNmNWU0OTdjMDNkYjU4ZWE2ZjBiNmZjMmIwM2I5OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjAsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://main.py#L69-L124",
+          "version": "repo-lines-v1:sha256:1c4d0cdd3c4765682e2dd96feabbdfc9f70132aecf825be663976db680782d4f:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyNTU5NDI3M2FjMDE4OTAwMDRiYmMxMWMwOWJkMWYzMzEzYjZlZjFlNjkxNDk4ZDY1ZGE2ZTRjYzk1OWQ2YmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYzYmVjODk1NjNiZGMyZjU4NjdhNjQwMGY5MGJhOWZlZDIwZjE0NmY2YzA4NzAwNGMzNTI4NjlkYmRmYWE2NDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1MGUzN2E4NzgyYjJjNmE0NjkyZDUyYWJiMTRkYTQ1YTRjYzM0NGExZmE5OWE4Njg4NjJlZTE4MWFiNmZiNTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cb35c782b8344172bc869a3428b28bf8",
+      "statement": "Frontend validation uses the package.json scripts: `npm run build` (vite build) is the hard compile/bundle gate, `npm run lint` (oxlint) lints, and `npm run dev` (vite) runs the dev server against the backend whose CORS allows http://localhost:5173.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/package.json#L6-L11",
+          "version": "repo-lines-v1:sha256:0a8ea48ccabaf2034425f040cc31fbca7fdbba7f9ea88b73b2769e7ff04f6167:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQ4MzNkNTk0OWMwM2E0MGNhOTUyNDkxNjEwYTY2NTk2NDRiM2FhNDY2MzYyZjc5OTAyMGRiZjE5ODE1NDdkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2E2M2JmMDk0ZjUzYTg5MTIzMjc5MjRlMjllMTE5MzIzYjJjOTU5YWNjMDEzMmZhZmEyNzE1MmI1YmQ5Zjg2NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDRlMTEwYzkwZDk3ZTNmODI1Mzc4OWQ3Zjc5Y2MzODQyMDU0NzkwNGI0NzE0OTM3MGMzN2M1YmU0OWYwMTQzMiJ9"
+        },
+        {
+          "resource": "repo://main.py#L10-L16",
+          "version": "repo-lines-v1:sha256:9d71c0682be6a167b8e9cda681aabc46f6a5aa5ac2a31b273e71b46efe965890:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzJmOTA3ZGVjNmZiMjUxZmU5N2RhYjhhNWViYmIyYmViMjc5N2FmNDAxNmVmOGY1NWU0NDQ2MmRkYjg2YjE0OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjU0MDA2MWM4OWVjNWUxMjFhMWU5ODFiZDE0OWEzYzA1MzUxZDkzODQ3NTAyNWI4NGZmNjM5YzE2YWJhZGIyMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjExOGY5ZGExM2E0NTczMDMxY2JmMjBmM2U2YmQ1OTJlMTU0MjdkNjI5ZGE2ZmJlZWM4NDhkZmFmNmY1ODNjMCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTEwYTkyOGQxZDA0MzRhNzQ3MzU1MzkyMWU1Y2U3OGZmMGI0MjAyYTk1Mzk4MDJlOGMyMTU4ZmNiMTYwMGRmOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_c67fd0a493c44fe3ba0a926af65eedb7",
+      "statement": "scripts/low_stock.py reads GMAIL_ADDRESS/GMAIL_PASSWORD from the environment, computes days-of-stock-left from outbound StockMovement.grams over the last week, and prints exactly `No low stocks detected` when no variety is below the 5-days-left threshold.",
+      "evidence": [
+        {
+          "resource": "repo://scripts/low_stock.py#L11-L51",
+          "version": "repo-lines-v1:sha256:b2ab7c566d771967539e93446f99f5e9e27fc90d923a55193002646fb643a7cd:eyJzZWxlY3RlZExpbmVDb3VudCI6NDEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2N2I5YjY0ZTU5NzEwNTNkM2RiZmZjODY1MTY5ZjU1YTc4N2UzYTM5NGMwMjExMmVhODAxZWNiNWI2YTNhMDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlMTVkMGY1N2I1NTg1MTU5NmFmZTFiYmRmNThiYTkyN2NlYWE5MGMyM2ExNGY0NzYzNTg1MjQyZDRhYmI3M2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgwMjI4MzcyMmVmNmZkNmQzMWQwNDBkOTQ4OWU0NzlkZDRiMGVmMTlmYzM5ZmVmNjY5NjE2ODYxNzNkNzk1Y2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c5319b5e1efd424e927777efafa3558c",
+      "statement": "Weight-vs-unit stock logic is split across three components that must be validated together: the backend handler in main.py (/scan and /deduct branch on tracking_type and return grams_removed vs units_removed), the matching frontend modal (RestockModal.jsx posts to /batches, DeductModal.jsx posts to /deduct, both switching fields/body on tracking_type), and the dashboard rendering in App.jsx (VarietySection/BatchRow branch on tracking_type; handleScanSubmit assumes the weight response shape).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx#L54-L128",
+          "version": "repo-lines-v1:sha256:8b8e44def475d64816720c229067e696b64713886a9bc9a2d7195c1f21e5c64b:eyJzZWxlY3RlZExpbmVDb3VudCI6NzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImFkNjc2NGQ2NzQ1Njc5NjAwYjdiMzY5YjRjODQ1NGRkYTRlYWE5YjMyNzI2N2I2NTNkODdhZTZmZTlmZjIzMTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NGZjMGMxNzNkMWVjM2ZjNTAxZDdkZmE5Mjg1NTAxYzUyN2NmYjQ3MTI1ODNkYTNjYzM2MTgwNTY2YjRiZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA4ZDFhMDI0N2ZhYjUxMTQ0OWM3MDU0NDg4MGJjYmNkOTQyNTM1MzAxMDhjYTI5ODk0Y2M4NGE0YjNhODVhNmUifQ"
+        },
+        {
+          "resource": "repo://frontend/src/DeductModal.jsx#L13-L55",
+          "version": "repo-lines-v1:sha256:d52f93900e34c3f2a90c753dc45c2d4f8f3e28a1a921ed3d349216e49d44a02d:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkYWM3ZjAyYzczOGNlZDc1OTQ5MWVmMzIwNTRiZTcyYTYxMTMzODdlOWRiMjA2OGVjMmM4YzE0M2I2ZDFhMjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJhN2Q2MDYwYjg5ZWJjOGNjYTI4YTZjYWUyNmZlMWE3MDA3MzA5NTI3ZWE5YTIzOWE3MzMyY2VmYWMyYmUzMjQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM5NTUyMmQ3NTFmYmJhNWNlM2E5ZTc5ZWY2ODRiNzMwMWJhYzE5MWJkMzYzZDM5NDA0ZDIxNDEyNjJhZjZlZGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkxOGE2MzkyZWZmNTU5ZmUwMjczZTJiZGYzMTM5MDc2NmNjZmNhMmM0NDIxZDBiZmE0OTNkMjJhMDJiMjNhMGQifQ"
+        },
+        {
+          "resource": "repo://frontend/src/RestockModal.jsx#L13-L49",
+          "version": "repo-lines-v1:sha256:9858cc6cdac5e7319540dcc1cd15512e3e5d8eee7446eb050c54854a6b0496ec:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkYWM3ZjAyYzczOGNlZDc1OTQ5MWVmMzIwNTRiZTcyYTYxMTMzODdlOWRiMjA2OGVjMmM4YzE0M2I2ZDFhMjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxN2FmMTEwMWM5N2I3YzJmNTI1NDA3ODJlNjM0Y2M0NDQwZjBlOTcwMzQxZTUyZjk3NTIzMTFkNzhiN2Q3ZDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjlmZjFlOTEyZjg3ODFmNDgzY2QyOTYxNmY2N2Q5ZGZjOGZjZDNkNDI0NmFkY2RhZTk3OTAzYmRhMTU5N2VkMmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwZjhiNTk1ODI1MjZkZDExOTA5MmM4YjYzYTg2OTQ1MGFiNjZjODg5MDBlYzY0ODk0MzkwNDUwMzNhMDVjNmMifQ"
+        },
+        {
+          "resource": "repo://main.py#L69-L178",
+          "version": "repo-lines-v1:sha256:08d8cc8c77764dad9c241d511c10804150f05d7f53169b645cbc7ec44bb81e6c:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEwLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJlMjU1OTQyNzNhYzAxODkwMDA0YmJjMTFjMDliZDFmMzMxM2I2ZWYxZTY5MTQ5OGQ2NWRhNmU0Y2M5NTlkNmJmIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJlNDA2MmY3ODQ1MjQyZThmOGQ4ZWFjMWRlNmI2ZTI3YzM1ZDJjMDQ2NGRhMmFjZmY0OGE0NGQ3ZGEyMDJjMWNkIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJmM2JlYzg5NTYzYmRjMmY1ODY3YTY0MDBmOTBiYTlmZWQyMGYxNDZmNmMwODcwMDRjMzUyODY5ZGJkZmFhNjQwIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MSwiZm9sbG93aW5nQ29udGV4dEhhc2giOiI4NmFmZGY3MGE5NTQzNmU4ODNhYTdmYzVjMDZhMmFiMDgzNzE5MDU0NDM4ZjEyMThkMTVlYmRhZjI4N2I0YmFjIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_d139ca35e79c413882e1af5d196b4832",
+      "statement": "StockMovement.grams is a single integer column overloaded by tracking type: weight movements store grams while unit movements store a unit count (/scan writes grams=1 per unit, /deduct writes grams=units_removed, /batches writes grams=grams_remaining or grams=units_remaining).",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L109-L124",
+          "version": "repo-lines-v1:sha256:83c836a11b54832a6d4ecc05c63c1a891c7388751cf902791b942245e3e9e050:eyJzZWxlY3RlZExpbmVDb3VudCI6MTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5YzcxNDk3Y2ZjODJlNmZlMGZmZmYwYjA2MjM2NWVmNDk3MTUzODhhNjU0N2I5N2ExMzAwZjdlZWEyOGYwMmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMzMWY5MTVkNzFjODFjNTc1MDIyNTRlMjJkNGZiZGU5NWNjNDY0ODc0YTNjYTMyMTRiYjU1OWI5MjZkYmM2MzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1MGUzN2E4NzgyYjJjNmE0NjkyZDUyYWJiMTRkYTQ1YTRjYzM0NGExZmE5OWE4Njg4NjJlZTE4MWFiNmZiNTMifQ"
+        },
+        {
+          "resource": "repo://main.py#L143-L173",
+          "version": "repo-lines-v1:sha256:2fde54f82c4669b0de024e84273bf3a24b3f042b734d477e47470bedda97c9fb:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlZTY0ZDQ1NDcyODUyZmFhNzY3NDY5NGE1MmJjNGI4ODAwNDJkMzcwZDVjYjcwMjNmMWRlNjMyZDZhNjM1ZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MDMyZTk2NGQwOTMyMzUxZTVkMTg1MjY5MjgxYjE3MWEzYTA5YjA4YjI4NmU2NjFlYTQ3MDMyM2M4MmViNGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQzZTE4OTk2MTYzYTJlMmRjZmE5Njg1ZGQ2ZmM4YjgwZWNhYjRmZTliOWEwN2U4OWZkOWNkNGM0NTQ3YzhlNzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUxMzBmMTQyOTg3MDYzZmJjYWNmN2YyNjFjZDI5OWQ1ZWIwODAxZDY3NjgwODAzZDMwNWI3Y2I1MDU1YmNjYWYifQ"
+        },
+        {
+          "resource": "repo://main.py#L43-L61",
+          "version": "repo-lines-v1:sha256:1bf7275550954e43ac9948570fe6e0dcb1d6dd631f7cdb94933c8e94d9e3cac6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYzMDgyNzEzMDI3ZjkxMTMzODg4YzVhMGZiNGM1Y2ZiZmZlNDA3ZmMwZDFjOTQ5NWNlYTI3YTljZDEwZDQ3MGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkwMzQ4MjlhZDYzNzM4ODdiN2FkMzQ5NDZhN2Y0NjUwNDdlODc4OGNkNDkxMTc4NWM1YTE5MWIyNmZlMWE0YWUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUwYzI5MDM1NGY3MjRiZTVjZDBjMjQyZjUxZDE3MzRlNTU0OTg5NTg1NGU3OTU2NTNlNThlNGVjMzgwY2I3N2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBiYWM2ZDg2OTQ3NTI4YzYxNTIzNDFhODAwYjhiN2YyYjhmOWVhM2ZlMTJjNDRhYWZiNjU3OTE3Y2M2ZDQ0NTMifQ"
+        },
+        {
+          "resource": "repo://models.py#L38-L45",
+          "version": "repo-lines-v1:sha256:00eecab6d9942f7701c2c737fb7936cf8d791c0de087a27e03dc31c54a2de72f:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzUxN2QyMDBiNjVkOGI4ODkwZmU3N2EyNjMxNDVmNGMxODYwNDIyYTg3MGQ1NTQwNWY3ZDAzZmE5NzRkYjNmZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMzhjMzlkNzZmNzM5NjQwNzBiNjg4NTliZTIzM2EzMjVkNWEwYTNiYTAzNDdmNTNjN2U1ZTZmMzBmNDFiYWU3MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjY0ZmIxNzllNDNiM2RjY2M5YzczNzFiNmJlZWFiYWQ1ZmQ5MWQwOWUwMWIxZTRjZGNlMGU2MTQ1ZjM3YWE5ZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_15e2157e815c4c5ca0dd1009bb8e57e7",
+      "statement": "Both the audit trail and the low-stock script's consumption calculation depend on the overloaded StockMovement.grams value: low_stock.py sums movement.grams for outbound movements over the last week to compute weekly consumption and days-left, so changes to how movements are recorded affect both.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L89-L124",
+          "version": "repo-lines-v1:sha256:f31a6e96d8d5be132babebef74dd08589ecfbc3d6ba139706084d95cb3f2b80f:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU1NDA5ODE4YjRkMzkzYzVkNzg1ZGExOTQ2YzkyNGUzODVjMWRlNmQ5Y2EyYjY1ZTRkOGY5NzdhN2YwMDkxMWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQzZTE4OTk2MTYzYTJlMmRjZmE5Njg1ZGQ2ZmM4YjgwZWNhYjRmZTliOWEwN2U4OWZkOWNkNGM0NTQ3YzhlNzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1MGUzN2E4NzgyYjJjNmE0NjkyZDUyYWJiMTRkYTQ1YTRjYzM0NGExZmE5OWE4Njg4NjJlZTE4MWFiNmZiNTMifQ"
+        },
+        {
+          "resource": "repo://scripts/low_stock.py#L14-L33",
+          "version": "repo-lines-v1:sha256:5f425b18a8ef8b46271fa727d444b51892cdaf322446fe2908c7925c4f02f09b:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAyYjcxMTE3NzUzMDA3MjI0ODkxMWIxYWJlMTUxMjUwMjc1YzQ4YzQ2MzFhNmZiOGRjZmQ1MDdmNDJlZWU2NDgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRhZmU2YzE4ODExMTk1NGRlYTkxNDIzODI4OTRlNmU5YzM4ZTY5NDA0ODMyZDkzZDNkMzEwNzJkNWE2YWU2Y2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgxZGU1MTc1MzAzMGZjYmJhZTg2ZTZkNTc4OThmYWMzY2FmZjMyZjkwOWZkNzQ2NjFmZjczMTk2MDRjNmQ1MzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjdmNWViNDQ4ODNjMjQxZTM0ZjgxNmU2YWVmMDRkMTVmMTZhZGNhNmE0MzFjZTA5MDEyZWIwNWYyMWNjMmE4YjEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bdfe5cf5dc2743fdb763a0a39a989fd1",
+      "statement": "Deduction in /scan (weight branch) and /deduct follows FIFO by expiry_date: batches are ordered by Batch.expiry_date ascending and stock is subtracted from the soonest-expiring batch first, with stock_mismatch/shortfall reported only when all batches are exhausted.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L133-L178",
+          "version": "repo-lines-v1:sha256:ac420a207437ee1643d583f59a41654902ca9c3a0376b6a0daeab095c635702c:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhNTg5ZGEyNmYxZGYxNzNhOGEzOTdmNjVkOTdjMjNmZTJkMjBkMTcyMTk1MjBlYzFiOTRkN2EzNjk5M2RjZjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU0MDYyZjc4NDUyNDJlOGY4ZDhlYWMxZGU2YjZlMjdjMzVkMmMwNDY0ZGEyYWNmZjQ4YTQ0ZDdkYTIwMmMxY2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZmOWQ3MzYxMTE4NDhiYmQwOTg2NWY4MDY0NjVjNTdjYzlmNGFjYTNjY2JhZDIyOTA4YjllYTMxNDRjNzQyMjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg2YWZkZjcwYTk1NDM2ZTg4M2FhN2ZjNWMwNmEyYWIwODM3MTkwNTQ0MzhmMTIxOGQxNWViZGFmMjg3YjRiYWMifQ"
+        },
+        {
+          "resource": "repo://main.py#L79-L108",
+          "version": "repo-lines-v1:sha256:288722d73b974f28471e62a556cf3f4e95d494911489862e09326887dc49d39d:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwODMyMGMxYTNmNjYyMzlhODU3ZmMzNDI1ODMwNTg1Mzg5MDlmNjk2NTkzZGRhNmQxYTEwNzg1YWQxNmFiNjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjNjQ3OWNjMjMwNDQwZmQ0MWU4MjI0MjE4Njc5Njk4NTU5ZDI4OTNiZDY3YjQzODBhZmFiODExYjM4YTU1YWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJjNDRlYTU5YTQ1MDdjY2JiODA1NjUwOGZlZDBlODBiMzI0N2VhZjFlMThhOTZiNjNjNmFmNjlkOThkZGFhNzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1OWM4MGE2MDM3MjFlZGViYmZkMDRiMDM2ZDU2NmFkMDMwZjY5MWM4NTgyNmIxMjcwNGU0OWY2MmU5OTIyOGYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_b85e51d10bcb49cd8585ce0a7b57cc55",
+      "statement": "App.jsx refreshes dashboard data both by polling /varieties and /batches every 10 seconds and by calling loadData() immediately after a successful scan, restock, or deduct, so a write plus re-fetch chain can be verified by observing the dashboard update without a manual reload.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx#L131-L160",
+          "version": "repo-lines-v1:sha256:a307432c87e5c6ece18ecd7aeef3c29e4f5d3e689464eda1a349f4802e03df34:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Yjc1NTA0NDdlOTRmODhjZjI3Y2UxZDdmZDZkYmVlMTM5Y2JmOGM0ZDRlNGJjMmY1NTM0NDE2OGI3YTg2MzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkYzUyZjA4YjM5YjA4YjAxYzhkMzA4YmY4ODBiMGJlZjAyZmQxZGZjYzlkOWFhOTNhNGQxYjVmNGQ1OGI2Y2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlY2UzYTI0ZGE2MDZlNmI2MjU5ZjMyNjYzNGQyNGEwNzdiOGFkMWY2NzNlYWRkM2I0NGVkMzExOTg1OGNmYzIifQ"
+        },
+        {
+          "resource": "repo://frontend/src/App.jsx#L226-L246",
+          "version": "repo-lines-v1:sha256:0c54ee5c4c110260cfa8cd68b6a266f7dacc98db9c7c04974baefa1a48bcf2d7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkNWZiYThmZTYwODIzOTk3OTliMmUwOTRmNDVlYmI5N2I1NjVjMjQ1NzMxMWUxNDBjZmNlMzU1NDI4ODZlY2YiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxMzAwNDg0N2UwNGQ4ODQxMmY5NGVhYjZiMDU2NDlkNjJiMDQyM2QwNDliYjRiMzI3YTgxNjMxNmQ2NDQzY2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImNhN2ZmODUzMDk4OWMxYmZlZDY1N2QzZGQ4ZjI1MDAwZGRhOWY2YWE2OTFmMzJhNjQ3ZWNhZGJlMTU2MzA2ODkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxMWUzNjAxNjI2NTJkZTE1Y2MwMjVkYjg2OGIyZTVlYzY4NTc1ODhjMTMyMzI0MWZmOWVkZTNhMzE4YjliZGMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f75d0a9d6778492693310e609804f661",
+      "statement": "main.py serves the built frontend from frontend/dist via app.frontend('/', directory='frontend/dist'), so deployment validation requires a fresh `vite build` plus confirming the app is served correctly through FastAPI, not just a passing build.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/package.json#L6-L11",
+          "version": "repo-lines-v1:sha256:0a8ea48ccabaf2034425f040cc31fbca7fdbba7f9ea88b73b2769e7ff04f6167:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzQ4MzNkNTk0OWMwM2E0MGNhOTUyNDkxNjEwYTY2NTk2NDRiM2FhNDY2MzYyZjc5OTAyMGRiZjE5ODE1NDdkYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNGQ1Y2QyZmI0ZjNkZjg4NDUxNTI1NWIzOTUyM2YyZjhiNTQ3MmJlZWE5ZjU2NmZmY2EyMDRkYjgwMjU2MTA0MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiN2E2M2JmMDk0ZjUzYTg5MTIzMjc5MjRlMjllMTE5MzIzYjJjOTU5YWNjMDEzMmZhZmEyNzE1MmI1YmQ5Zjg2NyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNDRlMTEwYzkwZDk3ZTNmODI1Mzc4OWQ3Zjc5Y2MzODQyMDU0NzkwNGI0NzE0OTM3MGMzN2M1YmU0OWYwMTQzMiJ9"
+        },
+        {
+          "resource": "repo://main.py#L16-L16",
+          "version": "repo-lines-v1:sha256:b540061c89ec5e121a1e981bd149a3c05351d938475025b84ff639c16abadb23:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYjU0MDA2MWM4OWVjNWUxMjFhMWU5ODFiZDE0OWEzYzA1MzUxZDkzODQ3NTAyNWI4NGZmNjM5YzE2YWJhZGIyMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjU0MDA2MWM4OWVjNWUxMjFhMWU5ODFiZDE0OWEzYzA1MzUxZDkzODQ3NTAyNWI4NGZmNjM5YzE2YWJhZGIyMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZmU2NTE0NTM5ZDliNmM3MmE4YjIxOGZiYzg1NGEzZGE3MDU3YzYxNWVkMWNjODg4ZmNjN2EzZDQ5MzVjY2QzMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTEwYTkyOGQxZDA0MzRhNzQ3MzU1MzkyMWU1Y2U3OGZmMGI0MjAyYTk1Mzk4MDJlOGMyMTU4ZmNiMTYwMGRmOCJ9"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.5.1",
+    "at": "2026-09-11T18:21:42.744Z"
+  }
+}
