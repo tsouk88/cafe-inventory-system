@@ -86,6 +86,7 @@ function VarietySection({ variety, batches }) {
 
 export default function App() {
   const [varieties, setVarieties] = useState([]);
+  const hasDataRef = useRef(false);
   const [batches, setBatches] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -144,9 +145,12 @@ export default function App() {
 
       setVarieties(varietiesData);
       setBatches(batchesData);
+      hasDataRef.current = true;
       setError(null);
     } catch (err) {
-      setError(err.message);
+      // One failed poll (API restarting after a deploy, a dropped request)
+      // must not wipe a list we already have on screen.
+      if (!hasDataRef.current) setError(err.message);
     } finally {
       setLoading(false);
     }
@@ -238,8 +242,17 @@ export default function App() {
         <DeductModal
           varieties={varieties}
           onClose={() => setShowDeductModal(false)}
-          onSuccess={() => {
+          onSuccess={(data) => {
             setShowDeductModal(false);
+            if (data?.status === "stock_mismatch") {
+              const removed = data.units_removed ?? data.grams_removed;
+              setScanMessage({
+                type: "error",
+                text: `Stock mismatch: only ${removed} were on file, the rest is missing from the batches.`,
+              });
+            } else {
+              setScanMessage(null);
+            }
             loadData();
           }}
         />

@@ -47,12 +47,12 @@ export default function DeductModal({ varieties, onClose, onSuccess }) {
         body: JSON.stringify(body),
       });
 
+      const data = await res.json().catch(() => null);
       if (!res.ok) {
-        const data = await res.json().catch(() => null);
         throw new Error(data?.detail || "Removal failed");
       }
 
-      onSuccess();
+      onSuccess(data);
     } catch (err) {
       setError(err.message);
     } finally {
