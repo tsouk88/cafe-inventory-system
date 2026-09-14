@@ -246,10 +246,7 @@ export default function App() {
             setShowDeductModal(false);
             if (data?.status === "stock_mismatch") {
               const removed = data.units_removed ?? data.grams_removed;
-              setScanMessage({
-                type: "error",
-                text: `Stock mismatch: only ${removed} were on file, the rest is missing from the batches.`,
-              });
+              setScanMessage({ type: "error", text: `Stock mismatch: only ${removed} on file.` });
             } else {
               setScanMessage(null);
             }
