@@ -8,7 +8,9 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
+# dist is committed on purpose: FastAPI Cloud serves it via app.frontend()
+# and the GitHub-triggered deploy has no Node build step. Run `npm run build`
+# before committing any frontend change.
 dist-ssr
 *.local
 
