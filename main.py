@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends , HTTPException 
 from sqlalchemy.orm import Session
+from sqlalchemy import text
 from fastapi.middleware.cors import CORSMiddleware
 from database import get_db
 from models import Variety , Product , Batch , StockMovement , Direction , TrackingType
@@ -177,3 +178,52 @@ def manual_deduct(deduct: ProductDeduct, db: Session = Depends(get_db)):
             "units_removed": units_removed,
             "status": "completed" if remaining_to_subtract == 0 else "stock_mismatch"
             }
+
+@app.get("/reports/fefo-next")
+def getreports(db: Session = Depends(get_db)):
+    fefo_nextbatch = db.execute(text("""select
+        first.name,
+        first.min_expiry,
+        coalesce(b2.units_remaining, b2.grams_remaining) as remaining
+        from
+        (
+            select
+            v.id as variety_id,
+            v.name,
+            min(b.expiry_date) as min_expiry
+            from
+            varieties v
+            join batches b on b.variety_id = v.id
+            and b.expiry_date > now()
+            and coalesce(b.units_remaining, b.grams_remaining) > 0
+            group by
+            v.id,
+            v.name
+        ) as first
+        join batches b2 on b2.variety_id = first.variety_id
+        and b2.expiry_date = first.min_expiry
+        order by
+        first.min_expiry""")).mappings().all()
+    return fefo_nextbatch
+
+@app.get("/reports/last7")
+def getlastseven (db: Session = Depends(get_db)):
+    last7=db.execute(text("""select v.name , s.timestamp , s.direction , s.grams as stock
+        from stock_movements s
+        left join products p on s.barcode = p.barcode
+        left join varieties v on p.variety_id = v.id
+        where s.timestamp > now() - interval '7 days'
+        order by s.timestamp desc
+        """)).mappings().all()
+    return last7
+
+@app.get("/reports/stock-per-variety")
+def getstockpervariety(db: Session= Depends(get_db)):
+    getstock=db.execute(text("""select v.name , coalesce(sum(coalesce(units_remaining, grams_remaining)), 0) as remaining , count(b.id) as active_batches , v.tracking_type
+        from varieties v
+        left join batches b on b.variety_id = v.id
+        and coalesce(b.units_remaining , b.grams_remaining) > 0
+        group by v.id , v.name
+        order by remaining desc""")).mappings().all()
+    return getstock
+

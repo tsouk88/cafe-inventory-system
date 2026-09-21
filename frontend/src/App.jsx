@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import RestockModal from "./RestockModal";
 import DeductModal from "./DeductModal";
+import Reports from "./Reports";
 
 const API_BASE = "";
 
@@ -95,6 +96,7 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [scanValue, setScanValue] = useState("");
   const [scanMessage, setScanMessage] = useState(null);
+  const [view, setView] = useState("stock");
   const scanInputRef = useRef(null);
 
   useEffect(() => {
@@ -187,6 +189,12 @@ export default function App() {
           >
             − Remove
           </button>
+          <button
+            className={`app__reports-button${view === "reports" ? " app__reports-button--active" : ""}`}
+            onClick={() => setView(view === "reports" ? "stock" : "reports")}
+          >
+            Reports
+          </button>
         </div>
         <form className="scan-bar" onSubmit={handleScanSubmit}>
           <input
@@ -215,16 +223,22 @@ export default function App() {
       </header>
 
       <main className="app__main">
-        {loading && <div className="app__status">Loading...</div>}
-        {error && <div className="app__status app__status--error">{error}</div>}
-        {!loading && !error && filteredVarieties.length === 0 && (
-          <div className="app__status">No products found.</div>
+        {view === "reports" ? (
+          <Reports />
+        ) : (
+          <>
+            {loading && <div className="app__status">Loading...</div>}
+            {error && <div className="app__status app__status--error">{error}</div>}
+            {!loading && !error && filteredVarieties.length === 0 && (
+              <div className="app__status">No products found.</div>
+            )}
+            {!loading &&
+              !error &&
+              filteredVarieties.map((v) => (
+                <VarietySection key={v.id} variety={v} batches={batches} />
+              ))}
+          </>
         )}
-        {!loading &&
-          !error &&
-          filteredVarieties.map((v) => (
-            <VarietySection key={v.id} variety={v} batches={batches} />
-          ))}
       </main>
 
       {showRestockModal && (
