@@ -11,7 +11,7 @@ const REPORTS = [
     path: "/reports/stock-per-variety",
     columns: [
       { key: "name", label: "Variety" },
-      { key: "remaining", label: "Remaining", format: (v, row) => `${v}${row.tracking_type === "weight" ? "g" : " units"}` },
+      { key: "remaining", label: "Remaining", format: (v, row) => `${v}${isWeight(row) ? "g" : " units"}` },
       { key: "active_batches", label: "Active batches" },
     ],
   },
@@ -26,6 +26,16 @@ const REPORTS = [
     ],
   },
   {
+    key: "expired",
+    title: "Expired batches still in stock",
+    path: "/reports/expired-with-stock",
+    columns: [
+      { key: "name", label: "Variety" },
+      { key: "expired_at", label: "Expired", format: formatDate },
+      { key: "stock", label: "Remaining", format: (v, row) => `${v}${isWeight(row) ? "g" : " units"}` },
+    ],
+  },
+  {
     key: "last7",
     title: "Movements, last 7 days",
     path: "/reports/last7",
@@ -37,6 +47,11 @@ const REPORTS = [
     ],
   },
 ];
+
+// Raw SQL returns the enum as stored ("WEIGHT"), the ORM endpoints as "weight".
+function isWeight(row) {
+  return String(row.tracking_type).toLowerCase() === "weight";
+}
 
 function formatDate(value) {
   if (!value) return "—";

@@ -193,7 +193,7 @@ export default function App() {
             className={`app__reports-button${view === "reports" ? " app__reports-button--active" : ""}`}
             onClick={() => setView(view === "reports" ? "stock" : "reports")}
           >
-            Reports
+            {view === "reports" ? "← Stock" : "Reports"}
           </button>
         </div>
         <form className="scan-bar" onSubmit={handleScanSubmit}>
