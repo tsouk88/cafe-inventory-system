@@ -33,7 +33,7 @@ class Batch(Base):
     grams_remaining = Column(Integer , nullable=True)
     units_remaining = Column(Integer , nullable=True)
     expiry_date = Column(Date)
-    received_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    received_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 
 class StockMovement(Base):
     __tablename__ = "stock_movements"
@@ -42,4 +42,4 @@ class StockMovement(Base):
     barcode = Column(String, ForeignKey("products.barcode"), nullable=True)
     direction = Column(Enum(Direction))
     grams = Column(Integer)
-    timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    received_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
