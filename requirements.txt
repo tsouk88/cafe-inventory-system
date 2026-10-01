@@ -1,4 +1,4 @@
-fastapi[standard]
+fastapi[standard]==0.142.2
 sqlalchemy
 psycopg2-binary
 python-dotenv
