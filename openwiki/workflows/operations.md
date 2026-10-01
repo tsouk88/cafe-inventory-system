@@ -1,28 +1,30 @@
 ---
 type: "Reference"
 title: "Workflows and Operations"
-description: "Daily operator flows (scan, restock, manual removal), the low-stock alert job, environment variables, and the local setup runbook for the café inventory system."
-tags: ["workflows", "operations", "runbook", "low-stock", "fifo", "environment"]
-verified:
-  - by: openwiki/0.5.1
-    at: 2026-09-11T18:21:42.744Z
+description: "Daily operator flows (scan, restock, manual removal, reports view), the low-stock alert job, environment variables, and the local setup runbook for the café inventory system."
+tags: ["workflows", "operations", "runbook", "low-stock", "fifo", "reports", "environment"]
 sources:
   - id: openwiki-source-cb5451ecbfb2b6e0666dbc3a
     resource: repo://database.py
   - id: openwiki-source-49b284af4abdb5084d5b9d09
     resource: repo://frontend/src/App.jsx
+  - id: openwiki-source-e828310cceb581a07cef2a85
+    resource: repo://frontend/src/Reports.jsx
   - id: openwiki-source-833e692518af9eeaf8564cc6
     resource: repo://main.py
   - id: openwiki-source-23775c3de52f3ab95a13cb8b
     resource: repo://README.md
   - id: openwiki-source-7ed2d9b3005cd559f37189d1
     resource: repo://scripts/low_stock.py
-generated: { by: "openwiki/0.5.1", at: "2026-09-11T18:21:42.744Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T12:43:49.948Z" }
+verified:
+  - by: openwiki/0.6.1
+    at: 2026-10-01T12:43:49.948Z
 ---
 
 # Workflows and Operations
 
-This page documents the operator-facing workflows that drive the café inventory system — scanning barcodes at the counter, restocking a new delivery, manual removal — plus the scheduled low-stock alert job, environment configuration, and the local setup runbook. All branching behavior is grounded in `main.py`; the frontend modals that trigger these flows live in `frontend/src/`.
+This page documents the operator-facing workflows that drive the café inventory system — scanning barcodes at the counter, restocking a new delivery, manual removal, the reports view — plus the scheduled low-stock alert job, environment configuration, and the local setup runbook. All branching behavior is grounded in `main.py`; the frontend modals and views that trigger these flows live in `frontend/src/`.
 
 ## Daily operator flow
 
@@ -70,27 +72,48 @@ There is a non-obvious behavioral inconsistency between the weight paths of `/sc
 
 So only the weight `/scan` and unit `/deduct` paths surface a mismatch; weight `/deduct` silently swallows it. Any change to this behavior must be deliberate, because the dashboard's scan message (`Removed ${data.grams_removed}g`) and the audit trail both assume the current shapes.
 
+### Reports view
+
+The reports view is a read-only dashboard that surfaces four SQL-backed summaries. It is toggled from within the same single-page app, not a separate route.
+
+- The operator clicks the **Reports** button in `App.jsx`, which toggles the `view` state between `"stock"` and `"reports"`. The button label flips to `← Stock` when the reports view is active, and back to `Reports` when the stock view is showing.
+- When `view === "reports"`, `App.jsx` mounts the `Reports` component in place of the stock `VarietySection` list. The scan bar, restock, and remove buttons remain in the header; the Reports button is the only toggle for this view.
+- `Reports.jsx` defines a `REPORTS` array of four report descriptors, each with a `key`, `title`, `path`, and `columns`. The `Reports` component maps over this array and renders one `ReportTable` per descriptor.
+- Each `ReportTable` fetches its own endpoint independently inside a `useEffect`, keeping its own `rows` and `error` state — so one report failing to load does not block the others. The render states are: `Loading...` while `rows === null` and no error, the error message on failure, `No rows.` on an empty result, and an HTML table on a populated result.
+- The four report endpoints (`/reports/stock-per-variety`, `/reports/fefo-next`, `/reports/expired-with-stock`, `/reports/last7`) all use raw SQL via `db.execute(text(...))` and return `.mappings().all()`. There are **no ORM response models** — none of these routes declare a `response_model=...`, so the JSON keys come straight from the SQL column aliases. This is unlike the `/varieties`, `/batches`, and write endpoints, which return ORM objects serialized through Pydantic schemas.
+
+The four reports:
+
+| Report | Endpoint | Columns returned |
+|---|---|---|
+| Stock per variety | `/reports/stock-per-variety` | `name`, `remaining` (coalesced sum of `units_remaining`/`grams_remaining` across batches with stock), `active_batches` (count of batch ids), `tracking_type` |
+| Next batch to use (FEFO) | `/reports/fefo-next` | `name`, `min_expiry`, `remaining` — the earliest-expiring batch per variety that still has stock and `expiry_date > now()` |
+| Expired batches still in stock | `/reports/expired-with-stock` | `name`, `tracking_type`, `stock`, `expired_at` — batches where `expiry_date < now()` but still carry remaining stock |
+| Movements, last 7 days | `/reports/last7` | `name` (from the product/variety join, may be null for manual movements with no barcode), `timestamp`, `direction`, `stock` (the `grams` column) — `StockMovement` rows from the last 7 days, newest first |
+
+A note on `tracking_type` casing: the raw SQL report endpoints return the enum as stored in the database (`"WEIGHT"` / `"UNITS"`), whereas the ORM endpoints (`/varieties`, `/batches`) return the enum value lowercased (`"weight"` / `"units"`). The `isWeight(row)` helper in `Reports.jsx` normalizes this by lowercasing the comparison: `String(row.tracking_type).toLowerCase() === "weight"`. This is why the stock-per-variety and expired-with-stock reports can append `g` vs ` units` to the remaining value correctly despite the casing difference between the two families of endpoints.
+
 ## FIFO deduction branching logic
 
-<!-- openwiki: mermaid parse failed and this diagram was converted to a text fence so it does not break rendering. Fix the diagram source and restore the mermaid fence. Parser error: Heuristic: a semicolon inside a label breaks rendering; rephrase the label. -->
+<!-- openwiki: mermaid parse failed and this diagram was converted to a text fence so it does not break rendering. Fix the diagram source and restore the mermaid fence. Parser error: Heuristic: an unescaped angle bracket inside a label breaks rendering; rephrase the label. -->
 ```text
 flowchart TD
     Start["POST /scan or /deduct"] --> Lookup["Look up Product by barcode, or Variety by variety_id"]
     Lookup --> TT["Check variety.tracking_type"]
-    TT -->|"WEIGHT"| WQty["Set remaining_to_subtract = package_size_grams / deduct.grams"]
+    TT -->|"WEIGHT"| WQty["Set remaining_to_subtract = package_size_grams or deduct.grams"]
     WQty --> WLoop["Iterate batches ordered by Batch.expiry_date ascending"]
     WLoop --> WDecide{"batch.grams_remaining >= remaining_to_subtract?"}
-    WDecide -->|"yes"| WSub["batch.grams_remaining -= remaining_to_subtract; remaining_to_subtract = 0"]
-    WDecide -->|"no"| WZero["remaining_to_subtract -= batch.grams_remaining; batch.grams_remaining = 0"]
+    WDecide -->|"yes"| WSub["subtract remaining from batch and set remaining_to_subtract to 0"]
+    WDecide -->|"no"| WZero["subtract batch from remaining and zero batch.grams_remaining"]
     WSub --> WNext{"more batches and remaining > 0?"}
     WZero --> WNext
     WNext -->|"yes"| WLoop
-    WNext -->|"no"| WDone["Record StockMovement OUT grams = full package size / requested grams"]
-    TT -->|"UNITS"| UFind["scan: first batch with units > 0; deduct: all batches with units > 0, ordered by expiry_date"]
+    WNext -->|"no"| WDone["Record StockMovement OUT grams = full package size or requested grams"]
+    TT -->|"UNITS"| UFind["scan: first batch with units > 0, deduct: all batches with units > 0, ordered by expiry_date"]
     UFind --> UDec["Decrement 1 unit, or loop subtracting deduct.units with spillover"]
-    UDec --> UDone["Record StockMovement OUT grams = 1 / units_removed"]
-    WDone --> WStatus["scan: completed if shortfall 0 else stock_mismatch; deduct: always completed"]
-    UDone --> UStatus["scan: completed; deduct: completed if remaining 0 else stock_mismatch"]
+    UDec --> UDone["Record StockMovement OUT grams = 1 or units_removed"]
+    WDone --> WStatus["scan: completed if shortfall 0 else stock_mismatch, deduct: always completed"]
+    UDone --> UStatus["scan: completed, deduct: completed if remaining 0 else stock_mismatch"]
 ```
 
 The flowchart shows the two branches the weight and unit paths take through `/scan` and `/deduct`. The weight branch walks the entire batch chain in expiry order and (in `/scan` only) tracks a shortfall; the unit branch in `/scan` touches only the first batch with stock, while the unit branch in `/deduct` chains across batches like the weight branch and tracks its own mismatch.
@@ -142,3 +165,4 @@ npm run dev
 - The frontend is translated into English for the public demo, but the README notes the original staff-facing UI was in Greek. If you change labels or copy, verify the documentation still reflects the public demo rather than the original internal UI.
 - The dashboard polls `/varieties` and `/batches` every 10 seconds (`setInterval(loadData, 10000)` in `App.jsx`) and re-fetches immediately after each successful scan/restock/removal. Keep backend responses fast and predictable so the poll cadence stays smooth; avoid endpoint changes that break the `loadData` fetch pair.
 - The business logic for weight vs unit tracking is split across **three** places — the backend handler in `main.py`, the matching frontend modal (`RestockModal.jsx` / `DeductModal.jsx`), and the dashboard rendering in `App.jsx` — with no automated test guarding the seam. If you adjust request/response payloads, field names, or which branch a tracking type takes, update all three together and re-run `scripts/low_stock.py` whenever the change touches how `StockMovement.grams` is written.
+- The four report endpoints bypass ORM response models and return raw SQL mappings, so any change to a SQL column alias directly changes the JSON key the `Reports.jsx` `columns` descriptors read by `c.key`. If you rename a column in one of the report queries, update the matching `REPORTS` entry in `Reports.jsx` in the same change.

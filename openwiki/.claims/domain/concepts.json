@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:5296032b8b59bed09ba196c14f29b559b8d4d04ebc48b461715895dd6a73d465",
+  "pageVersion": "sha256:ad6ab854a0751b6f6f78b1f5b883e1f7506d6c1c3a00cc3950408f7278f8cd3c",
   "claims": [
     {
       "id": "claim_e816e291cb5f4108a51cd85190e36cf1",
@@ -8,7 +8,7 @@
       "evidence": [
         {
           "resource": "repo://models.py#L14-L45",
-          "version": "repo-lines-v1:sha256:55544ad6ed77bdde7800d5566f21f30ef41247073193959278febb7ed7679425:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhNzExN2U2ODIwMzg1MGUwZGRlN2Y1YmFjMzFmODg4ZTdkYjY1MDQwNjc3NTA3MmJmZjQ0ZWUzNmRlZjIwM2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4YzM5ZDc2ZjczOTY0MDcwYjY4ODU5YmUyMzNhMzI1ZDVhMGEzYmEwMzQ3ZjUzYzdlNWU2ZjMwZjQxYmFlNzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA2MTM4ZjY0YTk2NTAwNDk1NGEwY2M0M2I3NmQ3ODQ0MzhkNDZiN2M3YmJjZDU2ZDZiOWMwNjMwMzAwYTM4NWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "version": "repo-lines-v1:sha256:795916abe45ebff61c12f005052acd328eb1576571cc7675fb3fbbc3a1ccbc42:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJhNzExN2U2ODIwMzg1MGUwZGRlN2Y1YmFjMzFmODg4ZTdkYjY1MDQwNjc3NTA3MmJmZjQ0ZWUzNmRlZjIwM2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2YTc1ZmU1MWIyNTI2MDhhYTNjYzIzOWY3NGVjMzNmYTIxOTJhMzQ5ZDEyM2UzYTQ5NGQ3ZGVlNjVjMGYwZWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA2MTM4ZjY0YTk2NTAwNDk1NGEwY2M0M2I3NmQ3ODQ0MzhkNDZiN2M3YmJjZDU2ZDZiOWMwNjMwMzAwYTM4NWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         }
       ]
     },
@@ -17,7 +17,7 @@
       "statement": "Variety.tracking_type (TrackingType enum: WEIGHT or UNITS) is the branch that governs how stock is consumed: scanning resolves the product, then uses the variety's tracking_type to decide the deduction path.",
       "evidence": [
         {
-          "resource": "repo://main.py#L69-L124",
+          "resource": "repo://main.py#L70-L125",
           "version": "repo-lines-v1:sha256:1c4d0cdd3c4765682e2dd96feabbdfc9f70132aecf825be663976db680782d4f:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyNTU5NDI3M2FjMDE4OTAwMDRiYmMxMWMwOWJkMWYzMzEzYjZlZjFlNjkxNDk4ZDY1ZGE2ZTRjYzk1OWQ2YmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYzYmVjODk1NjNiZGMyZjU4NjdhNjQwMGY5MGJhOWZlZDIwZjE0NmY2YzA4NzAwNGMzNTI4NjlkYmRmYWE2NDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1MGUzN2E4NzgyYjJjNmE0NjkyZDUyYWJiMTRkYTQ1YTRjYzM0NGExZmE5OWE4Njg4NjJlZTE4MWFiNmZiNTMifQ"
         },
         {
@@ -31,7 +31,7 @@
       "statement": "Product.barcode is the primary key of products; package_size_grams is nullable but required for weight-tracked products because a scan consumes exactly that many grams.",
       "evidence": [
         {
-          "resource": "repo://main.py#L75-L78",
+          "resource": "repo://main.py#L76-L79",
           "version": "repo-lines-v1:sha256:c109a3ba549b3427462eb54b59a70d3d4f8cf42b7c6501623140f3206ba93244:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzdkNmMxNGYxOTdjYWM2ZmIyZGE3NjlmMTg5ZjdlNjE2MzQ5MmNhNmExMmVjNzhhMDFlNzM5NzNhYTg3MTVjYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDY0MWMyMjNlZTU3YjFkZjEzYjAyNjczNTc1M2IzZGQxMTY1MWI5ZjUwZWI0YjJmMjc3NzQ2NzFhY2I2MDdiNCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjBlNzhiMmYxMjdkYTc2MDQzZTU2NzM4ZDUwZDYzNGY2NmVhOGNlNjM3YWU0NWYzODNmNjMxNGVkMmU0NDQ4YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZWE3ZGMyYTcwODMwZGIwNjJmMzBkNzZkMzZkYzBjNjZiNDU1MTU0ZjIxNDQxY2Q5ODE1YWE0YmM1MGY0MjNmZiJ9"
         },
         {
@@ -45,11 +45,11 @@
       "statement": "FIFO is by earliest expiry_date first, not by insertion order: scan_barcode and manual_deduct order batches by Batch.expiry_date and spill remaining demand across later batches when the earliest is exhausted; this is the central invariant to preserve.",
       "evidence": [
         {
-          "resource": "repo://main.py#L133-L167",
+          "resource": "repo://main.py#L134-L168",
           "version": "repo-lines-v1:sha256:bbcfe551a02e2b27a3a5ddbbc967c03030f962b970230e8c4be64f339eca736c:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhNTg5ZGEyNmYxZGYxNzNhOGEzOTdmNjVkOTdjMjNmZTJkMjBkMTcyMTk1MjBlYzFiOTRkN2EzNjk5M2RjZjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY1ZTAzOTdiMzc1Y2NmOGQxMTQyNmFlY2YzZjZkYWUxNTE4ZGM0YTcyYjM5YzE4ZTVhNzVjNzM0NTI2ZWM5MjUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZmOWQ3MzYxMTE4NDhiYmQwOTg2NWY4MDY0NjVjNTdjYzlmNGFjYTNjY2JhZDIyOTA4YjllYTMxNDRjNzQyMjEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ2OTU5YTljNWQyNTM4YjgxZjJiMDZjZDM2NzY3YTM3Mjc0MzA5MmFhZGExMzYwYzlkYWZmMmJhN2ZiMjJhY2YifQ"
         },
         {
-          "resource": "repo://main.py#L79-L88",
+          "resource": "repo://main.py#L80-L89",
           "version": "repo-lines-v1:sha256:1863f9331a824f880cf5547a0830516b159678c29922d86447aa25adb4dae5b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwODMyMGMxYTNmNjYyMzlhODU3ZmMzNDI1ODMwNTg1Mzg5MDlmNjk2NTkzZGRhNmQxYTEwNzg1YWQxNmFiNjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjlkM2VhMWE2MGNiN2I1M2MzYTZhYmI2MjczNjIwYzE3MGE2MGQ1MWFlNzdiMWQ2YTQ1Y2E0ZDdhOTI0ZTcxNjQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJjNDRlYTU5YTQ1MDdjY2JiODA1NjUwOGZlZDBlODBiMzI0N2VhZjFlMThhOTZiNjNjNmFmNjlkOThkZGFhNzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjExOTBmNWZmYmU3YWI4Njk2OTRkZDExZWY0YmNkODc4YjRlYmU0MGY2NDZlYWY5OTg1ZDYxODg3Y2E0ODRkNzIifQ"
         }
       ]
@@ -59,11 +59,11 @@
       "statement": "The StockMovement.grams column is overloaded: it stores gram amounts for weight-tracked items but unit counts for unit-tracked items. create_batch stores units_remaining in grams for unit batches and scan_barcode stores grams=1 per unit scan, and scripts/low_stock.py sums movement.grams across both tracking types to estimate weekly consumption.",
       "evidence": [
         {
-          "resource": "repo://main.py#L113-L118",
+          "resource": "repo://main.py#L114-L119",
           "version": "repo-lines-v1:sha256:51347acd506515bfe3c7b958afd96cdcd6d428f34565a9cb78617f4652b6205f:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzVlZWEwYjRmMzc5NzU1OWM1YTg1MzIyNDc0ZTU4Y2MwMGNhYjIzZGUzMDJmZmJiMGViMWQ2MjMyZDQ2MmRlZCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTUwMzJlOTY0ZDA5MzIzNTFlNWQxODUyNjkyODFiMTcxYTNhMDliMDhiMjg2ZTY2MWVhNDcwMzIzYzgyZWI0ZCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzkzMmFmZWJjM2U1NDI1YzIyMjAzOWEzZDUzZWFkOWQ0ZmU3OTY3NzQ3MTE1YWU3NjY5NjBiYjJiZDk5ZDBmYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMWNkZjllYmRlMzM5MTZlYTNiNjEwMWI3N2I0MTdjZmIxNWExMjhiMjVkZmI2ZTRhYTUzMThkY2UxOTQ3MmJmOCJ9"
         },
         {
-          "resource": "repo://main.py#L47-L58",
+          "resource": "repo://main.py#L48-L59",
           "version": "repo-lines-v1:sha256:dc0b1ea09a140166165f43b02d2fff01af5cde09549461dd14885e99c2abd1d5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlZTg2N2I0MzlhMzk2MDIzYzI4ZjUxYjkyOGMwZjhiZGU5OTIyN2ZhMzQxNjU1YzljOGZmNjFkMGYyNzcwYTQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwMDEwNWUwYTY4NTIxYzNkMzMyNjE1MzkwZTg1OWUzOWNmMjQxMjc0YTdkNzgxZDE5NmEzYWRhMDdiMTBmZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI4OTU0ZjQ1NzZkNGVhMjg2MTRkOGE0NjgzZDIzY2IxZDgzMzBmZjNmYzg4ZWQwM2NiZDgzZTI1ZmZhZWE0NTQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQyMzhlNGRhNjc2NWY5Y2VhNmUxMDI0NGIyMzVkYWY4MTBkOWJjY2VhZjVlN2U2NmY5YmQzZWE5NjliYjZjZjMifQ"
         },
         {
@@ -77,11 +77,11 @@
       "statement": "Direction enum has IN (restocks recorded by create_batch) and OUT (scans and manual deductions); StockMovement.barcode is nullable and set to None for manual deductions and batch restocks.",
       "evidence": [
         {
-          "resource": "repo://main.py#L143-L146",
+          "resource": "repo://main.py#L144-L147",
           "version": "repo-lines-v1:sha256:e86c256ac06263a49c2852c74fe73deef9f41868b765564cd930678f37945e3a:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmVlNjRkNDU0NzI4NTJmYWE3Njc0Njk0YTUyYmM0Yjg4MDA0MmQzNzBkNWNiNzAyM2YxZGU2MzJkNmE2MzVkMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNTU4ZjIxMjI5ZDUwNDg4MzE2N2E2NTE3NDEzOGE1OWIzYzg4Njc1NThiNmM5ZmQxYTU1ZThhOTVmYTEwNzhiMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDNlMTg5OTYxNjNhMmUyZGNmYTk2ODVkZDZmYzhiODBlY2FiNGZlOWI5YTA3ZTg5ZmQ5Y2Q0YzQ1NDdjOGU3MiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWUwY2M5MmRkM2E2YjhhMzZkZWRmNjc1NjczMzNmZmIxMWUxOWYyZjMwYTc2ZDU5ODkwMjRjOWMxZTE4NjlhMCJ9"
         },
         {
-          "resource": "repo://main.py#L48-L58",
+          "resource": "repo://main.py#L49-L59",
           "version": "repo-lines-v1:sha256:cd6c9af12356472c77bcdfb54661b1be1b344de17c607549275af74535bc0ba6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlZTY0ZDQ1NDcyODUyZmFhNzY3NDY5NGE1MmJjNGI4ODAwNDJkMzcwZDVjYjcwMjNmMWRlNjMyZDZhNjM1ZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwMDEwNWUwYTY4NTIxYzNkMzMyNjE1MzkwZTg1OWUzOWNmMjQxMjc0YTdkNzgxZDE5NmEzYWRhMDdiMTBmZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjkyMjY0YjIwZmU5ZjVlZWQ1ZjJmY2QwYzIyNDFkOThjODUzMWRjYTQ3ZGFmNGZlY2EzNGU4MDMxOTIxZDI4YzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQyMzhlNGRhNjc2NWY5Y2VhNmUxMDI0NGIyMzVkYWY4MTBkOWJjY2VhZjVlN2U2NmY5YmQzZWE5NjliYjZjZjMifQ"
         },
         {
@@ -105,14 +105,68 @@
       "statement": "When a scan cannot be fully covered by on-file batches, scan_barcode records the full package_size_grams as the OUT movement and returns status 'stock_mismatch' with the stock_shortfall; only full coverage returns 'completed'.",
       "evidence": [
         {
-          "resource": "repo://main.py#L89-L108",
+          "resource": "repo://main.py#L90-L109",
           "version": "repo-lines-v1:sha256:3fd82d9b62196fbd108cb808c131869e24465a848b7d6118199f94d136f015f4:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU1NDA5ODE4YjRkMzkzYzVkNzg1ZGExOTQ2YzkyNGUzODVjMWRlNmQ5Y2EyYjY1ZTRkOGY5NzdhN2YwMDkxMWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjNjQ3OWNjMjMwNDQwZmQ0MWU4MjI0MjE4Njc5Njk4NTU5ZDI4OTNiZDY3YjQzODBhZmFiODExYjM4YTU1YWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQzZTE4OTk2MTYzYTJlMmRjZmE5Njg1ZGQ2ZmM4YjgwZWNhYjRmZTliOWEwN2U4OWZkOWNkNGM0NTQ3YzhlNzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1OWM4MGE2MDM3MjFlZGViYmZkMDRiMDM2ZDU2NmFkMDMwZjY5MWM4NTgyNmIxMjcwNGU0OWY2MmU5OTIyOGYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e8ce592098d441e7bdc9c31815db9661",
+      "statement": "The four report endpoints in main.py (/reports/fefo-next, /reports/last7, /reports/stock-per-variety, /reports/expired-with-stock) bypass the ORM and run raw SQL via sqlalchemy.text(); each returns db.execute(...).mappings().all(), a list of plain dict RowMapping rows, and none declares a response_model, so there is no Pydantic validation or ORM serialization on those routes.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L182-L239",
+          "version": "repo-lines-v1:sha256:4dccc92187306d67b8651a7168e249ba8c295bda5f857f376de0e758cb13950c:eyJzZWxlY3RlZExpbmVDb3VudCI6NTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0Y2I2MDk2ZWFkZGVkNDkzYzQ4OTA0ZGMyM2QxOTgyODgyOTM5YTQ3MDE0MzRlZDJhMGEwNmU0NWVhMWY0NzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5MWI4YzQyZTZiZmQ2MzE2MzA0YjJmMjMzZDk0YjJhNjRjOGUyZjcwZjFjZTk2OTgxNjliZTI4MmI4MGNkM2EiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA4ODY5YzQzNGM5MmI3N2U0NTAyNTMyOTU3NjY2ZDEzNzQyYWVjZDcyOTE3NDgyMzlkMTBkODZhMmUzZTVjYzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIifQ"
+        },
+        {
+          "resource": "repo://main.py#L2-L3",
+          "version": "repo-lines-v1:sha256:fde96237b6a4b6f29be84e817827f1c8261db5a9496b85dc2c581abf429d97f3:eyJzZWxlY3RlZExpbmVDb3VudCI6MiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzBkOGI5ZTcxYWVjZThkMWQ0Y2Q1NmRlM2NiZTI3N2NhMTRhYWE2ODQ0YmE4MGQ4MDg5NWJiMDNjZWM1NzE3OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjY3NjgxNjIxMTM2NWY4ZmQ1Yjk3NWNiMjI5ZmI3YWQzNGQ1MmRmMmY0ZGY1ZGU3ZTJlYjQxOTY2YmIyZGU0MCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjEsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDdlNDY5ZWQ0YTgyYzhkMzBlYTYzYjM1MjdlNmJhMzgyZDc0M2JlY2I2ZGNjMDVkNjkwYTk3OGYzNjdiNWI5MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjVhZDdmOTM1NTlmM2JhOTdkOGNkOTU2OGExOWU3Y2ViYzljN2E3OGM0M2ZjZjE2NjUwMmMwN2EwZDVkY2VkNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_d61b5a0979ab431aaa51a3c3c2ec8349",
+      "statement": "The report queries use four distinct SQL patterns over varieties, batches, products, and stock_movements, all coalescing units_remaining and grams_remaining to normalize tracking modes: fefo-next takes min(expiry_date) per in-stock variety then joins back for that batch's remaining; last7 joins stock_movements to products and varieties and filters the last 7 days; stock-per-variety sums coalesced remaining with a left join so empty varieties show 0; expired-with-stock selects batches past expiry that still have remaining stock.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L184-L206",
+          "version": "repo-lines-v1:sha256:56f40f16c48c04c3b50928dea554a1fe1e26b69cd15a7fa1f62cd5d5dcf3cbb5:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhNzI1YzE2ZWFlMzMzNThlZGU1MWM2NzVlODBmNzg2Mjc3YTc4YzY0NmM3ZDUzMjA3Y2UwMzE3NjVlMzA1NjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRlMDBhMjEwODQxZDkxODEzOTk5YjAxMDUyNDE4ZWFhN2QyMGIzMjU3ZmM4YmNlNjY4MDMxNGNlOGRmMDFhZDYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA0NGM0NmNmMmIzN2NlNzljMmFjYzNhNzZhZGI3NmZhZjU5Mzc1NTM4NzY0NTljNGU0OTQwZjZhNzM5MGYzYzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImE5YmQ0Y2JmYWI1ZmUwN2RhYTViZGM3ZmYyOTM3Y2QzNDBjOWJjMDUyZjhhOGMwNjVjYzNkZTU2ZjY0MDRkY2EifQ"
+        },
+        {
+          "resource": "repo://main.py#L211-L217",
+          "version": "repo-lines-v1:sha256:8e3fd4c3249ce0311fb68324ac48350b3dd9a763b68dec12d218408bcc6041d3:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzg0NzBlYTE0ZDU2ZDhmZTc1MmYzNWE0ODBlYzc0YjI0Yzk1ZGZmNTJhYWEzNDE3YzlhOGQ4OTI3NGY0MGNmOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDdiODAwNjgxNGE4ZWE0NTc5ZTE5MjRlMDQ3NTViNTA4YzNmYjI1YjRlYjA5MTI3OTliYjQ2OTFiYWRkNGQ1YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWUzMTRkN2I2MjQ4NzlmOTlhZWQ4ZWFlZGE4NmJhYTg5ODU0MTIxY2U1YTA3ODZlNzk0ZTk2ZTZkOTQwMjc3OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzg5YzIwNmIwYmFhYmQ5MDIwNzFmYmU2NDY4ODExZmU5YTU5YzQwNDJmZDRhNTZhMzZkMzNlYzE0MjI2NTgxYyJ9"
+        },
+        {
+          "resource": "repo://main.py#L222-L227",
+          "version": "repo-lines-v1:sha256:2b346f39941ddb0f60faad5e050a903864ccff4a2052d79455a5d11934e3d226:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGU1ODlmM2ZjNDNmMmE3ZTA5ODNkY2VlMjgxZDg4NTgxNGI2ZjI4NzQ3ZjEzNjZjMGFmMjJhODBlMzViNzkxYiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjNkMDdmNDlhMzZkYzk4ZDM3NzBlM2YxNWFiZDM4MDg4MWQwYjNmOThiNjM1ZDk3NjRlZTIyMjk2YjY4MWM0YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZWE2N2VlMmU3NzUxYzc4NTA2YzQ0YzFmMGU1MjE3MmUyMTQ3OWQyYmI1MDk2NjFiOWU1MDVlMzg3NWVhMmQ3YyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOTFmMmY3OWNjN2IwYjliYzJiZDRlM2UzZmVkNWU0Mzc1ZTAzMmY3ODIzN2Q4ZWI5NDBmNDQxZjA1MjIwMmNhMyJ9"
+        },
+        {
+          "resource": "repo://main.py#L232-L238",
+          "version": "repo-lines-v1:sha256:715dd9b75302ba8a8fe263e95fac4ae48077cc424338b008ac824650741f6f8d:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNzhiZWNjZDc4OTJmNDA2OWMxZTVlMDY2MGVhMDIxMGYyYTljNWNjM2EyNGVhMmExODAxYjhlZGNiMzg2ZTA0YyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDdiODAwNjgxNGE4ZWE0NTc5ZTE5MjRlMDQ3NTViNTA4YzNmYjI1YjRlYjA5MTI3OTliYjQ2OTFiYWRkNGQ1YyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMzE4NTI1OTI3YTE3MjFkYTQyYjFmZDRiZjBhM2E4YmIwMGExNTQ1MWVlZGU3MDE3NWU1OWYyOWU3ZDkyOTgxNyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjIsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNzQzMWE4N2ZhYTI4Mzg3ZWYxYWQwYzY3M2M2ZTFhYWFiYzQxYjM1M2FiZDRiOTM4NTg3MmJmM2FiN2VjOTFjYyJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_da513b6f2afa4b36b281819d76e4801c",
+      "statement": "StockMovement's timestamp column is named received_at in the ORM model (models.py line 45), but scripts/low_stock.py filters on StockMovement.timestamp and the /reports/last7 SQL selects and filters on s.timestamp — a known discrepancy where two consumers reference a column name absent from the ORM model, so reconciliation of either side must update the other to keep the affected query working.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L211-L216",
+          "version": "repo-lines-v1:sha256:69230ef479686e653a763bc4d68a7c14f512b841b8dc616c05cf7813d9387c53:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYzg0NzBlYTE0ZDU2ZDhmZTc1MmYzNWE0ODBlYzc0YjI0Yzk1ZGZmNTJhYWEzNDE3YzlhOGQ4OTI3NGY0MGNmOSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYTk1ZGViZDUzM2YzOGFlYzUwYTRmN2U2MWJjY2VlY2M0ODNjOWQzNWMyZWZlNjI0Y2M3MjA0NTBkODIyZGY1OSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOWUzMTRkN2I2MjQ4NzlmOTlhZWQ4ZWFlZGE4NmJhYTg5ODU0MTIxY2U1YTA3ODZlNzk0ZTk2ZTZkOTQwMjc3OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTQzMjE0MDg5NWM2MTRlZjAwNjc2NzY2MzMzZDgyZmViZjhmZDUwNGM2YTRkNzYzNjBhMDNlMWZmOGQwNTBiNiJ9"
+        },
+        {
+          "resource": "repo://models.py#L45-L45",
+          "version": "repo-lines-v1:sha256:66a75fe51b252608aa3cc239f74ec33fa2192a349d123e3a494d7dee65c0f0ea:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNjZhNzVmZTUxYjI1MjYwOGFhM2NjMjM5Zjc0ZWMzM2ZhMjE5MmEzNDlkMTIzZTNhNDk0ZDdkZWU2NWMwZjBlYSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNjZhNzVmZTUxYjI1MjYwOGFhM2NjMjM5Zjc0ZWMzM2ZhMjE5MmEzNDlkMTIzZTNhNDk0ZDdkZWU2NWMwZjBlYSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTIxN2E3NDQ0YjI0OGNhMmUyNmM3MDYxNWIxNzYwNTFmM2Y3MTI5MWEyNmY1YTQwMjRjMTRhNGE3MzliOTY0OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjAsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZTNiMGM0NDI5OGZjMWMxNDlhZmJmNGM4OTk2ZmI5MjQyN2FlNDFlNDY0OWI5MzRjYTQ5NTk5MWI3ODUyYjg1NSJ9"
+        },
+        {
+          "resource": "repo://scripts/low_stock.py#L14-L14",
+          "version": "repo-lines-v1:sha256:02b711177530072248911b1abe151250275c48c4631a6fb8dcfd507f42eee648:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDJiNzExMTc3NTMwMDcyMjQ4OTExYjFhYmUxNTEyNTAyNzVjNDhjNDYzMWE2ZmI4ZGNmZDUwN2Y0MmVlZTY0OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDJiNzExMTc3NTMwMDcyMjQ4OTExYjFhYmUxNTEyNTAyNzVjNDhjNDYzMWE2ZmI4ZGNmZDUwN2Y0MmVlZTY0OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODFkZTUxNzUzMDMwZmNiYmFlODZlNmQ1Nzg5OGZhYzNjYWZmMzJmOTA5ZmQ3NDY2MWZmNzMxOTYwNGM2ZDUzMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWViM2QzZDE0ZGIxMGNkYWJkZWE2MmExZjk3MWFmNGUxYzNiZWFhYTBiOTBmMDgxNGE3ZWZjZGZhM2ZiMzRjZSJ9"
         }
       ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.5.1",
-    "at": "2026-09-11T18:21:42.744Z"
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-01T12:43:49.948Z"
   }
 }

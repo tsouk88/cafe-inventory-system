@@ -1,11 +1,8 @@
 ---
 type: "Reference"
 title: "Domain Concepts"
-description: "Core data model (Variety, Product, Batch, StockMovement), tracking modes, and the FIFO/expiry invariant that governs stock consumption in the inventory system."
-tags: ["data-model", "inventory", "fifo", "tracking-modes"]
-verified:
-  - by: openwiki/0.5.1
-    at: 2026-09-11T18:21:42.744Z
+description: "Core data model (Variety, Product, Batch, StockMovement), tracking modes, the FIFO/expiry invariant, and the raw-SQL reports surface in the inventory system."
+tags: ["data-model", "inventory", "fifo", "tracking-modes", "reports"]
 sources:
   - id: openwiki-source-833e692518af9eeaf8564cc6
     resource: repo://main.py
@@ -15,12 +12,15 @@ sources:
     resource: repo://schemas.py
   - id: openwiki-source-7ed2d9b3005cd559f37189d1
     resource: repo://scripts/low_stock.py
-generated: { by: "openwiki/0.5.1", at: "2026-09-11T18:21:42.744Z" }
+generated: { by: "openwiki/0.6.1", at: "2026-10-01T12:43:49.948Z" }
+verified:
+  - by: openwiki/0.6.1
+    at: 2026-10-01T12:43:49.948Z
 ---
 
 # Domain Concepts
 
-The inventory system tracks stock across four SQLAlchemy entities defined in `models.py`: **Variety**, **Product**, **Batch**, and **StockMovement**. A variety declares how its stock is measured (by weight or by whole units); products are barcode-scannable items belonging to a variety; batches are delivery lots that carry expiry dates and remaining stock; and stock movements record every inventory change. The central business rule is a FIFO-by-expiry consumption invariant: stock is always taken from the earliest-expiring batch first, spilling over to later batches when the earliest is exhausted.
+The inventory system tracks stock across four SQLAlchemy entities defined in `models.py`: **Variety**, **Product**, **Batch**, and **StockMovement**. A variety declares how its stock is measured (by weight or by whole units); products are barcode-scannable items belonging to a variety; batches are delivery lots that carry expiry dates and remaining stock; and stock movements record every inventory change. The central business rule is a FIFO-by-expiry consumption invariant: stock is always taken from the earliest-expiring batch first, spilling over to later batches when the earliest is exhausted. A set of read-only **report endpoints** in `main.py` layer raw SQL over these tables for operational dashboards.
 
 ## Entity-relationship model
 
@@ -52,7 +52,7 @@ erDiagram
         string barcode FK
         Direction direction
         int grams
-        datetime timestamp
+        datetime received_at
     }
 ```
 
@@ -87,21 +87,30 @@ A **batch** (`Batch`) is a delivery lot with its own expiry date. Its columns:
 - `grams_remaining` — nullable; used by weight-tracked varieties.
 - `units_remaining` — nullable; used by unit-tracked varieties.
 - `expiry_date` — `Date`, the value that drives FIFO ordering.
-- `received_at` — `DateTime`, defaults to the current UTC time and is kept for audit/history.
+- `received_at` — `DateTime(timezone=True)`, defaults to the current UTC time and is kept for audit/history.
 
 Weight-tracked batches use `grams_remaining`; unit-tracked batches use `units_remaining`. Batches are **not** interchangeable across varieties — each batch is scoped to a `variety_id`, and stock consumption is computed per-variety.
 
 ## Stock movements
 
-A **stock movement** (`StockMovement`) records an inventory change. Its columns:
+A **stock movement** (`StockMovement`) records an inventory change. Its columns, from `models.py`:
 
 - `id` — integer primary key.
 - `barcode` — `ForeignKey("products.barcode")`, **nullable**; set for product scans, `None` for manual deductions and batch restocks.
 - `direction` — `Enum(Direction)`, `IN` for restocks and `OUT` for scans and manual deductions.
 - `grams` — integer; see the `grams` overload note below.
-- `timestamp` — `DateTime`, defaults to current UTC time.
+- `received_at` — `DateTime(timezone=True)`, defaults to current UTC time (the same default pattern as `Batch.received_at`).
 
 `IN` movements are created when a batch is added (`create_batch`); `OUT` movements are created by barcode scans (`scan_barcode`) and manual deductions (`manual_deduct`).
+
+### The `received_at` / `timestamp` discrepancy
+
+The ORM model names the movement timestamp column `received_at` (`models.py` line 45). However, two consumers reference a **`timestamp`** column that does not exist in the ORM model:
+
+- `scripts/low_stock.py` filters on `StockMovement.timestamp` when querying the last week of `OUT` movements.
+- The `/reports/last7` report SQL selects and filters on `s.timestamp`.
+
+These references only resolve if the physical database column is named `timestamp` (the ORM's `received_at` would otherwise be a mismatch). This is a **known discrepancy**: any code path that relies on the ORM attribute name `received_at` is correct against `models.py`, while `scripts/low_stock.py` and the `last7` report assume the historical `timestamp` name. Changing or reconciling one side without the other will break the affected query.
 
 ### The `grams` column overload
 
@@ -148,3 +157,23 @@ This is the **central invariant** to preserve when changing the backend or the U
 - `BatchCreate.check_quantity` raises `ValueError("Πρέπει να δώσεις είτε grams_remaining είτε units_remaining")` when both `grams_remaining` and `units_remaining` are `None`.
 
 Both validators ensure the request specifies a quantity in the dimension appropriate to the variety's tracking mode.
+
+## Report queries (raw SQL)
+
+`main.py` exposes four read-only **report endpoints** that bypass the ORM and query the tables with raw SQL via `sqlalchemy.text()`. None of these routes declares a `response_model`, and each returns the result of `.mappings().all()` — i.e. a list of plain dict rows (`RowMapping`), not ORM objects or Pydantic models — so there is no response validation or serialization on these routes. All four `coalesce(b.units_remaining, b.grams_remaining)` to treat the per-variety quantity column uniformly regardless of tracking mode.
+
+### `/reports/fefo-next`
+
+`getreports` computes the next batch to expire under FEFO, per variety with stock on hand. The inner subquery selects, per variety, `min(b.expiry_date)` over batches where `expiry_date > now()` and remaining stock `> 0`. The outer query joins back to `batches` on that `min_expiry` to surface the actual remaining quantity for the earliest-expiring in-stock batch, ordered by `min_expiry` ascending. This mirrors the FIFO-by-expiry invariant used by the deduction paths.
+
+### `/reports/last7`
+
+`getlastseven` returns recent movement activity. It joins `stock_movements` to `products` (on `s.barcode = p.barcode`) and then to `varieties` (on `p.variety_id = v.id`), filters `s.timestamp > now() - interval '7 days'`, and selects the variety name, the movement timestamp, direction, and `grams` (aliased as `stock`), ordered by `timestamp` descending. Note this query references `s.timestamp`, the historical column name — see the `received_at` / `timestamp` discrepancy above; against the current `models.py` the ORM column is `received_at`.
+
+### `/reports/stock-per-variety`
+
+`getstockpervariety` aggregates current stock by variety. It left-joins `varieties` to `batches` where `coalesce(b.units_remaining, b.grams_remaining) > 0`, groups by variety, and selects `coalesce(sum(coalesce(units_remaining, grams_remaining)), 0)` as `remaining`, the count of active batches, and the variety's `tracking_type`, ordered by `remaining` descending. Varieties with no in-stock batches still appear (the left join) with `remaining = 0`.
+
+### `/reports/expired-with-stock`
+
+`expired` finds batches that are past expiry but still hold stock — the FEFO violation cases. It joins `varieties` to `batches` where `b.expiry_date < now()` and `coalesce(b.units_remaining, b.grams_remaining) > 0`, selecting the variety name, tracking type, remaining stock, and `b.expiry_date as expired_at`, ordered by `expired_at` descending. These are the lots a human should remove or write off.

@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:f2d6fb9e058fa8606dd1be1e56f712eb8c4d549f44cdf837167a933591fb0441",
+  "pageVersion": "sha256:b8d70bc7906734b592c99117fd8f548de5bc1aea7773df58eb075c9b2d493de0",
   "claims": [
     {
       "id": "claim_ed3fd7af05e54e40b46e5184fcfc1004",
       "statement": "POST /scan branches on variety.tracking_type: the WEIGHT branch subtracts product.package_size_grams by walking batches ordered by Batch.expiry_date ascending, zeroing batches and tracking an uncovered stock_shortfall, returning status 'completed' when the shortfall is 0 and 'stock_mismatch' otherwise; the UNITS branch finds the first batch (by expiry_date) with units_remaining > 0 and decrements exactly 1, always returning units_removed=1 and status 'completed'.",
       "evidence": [
         {
-          "resource": "repo://main.py#L69-L124",
+          "resource": "repo://main.py#L70-L125",
           "version": "repo-lines-v1:sha256:1c4d0cdd3c4765682e2dd96feabbdfc9f70132aecf825be663976db680782d4f:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyNTU5NDI3M2FjMDE4OTAwMDRiYmMxMWMwOWJkMWYzMzEzYjZlZjFlNjkxNDk4ZDY1ZGE2ZTRjYzk1OWQ2YmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYzYmVjODk1NjNiZGMyZjU4NjdhNjQwMGY5MGJhOWZlZDIwZjE0NmY2YzA4NzAwNGMzNTI4NjlkYmRmYWE2NDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1MGUzN2E4NzgyYjJjNmE0NjkyZDUyYWJiMTRkYTQ1YTRjYzM0NGExZmE5OWE4Njg4NjJlZTE4MWFiNmZiNTMifQ"
         }
       ]
@@ -17,7 +17,7 @@
       "statement": "POST /scan for a WEIGHT product always records a StockMovement with grams equal to the full product.package_size_grams regardless of shortfall, while the UNITS branch records grams=1 (the overloaded unit count).",
       "evidence": [
         {
-          "resource": "repo://main.py#L97-L118",
+          "resource": "repo://main.py#L98-L119",
           "version": "repo-lines-v1:sha256:28355a70509cc8340221bb1e0aacf5d583801f09c9bfba5c4d166a847333f76e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlZTY0ZDQ1NDcyODUyZmFhNzY3NDY5NGE1MmJjNGI4ODAwNDJkMzcwZDVjYjcwMjNmMWRlNjMyZDZhNjM1ZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MDMyZTk2NGQwOTMyMzUxZTVkMTg1MjY5MjgxYjE3MWEzYTA5YjA4YjI4NmU2NjFlYTQ3MDMyM2M4MmViNGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVkYWZlZTc3MWJkZmQ0ZmEzYjU1NWE5NDQ3NDYwYjlhMzM0YWExNjRmNTZhZWRkNWJiMGFlMjkzOTYxNWVmY2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFjZGY5ZWJkZTMzOTE2ZWEzYjYxMDFiNzdiNDE3Y2ZiMTVhMTI4YjI1ZGZiNmU0YWE1MzE4ZGNlMTk0NzJiZjgifQ"
         }
       ]
@@ -27,8 +27,8 @@
       "statement": "POST /deduct applies FIFO by Batch.expiry_date but behaves inconsistently: the WEIGHT branch always returns status 'completed' and never reports a shortfall even when batches cannot cover the requested grams, whereas the UNITS branch subtracts deduct.units with spillover, computes units_removed, and returns 'stock_mismatch' when remaining_to_subtract is non-zero.",
       "evidence": [
         {
-          "resource": "repo://main.py#L126-L179",
-          "version": "repo-lines-v1:sha256:74f04598339ca28bfaa7f42f96e44c6e6b56b3601debbe63552fc8510d07ae7b:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0MTEzMmY0ZmYxZTc0MWZkOTdkYTFjZTMwODJkYTk0NWE5ZGNmZDIxODQ5ZmIxMDlhNjY5Y2NlYjM0OGE2ODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg2YWZkZjcwYTk1NDM2ZTg4M2FhN2ZjNWMwNmEyYWIwODM3MTkwNTQ0MzhmMTIxOGQxNWViZGFmMjg3YjRiYWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgxODRlZjZmZTFmODAyNTU3ZTBkMjlhMGY5YjRiODk1YTJhYjA1NWFiMGY1MGViZmVhYjRhZDcwOTM5NjMzYzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://main.py#L127-L240",
+          "version": "repo-lines-v1:sha256:f225213a1cb7ced7a722875206b04bd8d5a8a7965fc91dde810c8d7afa64497f:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE0LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIyNDExMzJmNGZmMWU3NDFmZDk3ZGExY2UzMDgyZGE5NDVhOWRjZmQyMTg0OWZiMTA5YTY2OWNjZWIzNDhhNjgyIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI4MTg0ZWY2ZmUxZjgwMjU1N2UwZDI5YTBmOWI0Yjg5NWEyYWIwNTVhYjBmNTBlYmZlYWI0YWQ3MDkzOTYzM2MzIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MCwiZm9sbG93aW5nQ29udGV4dEhhc2giOiJlM2IwYzQ0Mjk4ZmMxYzE0OWFmYmY0Yzg5OTZmYjkyNDI3YWU0MWU0NjQ5YjkzNGNhNDk1OTkxYjc4NTJiODU1In0"
         }
       ]
     },
@@ -37,7 +37,7 @@
       "statement": "POST /batches (restock) creates a Batch and an IN StockMovement whose grams column carries the restock quantity regardless of tracking type: new_batch.grams_remaining for weight, new_batch.units_remaining for units.",
       "evidence": [
         {
-          "resource": "repo://main.py#L43-L62",
+          "resource": "repo://main.py#L44-L63",
           "version": "repo-lines-v1:sha256:3a2a601822b082df21b43a3bae1f1034be41daf270aaa9bff9a4317d05bd6b39:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYzMDgyNzEzMDI3ZjkxMTMzODg4YzVhMGZiNGM1Y2ZiZmZlNDA3ZmMwZDFjOTQ5NWNlYTI3YTljZDEwZDQ3MGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwM2JiMGNlMzU3MzcxMDQ1MzJiOWVjMzg2Mzk5ZWJlZjc0YzY3NjM3YzUzNTQyMGY1Zjg2ODMwYzgzZGZjMzIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUwYzI5MDM1NGY3MjRiZTVjZDBjMjQyZjUxZDE3MzRlNTU0OTg5NTg1NGU3OTU2NTNlNThlNGVjMzgwY2I3N2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIzNDYyOWY1YmM5YjU5OGEwOGM5Yzk1YTY0YjQxYTY3ZGNjYmE4ZjJmZDE4NWE0ZDNkMzY5MWEyZWQwMDIwNWIifQ"
         }
       ]
@@ -47,15 +47,15 @@
       "statement": "StockMovement.grams is a single overloaded integer column storing grams for weight movements and a unit count for unit movements across the /scan, /deduct, and /batches write paths, so the audit trail and the low-stock consumption sum both read one integer field.",
       "evidence": [
         {
-          "resource": "repo://main.py#L143-L173",
+          "resource": "repo://main.py#L144-L174",
           "version": "repo-lines-v1:sha256:2fde54f82c4669b0de024e84273bf3a24b3f042b734d477e47470bedda97c9fb:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlZTY0ZDQ1NDcyODUyZmFhNzY3NDY5NGE1MmJjNGI4ODAwNDJkMzcwZDVjYjcwMjNmMWRlNjMyZDZhNjM1ZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MDMyZTk2NGQwOTMyMzUxZTVkMTg1MjY5MjgxYjE3MWEzYTA5YjA4YjI4NmU2NjFlYTQ3MDMyM2M4MmViNGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQzZTE4OTk2MTYzYTJlMmRjZmE5Njg1ZGQ2ZmM4YjgwZWNhYjRmZTliOWEwN2U4OWZkOWNkNGM0NTQ3YzhlNzIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUxMzBmMTQyOTg3MDYzZmJjYWNmN2YyNjFjZDI5OWQ1ZWIwODAxZDY3NjgwODAzZDMwNWI3Y2I1MDU1YmNjYWYifQ"
         },
         {
-          "resource": "repo://main.py#L43-L62",
+          "resource": "repo://main.py#L44-L63",
           "version": "repo-lines-v1:sha256:3a2a601822b082df21b43a3bae1f1034be41daf270aaa9bff9a4317d05bd6b39:eyJzZWxlY3RlZExpbmVDb3VudCI6MjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYzMDgyNzEzMDI3ZjkxMTMzODg4YzVhMGZiNGM1Y2ZiZmZlNDA3ZmMwZDFjOTQ5NWNlYTI3YTljZDEwZDQ3MGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwM2JiMGNlMzU3MzcxMDQ1MzJiOWVjMzg2Mzk5ZWJlZjc0YzY3NjM3YzUzNTQyMGY1Zjg2ODMwYzgzZGZjMzIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUwYzI5MDM1NGY3MjRiZTVjZDBjMjQyZjUxZDE3MzRlNTU0OTg5NTg1NGU3OTU2NTNlNThlNGVjMzgwY2I3N2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIzNDYyOWY1YmM5YjU5OGEwOGM5Yzk1YTY0YjQxYTY3ZGNjYmE4ZjJmZDE4NWE0ZDNkMzY5MWEyZWQwMDIwNWIifQ"
         },
         {
-          "resource": "repo://main.py#L97-L118",
+          "resource": "repo://main.py#L98-L119",
           "version": "repo-lines-v1:sha256:28355a70509cc8340221bb1e0aacf5d583801f09c9bfba5c4d166a847333f76e:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlZTY0ZDQ1NDcyODUyZmFhNzY3NDY5NGE1MmJjNGI4ODAwNDJkMzcwZDVjYjcwMjNmMWRlNjMyZDZhNjM1ZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MDMyZTk2NGQwOTMyMzUxZTVkMTg1MjY5MjgxYjE3MWEzYTA5YjA4YjI4NmU2NjFlYTQ3MDMyM2M4MmViNGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVkYWZlZTc3MWJkZmQ0ZmEzYjU1NWE5NDQ3NDYwYjlhMzM0YWExNjRmNTZhZWRkNWJiMGFlMjkzOTYxNWVmY2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFjZGY5ZWJkZTMzOTE2ZWEzYjYxMDFiNzdiNDE3Y2ZiMTVhMTI4YjI1ZGZiNmU0YWE1MzE4ZGNlMTk0NzJiZjgifQ"
         }
       ]
@@ -85,7 +85,7 @@
       "statement": "The dashboard (App.jsx) polls /varieties and /batches every 10 seconds via setInterval(loadData, 10000) and also calls loadData immediately after a successful scan, restock, or deduct.",
       "evidence": [
         {
-          "resource": "repo://frontend/src/App.jsx#L155-L160",
+          "resource": "repo://frontend/src/App.jsx#L161-L166",
           "version": "repo-lines-v1:sha256:48e6d2339fa72e021de2935e4ff58cd7a338ee1b3cf25a705484b8f698000e53:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTk2NmZiZmE4ODk5OGRhNzQ2NTZjNTAxOTQ5NTZjMjVmMDg0OTQ1NzY2MGMwMDlmZTYzZDFlOWZhOWRjOTMxYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmRjNTJmMDhiMzliMDhiMDFjOGQzMDhiZjg4MGIwYmVmMDJmZDFkZmNjOWQ5YWE5M2E0ZDFiNWY0ZDU4YjZjYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTdkODYzMmU1NGU5Mjk4YWJiOTU4NzI3ZTJkNTE0MDhhYmFmMTM2NjAzNTM3OTEwMTQwYWJmNjViMzBhYjYxMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWVjZTNhMjRkYTYwNmU2YjYyNTlmMzI2NjM0ZDI0YTA3N2I4YWQxZjY3M2VhZGQzYjQ0ZWQzMTE5ODU4Y2ZjMiJ9"
         }
       ]
@@ -105,14 +105,82 @@
       "statement": "main.py serves the built frontend at / from frontend/dist via app.frontend('/', directory='frontend/dist') and the CORS middleware allows http://localhost:5173, the Vite dev origin.",
       "evidence": [
         {
-          "resource": "repo://main.py#L8-L16",
+          "resource": "repo://main.py#L9-L17",
           "version": "repo-lines-v1:sha256:353ea14820ef80356e0e08e24a1e411cc0cb049cc6a23d5cf32d29128b5be896:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMzZjZDFlYzMwMjJkOWZjNzFjMzAyYmFhZWI4YzhlODE5ZTllMGQwYzlmYjI2ZTIyZDBiOGJhZDAwY2RkZTMwMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjU0MDA2MWM4OWVjNWUxMjFhMWU5ODFiZDE0OWEzYzA1MzUxZDkzODQ3NTAyNWI4NGZmNjM5YzE2YWJhZGIyMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZDMwMzhkNWRjYjk3OTlhMmExODg4NDc2YTlhNmMxMmU1MmNmZDM1NjcyZGJiYzhhZDNmYTAxNDNmNzcwOTkwZCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTEwYTkyOGQxZDA0MzRhNzQ3MzU1MzkyMWU1Y2U3OGZmMGI0MjAyYTk1Mzk4MDJlOGMyMTU4ZmNiMTYwMGRmOCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_bbfe57bc5ca94d4a90517088cbe01ee4",
+      "statement": "The Reports view is toggled from within App.jsx by a Reports button that flips the `view` state between 'stock' and 'reports'; when 'reports' is active the Reports component is mounted in place of the stock variety list while the scan bar and restock/remove buttons remain in the header.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx#L192-L197",
+          "version": "repo-lines-v1:sha256:eb5b5277273acfdfab53df5894874fcbbc5d8c6c7ec71ddcca03358e97b3a875:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmZmNDZhZTNkOTRjYzAwZGIwMjc0MjQ0ZTk1MzQxZWQ4ZTg4MTRhNzc4YTE4ZTU2Y2I0MGI1YWRkZmYwMzkxNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDM3M2FkYjFmMTYwNTM0YzY0NDg1ZTEwMWQ2ZTQ1M2E2MTU4YzZlNzFiYTIxYTJmMzZlYjljNTA4NDc1Y2JiNiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjVlZDk0ODUzYjZhMjQ5M2Y2NWI0MWM4ZWY1M2Q5NjA1MmFjNWM1YzI1YjBlNDM4NTE1ZTVmYjNiMGY0NTU5OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2FmNWYxYTc5ZDA4YjdlZGE0NWRkODU2MTE1MWFkMzAyZmViMTRkODRhMDc1YzUxODIyOTg0YjljOWNkZWU5NSJ9"
+        },
+        {
+          "resource": "repo://frontend/src/App.jsx#L225-L242",
+          "version": "repo-lines-v1:sha256:2df8c450ab0ceb408b1df71d4812ba14f93353bf16b7a733ca5a3c52b56a83c3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRlZTg2YzAyOGNkZDQ0ZDliNmE5ZWM2YmJlYWMzOTJhYmZmNzhlYjFjMWM2OGNkNDRmNTc0MDRiYmZkNjk0ZGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEwYzYxYTVkM2UxMDNiNmY2ZTE4M2Y2MmJhNzdhZDdiOTgxY2Y2ZTIyY2U2NTBhMWFjMjk0ZTNjYTM2YjEyZWYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZjYzMzOThmYmI1YWYxOGY5ODU0YWQwMjg4Mjk1NjgwZDE5MWIyZjg1Y2U2NjZlYjc5NDFkMTExNDNhOGI4NDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRjODg4N2U3MGExYWMzOWUzMTRjYTBjN2FlZmQ2ZmRhYmE3ZDg3NDEyODdhZjRjNGZlNWU4N2E1OWQ0ZmQ5ZDcifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1dc412bc88734304a721639f5a255f43",
+      "statement": "Reports.jsx renders four independent ReportTable components, one per descriptor in the REPORTS array, and each ReportTable fetches its own report endpoint inside a useEffect with its own rows and error state, so one report failing to load does not block the others.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/Reports.jsx#L68-L119",
+          "version": "repo-lines-v1:sha256:b5968493fc5cbff775d895e0c8e5ac56e1f07b61e8a074b61fa45220a4ad410b:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhMTBjMWIyNmU3YTVhZjcwZmNhMTVlYTIzZWMwOGExN2M0NDBiMWMzOWY5Mzg3ZThhMTViZjlhZmU1MTMyNDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1ZWYwMWJjMDhkYmMzYjYzZTRlNzVlYTNkMjZhNWI5NDE4OTE4NzdlMjdhZDg5MTMyOWM4NDExZDdkOGRjNGQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJkMGYyZDNhM2FhZGEyNzU4NjQ1NzhkMGE0MzkxNTYzOGQ1NDNmZWNhMmM5NDg1OGRiOTQxMjExZTg2Y2VmMmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_44e1d588337c4cbf8a5b57d1713e7ccd",
+      "statement": "The four report endpoints (/reports/stock-per-variety, /reports/fefo-next, /reports/expired-with-stock, /reports/last7) all use raw SQL via db.execute(text(...)) and return .mappings().all() with no declared response_model, so JSON keys come straight from the SQL column aliases rather than from ORM/Pydantic schemas.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L182-L239",
+          "version": "repo-lines-v1:sha256:4dccc92187306d67b8651a7168e249ba8c295bda5f857f376de0e758cb13950c:eyJzZWxlY3RlZExpbmVDb3VudCI6NTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0Y2I2MDk2ZWFkZGVkNDkzYzQ4OTA0ZGMyM2QxOTgyODgyOTM5YTQ3MDE0MzRlZDJhMGEwNmU0NWVhMWY0NzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5MWI4YzQyZTZiZmQ2MzE2MzA0YjJmMjMzZDk0YjJhNjRjOGUyZjcwZjFjZTk2OTgxNjliZTI4MmI4MGNkM2EiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA4ODY5YzQzNGM5MmI3N2U0NTAyNTMyOTU3NjY2ZDEzNzQyYWVjZDcyOTE3NDgyMzlkMTBkODZhMmUzZTVjYzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_4d5fbda48a11426d804d4ae59cb2fa60",
+      "statement": "stock-per-variety returns name, remaining (coalesced sum of units_remaining/grams_remaining across batches with stock), active_batches (count of batch ids), and tracking_type; fefo-next returns the earliest-expiring batch per variety that still has stock with expiry_date > now(); expired-with-stock returns batches past expiry that still carry remaining stock; last7 returns StockMovement rows from the last 7 days with variety name (may be null for manual movements), timestamp, direction, and stock (the grams column), newest first.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L182-L239",
+          "version": "repo-lines-v1:sha256:4dccc92187306d67b8651a7168e249ba8c295bda5f857f376de0e758cb13950c:eyJzZWxlY3RlZExpbmVDb3VudCI6NTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0Y2I2MDk2ZWFkZGVkNDkzYzQ4OTA0ZGMyM2QxOTgyODgyOTM5YTQ3MDE0MzRlZDJhMGEwNmU0NWVhMWY0NzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5MWI4YzQyZTZiZmQ2MzE2MzA0YjJmMjMzZDk0YjJhNjRjOGUyZjcwZjFjZTk2OTgxNjliZTI4MmI4MGNkM2EiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA4ODY5YzQzNGM5MmI3N2U0NTAyNTMyOTU3NjY2ZDEzNzQyYWVjZDcyOTE3NDgyMzlkMTBkODZhMmUzZTVjYzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c57a84007c23414bb2683312d29ca07b",
+      "statement": "The isWeight(row) helper in Reports.jsx normalizes tracking_type casing by lowercasing the comparison because the raw SQL report endpoints return the enum as stored ('WEIGHT'/'UNITS') while the ORM endpoints return it lowercased ('weight'/'units').",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/Reports.jsx#L51-L54",
+          "version": "repo-lines-v1:sha256:b4a9eaa9e7f21a9d60cadaf71f694b71e1e3cb9e39aed7dbfc2ceb54efb15d61:eyJzZWxlY3RlZExpbmVDb3VudCI6NCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiODYwMzBhODgzZWE4MmQwMDM0ZTg1OGE1OTIxODBjNDZjOTdlMmZiYmVjZjNhMDUyYjZhNGE3MWYyYmJkOWVlMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDEyY2EzNDVjY2Y3NWJmOWMwODA2YmNlNjk1YmU4ZGU4MDhiNzk5ODQyNTFhN2E1NGQyMDJjZjYxMDFkZDQ1MSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMThhOTE3NTk3MmZlMTVlMmE5NjQxYWIxMzFmNTcxZTZjN2NhYmNhMDY4Mzc2MmViYTVmMjM1M2U0ODNjM2Q1NiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmQ4NTNlYzU3NTljNTVlMTQ1ZTQxYmYzZmQ2Mzc5MzRjYmI2MTk0ODNhYjg1ZDVlMmEzZGJlYTgyMTBlZjk2ZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_b8f1241d61084e4aad0c991c742c4e15",
+      "statement": "Because the report endpoints return raw SQL mappings keyed by SQL column aliases, renaming a column in a report query directly changes the JSON key the matching Reports.jsx columns descriptor reads by c.key, so the query and the REPORTS entry must be updated together.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/Reports.jsx#L7-L49",
+          "version": "repo-lines-v1:sha256:c69d2ddd20ec88bbefca8c589be14d0bcfb697988ffcfe4ef11272d238de13f1:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhjNGM1MTY5ZDhkMjBlNTJlYTJjMjg4OTg0MDYwYTgxYzcwZmI0OTE5ZDYyNzE3YmEzYTUyNDBkYjI1M2EyZDkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImIwMmQyYzBkNmRjNWU3NGQ5MmZhMTRiOTFkYmVhMjY0MDkwYmViMzVmZGI5MTg4ZDliMzQxMTgxZGNlOWY0Y2UiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk1NGMzZmMyNGE4ODEzMzg4MGM2MWZhNGM3ZTQ3YjJiYTFhZjEzMGVhZWY2N2VjYTEwYzI4NWMwNjQ0NGIyYjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY4OTIzZmVhOGZlMzQzNzdiN2EwOTQyYTZhYzliZDcyZWQxODNiNTZlZGQxODkwYWVmZDZmYzViNjZiNGVkY2UifQ"
+        },
+        {
+          "resource": "repo://main.py#L182-L239",
+          "version": "repo-lines-v1:sha256:4dccc92187306d67b8651a7168e249ba8c295bda5f857f376de0e758cb13950c:eyJzZWxlY3RlZExpbmVDb3VudCI6NTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0Y2I2MDk2ZWFkZGVkNDkzYzQ4OTA0ZGMyM2QxOTgyODgyOTM5YTQ3MDE0MzRlZDJhMGEwNmU0NWVhMWY0NzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5MWI4YzQyZTZiZmQ2MzE2MzA0YjJmMjMzZDk0YjJhNjRjOGUyZjcwZjFjZTk2OTgxNjliZTI4MmI4MGNkM2EiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA4ODY5YzQzNGM5MmI3N2U0NTAyNTMyOTU3NjY2ZDEzNzQyYWVjZDcyOTE3NDgyMzlkMTBkODZhMmUzZTVjYzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIifQ"
         }
       ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.5.1",
-    "at": "2026-09-11T18:21:42.744Z"
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-01T12:43:49.948Z"
   }
 }
