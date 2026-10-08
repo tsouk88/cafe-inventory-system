@@ -1,14 +1,22 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:2f2e112c98cd6cce59715f5c7ba2673847a10522c653ada4a0330b6e18a360a6",
+  "pageVersion": "sha256:3acb442da1daa942f4e8ada2b568db637f6a26193c089ae1ec42c7cd288c75fd",
   "claims": [
     {
       "id": "claim_f04b9026704c466bb61bcd44001e9fb9",
-      "statement": "main.py is the FastAPI app entrypoint: it defines the /varieties, /products, /batches, /scan, and /deduct endpoints, implements FIFO/expiry-ordered stock deduction for both weight and unit tracking, and serves the built frontend via app.frontend().",
+      "statement": "main.py is the FastAPI app entrypoint: it defines the /varieties, /products, /batches, /scan, and /deduct endpoints plus four raw-SQL report endpoints (/reports/stock-per-variety, /reports/fefo-next, /reports/expired-with-stock, /reports/last7), implements FIFO/expiry-ordered stock deduction for both weight and unit tracking, and serves the built frontend via app.frontend().",
       "evidence": [
         {
-          "resource": "repo://main.py",
-          "version": "repo-file-v1:sha256:202c2193eadc98f18ea6c19642c5663daf9c5ddbbf4fd7f20e06bc2d130e9733"
+          "resource": "repo://main.py#L1-L18",
+          "version": "repo-lines-v1:sha256:4038274aa9689f17040ecc72b02d165e4a41bf53f31740b4ef52bf3a273b9ef8:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3ZTQ2OWVkNGE4MmM4ZDMwZWE2M2IzNTI3ZTZiYTM4MmQ3NDNiZWNiNmRjYzA1ZDY5MGE5NzhmMzY3YjViOTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjE1MTM2MTVhYjE3OTEwNDU1YzBkMDI1OTFmZDQwODgwNDY2YzFlOWVkYWVjNmM2NTA3YjUxMWZkMWRiMmFmNWMifQ"
+        },
+        {
+          "resource": "repo://main.py#L127-L181",
+          "version": "repo-lines-v1:sha256:49c3d97d2a5586e4a84e643d205c9c02a986c1e531db7b87d26a0a20c398ee19:eyJzZWxlY3RlZExpbmVDb3VudCI6NTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0MTEzMmY0ZmYxZTc0MWZkOTdkYTFjZTMwODJkYTk0NWE5ZGNmZDIxODQ5ZmIxMDlhNjY5Y2NlYjM0OGE2ODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgxODRlZjZmZTFmODAyNTU3ZTBkMjlhMGY5YjRiODk1YTJhYjA1NWFiMGY1MGViZmVhYjRhZDcwOTM5NjMzYzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjczYjVjZjk3MDAxZTQ4YjdhZDg0MWUwYWUxNjc2ZTliMWQ4YzY2YjdiMjUwZjg4ZGU0MjJjZWEwNDAwYzY4NWYifQ"
+        },
+        {
+          "resource": "repo://main.py#L182-L239",
+          "version": "repo-lines-v1:sha256:4dccc92187306d67b8651a7168e249ba8c295bda5f857f376de0e758cb13950c:eyJzZWxlY3RlZExpbmVDb3VudCI6NTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg0Y2I2MDk2ZWFkZGVkNDkzYzQ4OTA0ZGMyM2QxOTgyODgyOTM5YTQ3MDE0MzRlZDJhMGEwNmU0NWVhMWY0NzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5MWI4YzQyZTZiZmQ2MzE2MzA0YjJmMjMzZDk0YjJhNjRjOGUyZjcwZjFjZTk2OTgxNjliZTI4MmI4MGNkM2EiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA4ODY5YzQzNGM5MmI3N2U0NTAyNTMyOTU3NjY2ZDEzNzQyYWVjZDcyOTE3NDgyMzlkMTBkODZhMmUzZTVjYzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIifQ"
         }
       ]
     },
@@ -24,11 +32,19 @@
     },
     {
       "id": "claim_c0ff477ba01641d1ade274f4090a447e",
-      "statement": "models.py defines the SQLAlchemy tables Variety, Product, Batch, and StockMovement plus the Direction (IN/OUT) and TrackingType (weight/units) enums that drive stock behavior.",
+      "statement": "models.py defines the SQLAlchemy tables Variety, Product, Batch, and StockMovement plus the Direction (IN/OUT) and TrackingType (WEIGHT/UNITS) enums; both Batch and StockMovement timestamp rows with a received_at column, whereas the report SQL and low_stock.py reference a timestamp column.",
       "evidence": [
         {
-          "resource": "repo://models.py",
-          "version": "repo-file-v1:sha256:015f4db10375b4f5626d489f6feee959f9a82fd2a7cc161a5e36f59044793fef"
+          "resource": "repo://main.py#L209-L218",
+          "version": "repo-lines-v1:sha256:1743ffb5b1a7d23e1b13d520c421544dad0faf22d2e4c7b2ea2620f425e75c4e:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY2YTBhNjBiMjY4ZDU2YWM5ZWNmNGU5MmY5NmQ2OTdhYmU5YmM1MDIyNmU4MDRlMzg3ZTE1YmVjYTNhNTViMzYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImE4Y2FhZmFhZTIxZDA2NTk2NDJiODNmYjdhNGU0ZjRmMmVmN2M0YTBlYjQzOWYwMWZhMTU1MWMxMTI3MDVjNjEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjljNjQ2MjI4MjNjNzFiMmY4ZTM1YTZlOWVmYzhhYTdmMjQ5MTY4MjM5NjdkYTM4MGIxMzEyYzdmNjRlN2VjYzEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImVhNjdlZTJlNzc1MWM3ODUwNmM0NGMxZjBlNTIxNzJlMjE0NzlkMmJiNTA5NjYxYjllNTA1ZTM4NzVlYTJkN2MifQ"
+        },
+        {
+          "resource": "repo://models.py#L6-L45",
+          "version": "repo-lines-v1:sha256:252f5733d7c9c1e4c17211ca29afd591c2dfda7f0c4bcd19681647025a7f96a6:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZjNjRlZWE3MzQ2YmU2ODc2ZTU3ZGI5MjgxZDJjOTNlNWY5MDFkODI1MjkxZmUzZjQzMTRlYTdmNmY5YTk5NWIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY2YTc1ZmU1MWIyNTI2MDhhYTNjYzIzOWY3NGVjMzNmYTIxOTJhMzQ5ZDEyM2UzYTQ5NGQ3ZGVlNjVjMGYwZWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQxMTI4MmQ0NmVhMGM1MjVlY2ZiMjI5NWE0ZDVjN2UxMTU3YTVmOWU5OTRjYjQzZGE2MTM4N2ZmYjU2ZjBiYzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://scripts/low_stock.py#L14-L14",
+          "version": "repo-lines-v1:sha256:02b711177530072248911b1abe151250275c48c4631a6fb8dcfd507f42eee648:eyJzZWxlY3RlZExpbmVDb3VudCI6MSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMDJiNzExMTc3NTMwMDcyMjQ4OTExYjFhYmUxNTEyNTAyNzVjNDhjNDYzMWE2ZmI4ZGNmZDUwN2Y0MmVlZTY0OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMDJiNzExMTc3NTMwMDcyMjQ4OTExYjFhYmUxNTEyNTAyNzVjNDhjNDYzMWE2ZmI4ZGNmZDUwN2Y0MmVlZTY0OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiODFkZTUxNzUzMDMwZmNiYmFlODZlNmQ1Nzg5OGZhYzNjYWZmMzJmOTA5ZmQ3NDY2MWZmNzMxOTYwNGM2ZDUzMiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWViM2QzZDE0ZGIxMGNkYWJkZWE2MmExZjk3MWFmNGUxYzNiZWFhYTBiOTBmMDgxNGE3ZWZjZGZhM2ZiMzRjZSJ9"
         }
       ]
     },
@@ -54,11 +70,23 @@
     },
     {
       "id": "claim_244baab85a55428a9aea8a5b32c92073",
-      "statement": "frontend/src/App.jsx is the dashboard: it polls /varieties and /batches, renders varieties and batches with expiry urgency, and runs the barcode scan flow.",
+      "statement": "frontend/src/App.jsx is the dashboard: it polls /varieties and /batches on a 10-second interval, renders varieties and batches with expiry urgency, runs the barcode scan flow, and has a view toggle (stock vs reports) with a Reports button that switches the main panel between the stock dashboard and the Reports component.",
       "evidence": [
         {
-          "resource": "repo://frontend/src/App.jsx",
-          "version": "repo-file-v1:sha256:0c02a3f27010d577861834ef313ed1ba66fd6a32a59102c89655473a1dc8d2bc"
+          "resource": "repo://frontend/src/App.jsx#L161-L166",
+          "version": "repo-lines-v1:sha256:48e6d2339fa72e021de2935e4ff58cd7a338ee1b3cf25a705484b8f698000e53:eyJzZWxlY3RlZExpbmVDb3VudCI6NiwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTk2NmZiZmE4ODk5OGRhNzQ2NTZjNTAxOTQ5NTZjMjVmMDg0OTQ1NzY2MGMwMDlmZTYzZDFlOWZhOWRjOTMxYyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmRjNTJmMDhiMzliMDhiMDFjOGQzMDhiZjg4MGIwYmVmMDJmZDFkZmNjOWQ5YWE5M2E0ZDFiNWY0ZDU4YjZjYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiOTdkODYzMmU1NGU5Mjk4YWJiOTU4NzI3ZTJkNTE0MDhhYmFmMTM2NjAzNTM3OTEwMTQwYWJmNjViMzBhYjYxMyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNWVjZTNhMjRkYTYwNmU2YjYyNTlmMzI2NjM0ZDI0YTA3N2I4YWQxZjY3M2VhZGQzYjQ0ZWQzMTE5ODU4Y2ZjMiJ9"
+        },
+        {
+          "resource": "repo://frontend/src/App.jsx#L192-L198",
+          "version": "repo-lines-v1:sha256:d661d3181a9ad0012b409e9423573708073cc743a9c14389e3c1373f3b584d14:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNmZmNDZhZTNkOTRjYzAwZGIwMjc0MjQ0ZTk1MzQxZWQ4ZTg4MTRhNzc4YTE4ZTU2Y2I0MGI1YWRkZmYwMzkxNSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYWYyMTVmZDAzY2ZjMmJlZWJmODA0YTE3YWM1ZTk0Nzk1MWY3Y2QyZGMwNTYwNTIyNDk5YzYwNmZkYmNkNzE4NSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjVlZDk0ODUzYjZhMjQ5M2Y2NWI0MWM4ZWY1M2Q5NjA1MmFjNWM1YzI1YjBlNDM4NTE1ZTVmYjNiMGY0NTU5OCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYzNjYTBiYWIwZjcwMTdiZTkxODE0Y2QxNmQ1ZDI1NDY2YmNlNTFmNThlMmU2YzE2YmFiN2RkODRiOWQyYTA5NiJ9"
+        },
+        {
+          "resource": "repo://frontend/src/App.jsx#L225-L242",
+          "version": "repo-lines-v1:sha256:2df8c450ab0ceb408b1df71d4812ba14f93353bf16b7a733ca5a3c52b56a83c3:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImRlZTg2YzAyOGNkZDQ0ZDliNmE5ZWM2YmJlYWMzOTJhYmZmNzhlYjFjMWM2OGNkNDRmNTc0MDRiYmZkNjk0ZGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEwYzYxYTVkM2UxMDNiNmY2ZTE4M2Y2MmJhNzdhZDdiOTgxY2Y2ZTIyY2U2NTBhMWFjMjk0ZTNjYTM2YjEyZWYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZjYzMzOThmYmI1YWYxOGY5ODU0YWQwMjg4Mjk1NjgwZDE5MWIyZjg1Y2U2NjZlYjc5NDFkMTExNDNhOGI4NDEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImRjODg4N2U3MGExYWMzOWUzMTRjYTBjN2FlZmQ2ZmRhYmE3ZDg3NDEyODdhZjRjNGZlNWU4N2E1OWQ0ZmQ5ZDcifQ"
+        },
+        {
+          "resource": "repo://frontend/src/App.jsx#L88-L100",
+          "version": "repo-lines-v1:sha256:0bca006b574ce50082c66bb50adb4cf7ad320f6066e2e48e6f50afd2fbf0a2ec:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI4NTcxMjhiMjU2NzBhMDE1OTY1NDliYzRkNmM2YmI2Y2QyMmNhM2I4Mjk1NjZiMTRlZWJjZmUyMWQwNDY4ZDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUzMjMzZjcwYjM3OGMxYjRiNjQyZmE0MjBjZWNkNTVhOWNhYjg5ZjIzMmEyZjYwMWI4NDNiMzEzYWY5M2Q2ODciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NGZjMGMxNzNkMWVjM2ZjNTAxZDdkZmE5Mjg1NTAxYzUyN2NmYjQ3MTI1ODNkYTNjYzM2MTgwNTY2YjRiZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc1OWJjMTEwZTFlYzc3YjA3NzdiZDE2NjRjZDRmNjI0Y2E1MjIxZWZiZjg1ZDJlMTVlMTE4NGFiOTczNDdjMzEifQ"
         }
       ]
     },
@@ -74,11 +102,15 @@
     },
     {
       "id": "claim_69cc4cc2fc15405d9c6c09ec299c2419",
-      "statement": "frontend/src/DeductModal.jsx collects variety and quantity inputs and POSTs a manual removal to /deduct.",
+      "statement": "frontend/src/DeductModal.jsx collects variety and quantity (grams or units, gated by the selected variety's tracking_type) and POSTs a manual removal to /deduct.",
       "evidence": [
         {
-          "resource": "repo://frontend/src/DeductModal.jsx",
-          "version": "repo-file-v1:sha256:ccef13e9880fa44b00241b4e5765d91ae0607739ffb3cb4aa2533771f7c1a35e"
+          "resource": "repo://frontend/src/DeductModal.jsx#L13-L48",
+          "version": "repo-lines-v1:sha256:a2f0434947761f0674d9c27a83f638725047002faebb59239cd73cb0d53c674f:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdkYWM3ZjAyYzczOGNlZDc1OTQ5MWVmMzIwNTRiZTcyYTYxMTMzODdlOWRiMjA2OGVjMmM4YzE0M2I2ZDFhMjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxN2FmMTEwMWM5N2I3YzJmNTI1NDA3ODJlNjM0Y2M0NDQwZjBlOTcwMzQxZTUyZjk3NTIzMTFkNzhiN2Q3ZDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM5NTUyMmQ3NTFmYmJhNWNlM2E5ZTc5ZWY2ODRiNzMwMWJhYzE5MWJkMzYzZDM5NDA0ZDIxNDEyNjJhZjZlZGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImY5MjRjYzJmMDc3MjJlMjYxNTI5MDM4Y2FmYzEyMzhmNjc2YzQyODk0ZWZiNjVhODFmNWIwMzQ1MDYwNmQ3OGEifQ"
+        },
+        {
+          "resource": "repo://frontend/src/DeductModal.jsx#L88-L114",
+          "version": "repo-lines-v1:sha256:7f6cad1629747f6e2ad6b7c2eed0a4ee040cece3fd27bfb639d9f820ba93f1b7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlMzdlNmFlYjMzYWQ3YjY5OTI1MTg4OTk3NTVhYTcxOWNhMGUzZTFlNWYzNzliNzYwOWM5ZjUyODUzZTJmYjAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA4ODNlODNhNjM2NzFlMjhjOTVmZmVmZjA2NTA3ODE3MzU1Mzk3OTBlNTU4MTU1YTk1ZGZiYzJlYjA0ZTQ2NTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg1MDZkNzRkZTI0MzkwZmExODI0ODAzMzA2ODBmMDk4MzI5MTYxZGU3MDYwMzBhOGVlNjE0OTJhZWM0MzlhMzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJhZjgzN2M0ZmNlYjIxMGU5NTk5MWI2MGM2YWY5NWM0NGVhNzQ4NmIxNTdhMWYxZDE0OTliM2NiYzRmOTUzODUifQ"
         }
       ]
     },
@@ -118,7 +150,7 @@
       "evidence": [
         {
           "resource": "repo://AGENTS.md",
-          "version": "repo-file-v1:sha256:e196ae5aef70399b7f4cd655c0440c5c589dbecac5863d6178aa1c195d5a4325"
+          "version": "repo-file-v1:sha256:8926524de63a1266e7592d9f1256ec367b67e9fa0583f343808e3e51f19d4990"
         }
       ]
     },
@@ -128,17 +160,41 @@
       "evidence": [
         {
           "resource": "repo://CLAUDE.md",
-          "version": "repo-file-v1:sha256:31060379798cd019458c941e0c10846d7b7ad856616f025414ea67f326bfe1d6"
+          "version": "repo-file-v1:sha256:cd617c809957b5aeb601ce9856109475f6da8ed78835148d17c3097dd4daa848"
         },
         {
           "resource": "repo://README.md",
           "version": "repo-file-v1:sha256:7125251e6f70a458ea0e5af7e272842b36a60b1b194c148763ca4569fea342d6"
         }
       ]
+    },
+    {
+      "id": "claim_77c0224747ff46138c68f6286051941d",
+      "statement": "frontend/src/Reports.jsx renders four report tables, each fetching its own endpoint via the REPORTS array config (path, columns, per-column formatters); the isWeight() helper normalizes tracking_type casing between raw-SQL responses (WEIGHT) and ORM responses (weight).",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/Reports.jsx#L68-L120",
+          "version": "repo-lines-v1:sha256:19be80307e0e36a4ed2d2a9acd95fc72362c21c7354891de01b9428546760e1e:eyJzZWxlY3RlZExpbmVDb3VudCI6NTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRhMTBjMWIyNmU3YTVhZjcwZmNhMTVlYTIzZWMwOGExN2M0NDBiMWMzOWY5Mzg3ZThhMTViZjlhZmU1MTMyNDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJkMGYyZDNhM2FhZGEyNzU4NjQ1NzhkMGE0MzkxNTYzOGQ1NDNmZWNhMmM5NDg1OGRiOTQxMjExZTg2Y2VmMmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://frontend/src/Reports.jsx#L7-L54",
+          "version": "repo-lines-v1:sha256:545feb48c135294e2ea41a64ca4efde755129e4b935c9a97cb45d80d8a8f831c:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhjNGM1MTY5ZDhkMjBlNTJlYTJjMjg4OTg0MDYwYTgxYzcwZmI0OTE5ZDYyNzE3YmEzYTUyNDBkYjI1M2EyZDkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk1NGMzZmMyNGE4ODEzMzg4MGM2MWZhNGM3ZTQ3YjJiYTFhZjEzMGVhZWY2N2VjYTEwYzI4NWMwNjQ0NGIyYjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJkODUzZWM1NzU5YzU1ZTE0NWU0MWJmM2ZkNjM3OTM0Y2JiNjE5NDgzYWI4NWQ1ZTJhM2RiZWE4MjEwZWY5NmUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9df12c87b3104e01b4164667f259955f",
+      "statement": "frontend/src/main.jsx is the React entry point: it mounts App inside StrictMode into the #root element.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/main.jsx",
+          "version": "repo-file-v1:sha256:4b4b864dbe45253425d0c925337180ec07e204295179f80f59551216f466f618"
+        }
+      ]
     }
   ],
   "verification": {
-    "by": "openwiki/0.5.1",
-    "at": "2026-09-11T18:21:42.744Z"
+    "by": "openwiki/0.6.1",
+    "at": "2026-10-01T12:43:49.948Z"
   }
 }
