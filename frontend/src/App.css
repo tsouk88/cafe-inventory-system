@@ -337,6 +337,26 @@ body {
   color: var(--color-ink);
 }
 
+.batch-row__right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.batch-row__discard {
+  background: var(--color-critical);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.batch-row__discard:hover {
+  opacity: 0.85;
+}
+
 .batch-row__meta {
   display: flex;
   flex-direction: column;

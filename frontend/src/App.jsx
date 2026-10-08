@@ -27,7 +27,7 @@ function formatDate(dateString) {
   return d.toLocaleDateString("en-GB", { day: "2-digit", month: "2-digit", year: "numeric" });
 }
 
-function BatchRow({ batch, trackingType }) {
+function BatchRow({ batch, trackingType, onDiscard }) {
   const days = daysUntil(batch.expiry_date);
   const level = urgencyLevel(days);
 
@@ -44,15 +44,24 @@ function BatchRow({ batch, trackingType }) {
   return (
     <div className={`batch-row batch-row--${level}`}>
       <div className="batch-row__grams">{quantityLabel}</div>
-      <div className="batch-row__meta">
-        <span className="batch-row__date">{formatDate(batch.expiry_date)}</span>
-        <span className="batch-row__days">{daysLabel}</span>
+      <div className="batch-row__right">
+        <div className="batch-row__meta">
+          <span className="batch-row__date">{formatDate(batch.expiry_date)}</span>
+          <span className="batch-row__days">{daysLabel}</span>
+        </div>
+        {/* Same rule as the API: on its expiry day a batch is still sold, so only
+            batches past that day can be discarded. */}
+        {days < 0 && (
+          <button className="batch-row__discard" onClick={() => onDiscard(batch, quantityLabel)}>
+            Discard
+          </button>
+        )}
       </div>
     </div>
   );
 }
 
-function VarietySection({ variety, batches }) {
+function VarietySection({ variety, batches, onDiscard }) {
   const isWeight = variety.tracking_type === "weight";
 
   const varietyBatches = batches
@@ -77,7 +86,7 @@ function VarietySection({ variety, batches }) {
       ) : (
         <div className="variety-section__batches">
           {varietyBatches.map((b) => (
-            <BatchRow key={b.id} batch={b} trackingType={variety.tracking_type} />
+            <BatchRow key={b.id} batch={b} trackingType={variety.tracking_type} onDiscard={onDiscard} />
           ))}
         </div>
       )}
@@ -128,6 +137,26 @@ export default function App() {
     } finally {
       setScanValue("");
       scanInputRef.current?.focus();
+    }
+  }
+
+  async function handleDiscard(batch, quantityLabel) {
+    if (!window.confirm(`Throw away ${quantityLabel} that expired on ${formatDate(batch.expiry_date)}?`)) return;
+
+    try {
+      const res = await fetch(`${API_BASE}/batches/${batch.id}/discard`, { method: "POST" });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.detail || "Discard failed");
+      }
+
+      setScanMessage({ type: "success", text: `Discarded ${quantityLabel}` });
+    } catch (err) {
+      setScanMessage({ type: "error", text: err.message });
+    } finally {
+      // Refresh on errors too: a 409 "already 0" means the list on screen is stale.
+      loadData();
     }
   }
 
@@ -235,7 +264,7 @@ export default function App() {
             {!loading &&
               !error &&
               filteredVarieties.map((v) => (
-                <VarietySection key={v.id} variety={v} batches={batches} />
+                <VarietySection key={v.id} variety={v} batches={batches} onDiscard={handleDiscard} />
               ))}
           </>
         )}

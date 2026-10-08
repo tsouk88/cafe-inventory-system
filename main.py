@@ -245,3 +245,29 @@ def expired(db: Session= Depends(get_db)):
         """)).mappings().all()
     return expired
 
+@app.post("/batches/{batch_id}/discard")
+def discard(batch_id: int , db: Session= Depends(get_db) ):
+    batch = db.query(Batch).filter(Batch.id==batch_id).with_for_update().first()
+    if batch is None :
+        raise HTTPException(status_code=404, detail="Batch not found")
+    if batch.grams_remaining == 0 or batch.units_remaining == 0:
+        raise HTTPException(status_code=409, detail="Batch is already 0")
+    if batch.expiry_date >= date.today():
+        raise HTTPException(status_code=409 , detail="Batch hasn't expired yet")
+    if batch.grams_remaining is not None:     
+        remaining=batch.grams_remaining 
+        batch.grams_remaining = 0      
+    else:  
+        remaining = batch.units_remaining
+        batch.units_remaining = 0   
+    new_movement = StockMovement(
+                        barcode=None,
+                        direction=Direction.OUT,
+                        grams=remaining,
+                        reason=Reason.EXPIRED
+                            )         
+    db.add(new_movement)
+    db.commit()
+    return  {"Removed Batch" : batch.id,
+             "Expired at" : batch.expiry_date
+            }
