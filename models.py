@@ -42,4 +42,4 @@ class StockMovement(Base):
     barcode = Column(String, ForeignKey("products.barcode"), nullable=True)
     direction = Column(Enum(Direction))
     grams = Column(Integer)
-    received_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+    timestamp = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
