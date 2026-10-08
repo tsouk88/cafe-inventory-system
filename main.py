@@ -78,7 +78,7 @@ def scan_barcode(scan: ScanRequest, db: Session = Depends(get_db)):
         if product.package_size_grams is None:
             raise HTTPException(status_code=400, detail="Weight product χωρίς package_size_grams")
         remaining_to_subtract = product.package_size_grams
-        batches = db.query(Batch).filter(Batch.variety_id == product.variety_id , Batch.expiry_date >= date.today()).order_by(Batch.expiry_date).all()
+        batches = db.query(Batch).filter(Batch.variety_id == product.variety_id , Batch.expiry_date >= date.today()).order_by(Batch.expiry_date).with_for_update().all()
         for batch in batches:
             if remaining_to_subtract == 0:
                 break
@@ -109,7 +109,7 @@ def scan_barcode(scan: ScanRequest, db: Session = Depends(get_db)):
                 "status": status
                 }
     else:
-        batch = db.query(Batch).filter(Batch.variety_id == product.variety_id).filter(Batch.units_remaining > 0 , Batch.expiry_date >= date.today()).order_by(Batch.expiry_date).first()
+        batch = db.query(Batch).filter(Batch.variety_id == product.variety_id).filter(Batch.units_remaining > 0 , Batch.expiry_date >= date.today()).order_by(Batch.expiry_date).with_for_update().first()
         if batch is None:
             raise HTTPException(status_code=404, detail="Batch not found")
         batch.units_remaining -= 1
@@ -132,7 +132,7 @@ def manual_deduct(deduct: ProductDeduct, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Product not found")
     if variety.tracking_type == TrackingType.WEIGHT:
         remaining_to_subtract = deduct.grams
-        batches = db.query(Batch).filter(Batch.variety_id == deduct.variety_id , Batch.expiry_date >= date.today()).order_by(Batch.expiry_date).all()
+        batches = db.query(Batch).filter(Batch.variety_id == deduct.variety_id , Batch.expiry_date >= date.today()).order_by(Batch.expiry_date).with_for_update().all()
         for batch in batches:
             if remaining_to_subtract == 0:
                 break
@@ -154,7 +154,7 @@ def manual_deduct(deduct: ProductDeduct, db: Session = Depends(get_db)):
                 "status": "completed"
                 }
     else :
-        batches = db.query(Batch).filter(Batch.variety_id == deduct.variety_id).filter(Batch.units_remaining > 0, Batch.expiry_date >= date.today()).order_by(Batch.expiry_date).all()
+        batches = db.query(Batch).filter(Batch.variety_id == deduct.variety_id).filter(Batch.units_remaining > 0, Batch.expiry_date >= date.today()).order_by(Batch.expiry_date).with_for_update().all()
         if not batches:
             raise HTTPException(status_code=404, detail="Batch not found")
         remaining_to_subtract = deduct.units
