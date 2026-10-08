@@ -239,7 +239,7 @@ def expired(db: Session= Depends(get_db)):
     expired = db.execute(text("""select v.name , v.tracking_type , coalesce(b.units_remaining, b.grams_remaining) as stock , b.expiry_date as expired_at 
         from varieties v
         join batches b on b.variety_id = v.id
-        and b.expiry_date < now()
+        and b.expiry_date < current_date
         and coalesce(b.units_remaining, b.grams_remaining) > 0
         order by expired_at desc
         """)).mappings().all()
