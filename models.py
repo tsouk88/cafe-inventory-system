@@ -7,6 +7,12 @@ class Direction(enum.Enum):
     IN = "IN"
     OUT = "OUT"
 
+class Reason(enum.Enum):
+    SALE="SALE"
+    RESTOCK="RESTOCK"
+    CORRECTION="CORRECTION"
+    EXPIRED="EXPIRED"
+
 class TrackingType(enum.Enum):
     WEIGHT = "weight"
     UNITS = "units"
@@ -43,3 +49,4 @@ class StockMovement(Base):
     direction = Column(Enum(Direction))
     grams = Column(Integer)
     timestamp = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+    reason = Column(Enum(Reason , native_enum=False) , nullable=False)

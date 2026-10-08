@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import text
 from fastapi.middleware.cors import CORSMiddleware
 from database import get_db
-from models import Variety , Product , Batch , StockMovement , Direction , TrackingType
+from models import Variety , Product , Batch , StockMovement , Direction , TrackingType , Reason
 from schemas import VarietyCreate , VarietyOut , ProductCreate , ProductOut , BatchOut , BatchCreate , ScanRequest , ProductDeduct
 from datetime import date
 
@@ -50,13 +50,15 @@ def create_batch(batch: BatchCreate, db: Session = Depends(get_db)):
         new_movement = StockMovement(
             barcode = None,
             direction=Direction.IN,
-            grams=new_batch.grams_remaining
+            grams=new_batch.grams_remaining,
+            reason=Reason.RESTOCK
                     )
     else:
         new_movement = StockMovement(
             barcode = None,
             direction=Direction.IN,
-            grams=new_batch.units_remaining
+            grams=new_batch.units_remaining,
+            reason=Reason.RESTOCK
                     )
     db.add(new_movement)
     db.commit()
@@ -99,7 +101,8 @@ def scan_barcode(scan: ScanRequest, db: Session = Depends(get_db)):
         new_movement = StockMovement(
         barcode=scan.barcode,
         direction=Direction.OUT,
-        grams=product.package_size_grams
+        grams=product.package_size_grams,
+        reason=Reason.SALE
                 )
         db.add(new_movement)
         db.commit()
@@ -116,7 +119,8 @@ def scan_barcode(scan: ScanRequest, db: Session = Depends(get_db)):
         new_movement = StockMovement(
         barcode=scan.barcode,
         direction=Direction.OUT,
-        grams=1
+        grams=1,
+        reason=Reason.SALE
             )
         db.add(new_movement)
         db.commit()
@@ -145,7 +149,8 @@ def manual_deduct(deduct: ProductDeduct, db: Session = Depends(get_db)):
         new_movement = StockMovement(
         barcode=None,
         direction=Direction.OUT,
-        grams=deduct.grams
+        grams=deduct.grams,
+        reason=Reason.SALE
                 )
         db.add(new_movement)
         db.commit()
@@ -171,7 +176,8 @@ def manual_deduct(deduct: ProductDeduct, db: Session = Depends(get_db)):
         new_movement = StockMovement(
         barcode=None,
         direction=Direction.OUT,
-        grams=units_removed
+        grams=units_removed,
+        reason=Reason.SALE
             )
         db.add(new_movement)
         db.commit()
