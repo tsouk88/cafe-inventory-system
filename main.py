@@ -242,6 +242,67 @@ def discard(batch_id: int , db: Session= Depends(get_db) ):
              "Expired at" : batch.expiry_date
             }
 
+@app.post("/batches/{batch_id}/correct")
+def correct(counted: int , batch_id: int , db: Session= Depends(get_db)):
+    batch = db.query(Batch).filter(Batch.id==batch_id).with_for_update().first()
+    if counted < 0 :
+        raise HTTPException(status_code=400, detail="Wrong Number")
+    if batch is None :
+        raise HTTPException(status_code=404, detail="Batch not found")
+    if counted == batch.grams_remaining or counted == batch.units_remaining:
+        raise HTTPException(status_code=409, detail="Stock already matches")
+    if batch.grams_remaining is not None:
+        if counted > batch.grams_remaining :
+            added = counted - batch.grams_remaining
+            new_movement = StockMovement(
+                            barcode=None,
+                            direction=Direction.IN,
+                            grams=added,
+                            reason=Reason.CORRECTION,
+                            batch_id=batch.id
+                                )
+            batch.grams_remaining = counted         
+            db.add(new_movement)
+        else:
+            added=batch.grams_remaining-counted
+            new_movement = StockMovement(
+                            barcode=None,
+                            direction=Direction.OUT,
+                            grams=added,
+                            reason=Reason.CORRECTION,
+                            batch_id=batch.id
+                            )
+            batch.grams_remaining = counted 
+            db.add(new_movement)
+    else:
+        if counted > batch.units_remaining :
+            added = counted - batch.units_remaining
+            new_movement = StockMovement(
+                            barcode=None,
+                            direction=Direction.IN,
+                            grams=added,
+                            reason=Reason.CORRECTION,
+                            batch_id=batch.id
+                                )    
+            batch.units_remaining = counted     
+            db.add(new_movement)
+        else:
+            added=batch.units_remaining-counted
+            new_movement = StockMovement(
+                    barcode=None,
+                    direction=Direction.OUT,
+                    grams=added,
+                    reason=Reason.CORRECTION,
+                    batch_id=batch.id
+                    )
+            batch.units_remaining = counted 
+            db.add(new_movement)
+    db.commit()
+    return {"Changes on batch" : batch_id}
+
+                
+
+
 
 @app.get("/reports/fefo-next")
 def getreports(db: Session = Depends(get_db)):

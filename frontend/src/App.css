@@ -357,6 +357,21 @@ body {
   opacity: 0.85;
 }
 
+.batch-row__correct {
+  background: transparent;
+  color: var(--color-ink-soft);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.batch-row__correct:hover {
+  color: var(--color-ink);
+  border-color: var(--color-ink-soft);
+}
+
 .batch-row__meta {
   display: flex;
   flex-direction: column;

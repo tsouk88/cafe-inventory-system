@@ -27,7 +27,7 @@ function formatDate(dateString) {
   return d.toLocaleDateString("en-GB", { day: "2-digit", month: "2-digit", year: "numeric" });
 }
 
-function BatchRow({ batch, trackingType, onDiscard }) {
+function BatchRow({ batch, trackingType, onDiscard, onCorrect }) {
   const days = daysUntil(batch.expiry_date);
   const level = urgencyLevel(days);
 
@@ -56,12 +56,15 @@ function BatchRow({ batch, trackingType, onDiscard }) {
             Discard
           </button>
         )}
+        <button className="batch-row__correct" onClick={() => onCorrect(batch, trackingType === "weight")}>
+          Correct
+        </button>
       </div>
     </div>
   );
 }
 
-function VarietySection({ variety, batches, onDiscard }) {
+function VarietySection({ variety, batches, onDiscard, onCorrect }) {
   const isWeight = variety.tracking_type === "weight";
 
   const varietyBatches = batches
@@ -89,7 +92,7 @@ function VarietySection({ variety, batches, onDiscard }) {
       ) : (
         <div className="variety-section__batches">
           {varietyBatches.map((b) => (
-            <BatchRow key={b.id} batch={b} trackingType={variety.tracking_type} onDiscard={onDiscard} />
+            <BatchRow key={b.id} batch={b} trackingType={variety.tracking_type} onDiscard={onDiscard} onCorrect={onCorrect} />
           ))}
         </div>
       )}
@@ -159,6 +162,34 @@ export default function App() {
       setScanMessage({ type: "error", text: err.message });
     } finally {
       // Refresh on errors too: a 409 "already 0" means the list on screen is stale.
+      loadData();
+    }
+  }
+
+  async function handleCorrect(batch, isWeight) {
+    const unit = isWeight ? "g" : " units";
+    const current = isWeight ? batch.grams_remaining : batch.units_remaining;
+    const input = window.prompt(`How much is on the shelf? (${isWeight ? "grams" : "units"})`, String(current));
+    if (input === null) return;
+
+    const counted = Number(input.trim());
+    if (!Number.isInteger(counted) || counted < 0) {
+      setScanMessage({ type: "error", text: "Enter a whole number, 0 or more" });
+      return;
+    }
+
+    try {
+      const res = await fetch(`${API_BASE}/batches/${batch.id}/correct?counted=${counted}`, { method: "POST" });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.detail || "Correction failed");
+      }
+
+      setScanMessage({ type: "success", text: `Corrected ${current}${unit} → ${counted}${unit}` });
+    } catch (err) {
+      setScanMessage({ type: "error", text: err.message });
+    } finally {
       loadData();
     }
   }
@@ -267,7 +298,7 @@ export default function App() {
             {!loading &&
               !error &&
               filteredVarieties.map((v) => (
-                <VarietySection key={v.id} variety={v} batches={batches} onDiscard={handleDiscard} />
+                <VarietySection key={v.id} variety={v} batches={batches} onDiscard={handleDiscard} onCorrect={handleCorrect} />
               ))}
           </>
         )}
