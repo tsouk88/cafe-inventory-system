@@ -214,6 +214,35 @@ def manual_deduct(deduct: ProductDeduct, db: Session = Depends(get_db)):
             "status": "completed" if remaining_to_subtract == 0 else "stock_mismatch"
             }
 
+@app.post("/batches/{batch_id}/discard")
+def discard(batch_id: int , db: Session= Depends(get_db) ):
+    batch = db.query(Batch).filter(Batch.id==batch_id).with_for_update().first()
+    if batch is None :
+        raise HTTPException(status_code=404, detail="Batch not found")
+    if batch.grams_remaining == 0 or batch.units_remaining == 0:
+        raise HTTPException(status_code=409, detail="Batch is already 0")
+    if batch.expiry_date >= date.today():
+        raise HTTPException(status_code=409 , detail="Batch hasn't expired yet")
+    if batch.grams_remaining is not None:     
+        remaining=batch.grams_remaining 
+        batch.grams_remaining = 0      
+    else:  
+        remaining = batch.units_remaining
+        batch.units_remaining = 0   
+    new_movement = StockMovement(
+                        barcode=None,
+                        direction=Direction.OUT,
+                        grams=remaining,
+                        reason=Reason.EXPIRED,
+                        batch_id=batch.id
+                            )         
+    db.add(new_movement)
+    db.commit()
+    return  {"Removed Batch" : batch.id,
+             "Expired at" : batch.expiry_date
+            }
+
+
 @app.get("/reports/fefo-next")
 def getreports(db: Session = Depends(get_db)):
     fefo_nextbatch = db.execute(text("""select
@@ -259,7 +288,7 @@ def getstockpervariety(db: Session= Depends(get_db)):
     getstock=db.execute(text("""select v.name , coalesce(sum(coalesce(units_remaining, grams_remaining)), 0) as remaining , count(b.id) as active_batches , v.tracking_type
         from varieties v
         left join batches b on b.variety_id = v.id
-        and coalesce(b.units_remaining , b.grams_remaining) > 0
+        and coalesce(b.units_remaining , b.grams_remaining) > 0 and b.expiry_date >= current_date
         group by v.id , v.name
         order by remaining desc""")).mappings().all()
     return getstock
@@ -275,30 +304,13 @@ def expired(db: Session= Depends(get_db)):
         """)).mappings().all()
     return expired
 
-@app.post("/batches/{batch_id}/discard")
-def discard(batch_id: int , db: Session= Depends(get_db) ):
-    batch = db.query(Batch).filter(Batch.id==batch_id).with_for_update().first()
-    if batch is None :
-        raise HTTPException(status_code=404, detail="Batch not found")
-    if batch.grams_remaining == 0 or batch.units_remaining == 0:
-        raise HTTPException(status_code=409, detail="Batch is already 0")
-    if batch.expiry_date >= date.today():
-        raise HTTPException(status_code=409 , detail="Batch hasn't expired yet")
-    if batch.grams_remaining is not None:     
-        remaining=batch.grams_remaining 
-        batch.grams_remaining = 0      
-    else:  
-        remaining = batch.units_remaining
-        batch.units_remaining = 0   
-    new_movement = StockMovement(
-                        barcode=None,
-                        direction=Direction.OUT,
-                        grams=remaining,
-                        reason=Reason.EXPIRED,
-                        batch_id=batch.id
-                            )         
-    db.add(new_movement)
-    db.commit()
-    return  {"Removed Batch" : batch.id,
-             "Expired at" : batch.expiry_date
-            }
+@app.get("/reports/waste")
+def wasted(db:Session=Depends(get_db)):
+    wasted = db.execute(text("""select v.name , sum(s.grams) as thrown , v.tracking_type
+                    from stock_movements s
+                    join batches b on s.batch_id = b.id
+                    join varieties v on b.variety_id = v.id
+                    where s.reason='EXPIRED'
+                    group by v.name , v.tracking_type
+                    order by thrown DESC""")).mappings().all()
+    return wasted

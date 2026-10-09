@@ -36,6 +36,15 @@ const REPORTS = [
     ],
   },
   {
+    key: "waste",
+    title: "Thrown away (expired)",
+    path: "/reports/waste",
+    columns: [
+      { key: "name", label: "Variety" },
+      { key: "thrown", label: "Thrown away", format: (v, row) => `${v}${isWeight(row) ? "g" : " units"}` },
+    ],
+  },
+  {
     key: "last7",
     title: "Movements, last 7 days",
     path: "/reports/last7",

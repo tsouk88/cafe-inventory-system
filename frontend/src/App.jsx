@@ -69,9 +69,12 @@ function VarietySection({ variety, batches, onDiscard }) {
     .filter((b) => isWeight ? b.grams_remaining > 0 : b.units_remaining > 0)
     .sort((a, b) => new Date(a.expiry_date) - new Date(b.expiry_date));
 
+  // The total is what can still be sold: expired batches stay listed (so they
+  // can be discarded) but don't count, the same rule as the API.
+  const sellable = varietyBatches.filter((b) => daysUntil(b.expiry_date) >= 0);
   const total = isWeight
-    ? varietyBatches.reduce((sum, b) => sum + b.grams_remaining, 0)
-    : varietyBatches.reduce((sum, b) => sum + b.units_remaining, 0);
+    ? sellable.reduce((sum, b) => sum + b.grams_remaining, 0)
+    : sellable.reduce((sum, b) => sum + b.units_remaining, 0);
 
   const totalLabel = isWeight ? `${total}g total` : `${total} units total`;
 
