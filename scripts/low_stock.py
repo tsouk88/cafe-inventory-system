@@ -4,14 +4,14 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import smtplib
 from email.mime.text import MIMEText
 from database import SessionLocal
-from models import Product, StockMovement, Direction , Batch , Variety , TrackingType
+from models import Product, StockMovement,  Batch , Variety , TrackingType , Reason
 from datetime import datetime, timezone , timedelta
 
 
 gmail=os.getenv("GMAIL_ADDRESS")
 password = os.getenv("GMAIL_PASSWORD") 
 db = SessionLocal()
-sales = db.query(StockMovement, Product.variety_id).filter(StockMovement.direction == Direction.OUT).filter(StockMovement.timestamp >= datetime.now(timezone.utc) - timedelta(weeks=1)).join(Product, StockMovement.barcode == Product.barcode)
+sales = db.query(StockMovement, Product.variety_id).filter(StockMovement.reason == Reason.SALE).filter(StockMovement.timestamp >= datetime.now(timezone.utc) - timedelta(weeks=1)).join(Product, StockMovement.barcode == Product.barcode)
 moves = {}
 remaining = {}
 for movement , variety_id  in sales:

@@ -201,7 +201,7 @@ def getreports(db: Session = Depends(get_db)):
             from
             varieties v
             join batches b on b.variety_id = v.id
-            and b.expiry_date > now()
+            and b.expiry_date >= current_date
             and coalesce(b.units_remaining, b.grams_remaining) > 0
             group by
             v.id,
@@ -215,7 +215,7 @@ def getreports(db: Session = Depends(get_db)):
 
 @app.get("/reports/last7")
 def getlastseven (db: Session = Depends(get_db)):
-    last7=db.execute(text("""select v.name , s.timestamp , s.direction , s.grams as stock
+    last7=db.execute(text("""select v.name , s.timestamp , s.reason , s.direction , s.grams as stock
         from stock_movements s
         left join products p on s.barcode = p.barcode
         left join varieties v on p.variety_id = v.id

@@ -43,6 +43,7 @@ const REPORTS = [
       { key: "timestamp", label: "When", format: formatDateTime },
       { key: "name", label: "Variety", format: (v) => v ?? "—" },
       { key: "direction", label: "Direction" },
+      { key: "reason", label: "Reason", format: formatReason },
       { key: "stock", label: "Qty" },
     ],
   },
@@ -51,6 +52,12 @@ const REPORTS = [
 // Raw SQL returns the enum as stored ("WEIGHT"), the ORM endpoints as "weight".
 function isWeight(row) {
   return String(row.tracking_type).toLowerCase() === "weight";
+}
+
+// The API stores the enum name ("EXPIRED"); show it as "Expired".
+function formatReason(value) {
+  if (!value) return "—";
+  return value.charAt(0) + value.slice(1).toLowerCase();
 }
 
 function formatDate(value) {
