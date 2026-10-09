@@ -50,3 +50,4 @@ class StockMovement(Base):
     grams = Column(Integer)
     timestamp = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
     reason = Column(Enum(Reason , native_enum=False) , nullable=False)
+    batch_id = Column(Integer , ForeignKey("batches.id") , nullable=True)
