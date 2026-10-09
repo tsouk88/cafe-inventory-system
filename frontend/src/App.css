@@ -358,18 +358,22 @@ body {
 }
 
 .batch-row__correct {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
   background: transparent;
   color: var(--color-ink-soft);
-  border: 1px solid var(--color-border);
+  border: none;
   border-radius: 8px;
-  padding: 0.4rem 0.8rem;
-  font-weight: 600;
   cursor: pointer;
 }
 
 .batch-row__correct:hover {
   color: var(--color-ink);
-  border-color: var(--color-ink-soft);
+  background: var(--color-bg);
 }
 
 .batch-row__meta {
