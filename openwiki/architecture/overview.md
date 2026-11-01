@@ -3,9 +3,6 @@ type: "Architecture"
 title: "Architecture Overview"
 description: "Single-deployment full-stack shape of the café inventory app: FastAPI plus SQLAlchemy serving a React SPA with stock and Reports views, request flow, backend responsibilities, and the expiry-aware FIFO serving model."
 tags: ["architecture", "fastapi", "sqlalchemy", "react", "request-flow", "fifo", "serving-model", "reports"]
-verified:
-  - by: openwiki/0.6.1
-    at: 2026-10-01T12:43:49.948Z
 sources:
   - id: openwiki-source-74e735e94bae0f677de0c586
     resource: repo://.fastapicloudignore

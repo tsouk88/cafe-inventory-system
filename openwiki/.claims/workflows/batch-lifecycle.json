@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:225fa8508bc680fd6630753d21b04614e1c79396f7b4143fd60b2bc410a89ea3",
+  "claims": [
+    {
+      "id": "claim_6abbb8025c234a07ab7bbf5c92c793cf",
+      "statement": "Batches are created only via POST /batches (create_batch), which inserts the Batch with received_at defaulting to now-UTC, flushes to obtain the id, then writes one StockMovement with barcode=None, direction=IN, reason=RESTOCK whose grams mirrors whichever quantity was provided (grams_remaining for weight batches, units_remaining for unit batches), committing everything in one transaction.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L45-L69",
+          "version": "repo-lines-v1:sha256:7b6fc9f2e59b65029a282cbcf83347423581198e5b8d7888e1effbbf6f7b36b8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYzMDgyNzEzMDI3ZjkxMTMzODg4YzVhMGZiNGM1Y2ZiZmZlNDA3ZmMwZDFjOTQ5NWNlYTI3YTljZDEwZDQ3MGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwM2JiMGNlMzU3MzcxMDQ1MzJiOWVjMzg2Mzk5ZWJlZjc0YzY3NjM3YzUzNTQyMGY1Zjg2ODMwYzgzZGZjMzIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjUwYzI5MDM1NGY3MjRiZTVjZDBjMjQyZjUxZDE3MzRlNTU0OTg5NTg1NGU3OTU2NTNlNThlNGVjMzgwY2I3N2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIzNDYyOWY1YmM5YjU5OGEwOGM5Yzk1YTY0YjQxYTY3ZGNjYmE4ZjJmZDE4NWE0ZDNkMzY5MWEyZWQwMDIwNWIifQ"
+        },
+        {
+          "resource": "repo://models.py#L34-L42",
+          "version": "repo-lines-v1:sha256:7f53db71a0c77478b7c919ace50f6fb7a3af502e20afaf5b5b0ffda83f1e585e:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmE3MmVhZTVjNzQzZmFlOTYxNjlmNGI0YTk2MmQ2OTk1ZGZlZWNjZmYxY2U3NzI2Nzg2ZWE2YjcwNmZlZmNlZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiYjBlMDAxMzRkZWNjNjdhODA2N2I3YWU3MzYzYjg0OTliZTEwMWM4MDZiMTEwYmY1ZGU2ZmU4OWExYzM3NjhhMSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMmUxODIyNDZhMzkxYjY5ZTg4MWUxY2IxOTY5YzU5NTQ4MjIzODQwZGMwYTAzMGYzM2NhZDQzZjAwOWY2ZGZmYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZjdlNjhmODQ3MGUzMzlkNDYyOTFmMjcwMmEzODg1MDVhMjBiZmQwY2JhZjU4MzkyMTlhOTA0Y2M0N2EzOThjNSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_a43a1be609704ded886d2f42537f05ec",
+      "statement": "BatchCreate requires at least one of grams_remaining or units_remaining via a model_validator that rejects payloads with both None; the RestockModal frontend enforces the mirror-image rule by showing a grams field only for weight varieties and a units field only for units varieties, sending the non-matching field as an explicit null.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/RestockModal.jsx#L37-L49",
+          "version": "repo-lines-v1:sha256:95410719672a3ee0c284fe39607bd2349ec23added5546ab3fba07ffa3188abb:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjExZGY4N2E0NzMxNmM3MDhjNTUwMjA5OGU5YWY2YzQ0NTM0ZWI4MGJlYWRjZjYwNjMwMjhlZmNhODU5MzdhYmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcxN2FmMTEwMWM5N2I3YzJmNTI1NDA3ODJlNjM0Y2M0NDQwZjBlOTcwMzQxZTUyZjk3NTIzMTFkNzhiN2Q3ZDAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEyNzI5ZDU0NjZlOWQ1ODJjNDFlYWZlOGVlYWYzZTM0OTFmMjFiNjIwZDk0ZDM1NzZmMzM4N2JjYjNjMzIxMTkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIwZjhiNTk1ODI1MjZkZDExOTA5MmM4YjYzYTg2OTQ1MGFiNjZjODg5MDBlYzY0ODk0MzkwNDUwMzNhMDVjNmMifQ"
+        },
+        {
+          "resource": "repo://frontend/src/RestockModal.jsx#L86-L113",
+          "version": "repo-lines-v1:sha256:fb3aa13a4b8bc8ec9e5c3fc26de2557dffa5289eae36e2378422a5e2544a53c0:eyJzZWxlY3RlZExpbmVDb3VudCI6MjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY5Njg3MGQ3MDJmYTUwODAwNzM3MDJjMDkyNzJhOWZmZTc0ZGQ0NWQyOTIxZmM0YmUzZGNkZWFiODY3YmQ2NzEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA4ODNlODNhNjM2NzFlMjhjOTVmZmVmZjA2NTA3ODE3MzU1Mzk3OTBlNTU4MTU1YTk1ZGZiYzJlYjA0ZTQ2NTkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg1MDZkNzRkZTI0MzkwZmExODI0ODAzMzA2ODBmMDk4MzI5MTYxZGU3MDYwMzBhOGVlNjE0OTJhZWM0MzlhMzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFlYjc3NTk0NzFjNDFjYjM0MzA4ZDY5YjgyZWJhMTAwZjk0ZDUwZWNlMWUwNGJhNDgzOWFlNzkxNTIwYmE5NjQifQ"
+        },
+        {
+          "resource": "repo://schemas.py#L37-L47",
+          "version": "repo-lines-v1:sha256:309904a737d8e71dffb32f3ff6ce1ff80a63029dd5c3451eeeffd9567a774d05:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNlNGUwNjFmNDA0N2FlYWQwZmI4MzMxM2ZjNTUwMGMxODI3YmJhNWZhYjU3MDQ4MzIzYWRiMDY2MjEzZDBhZjkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEyYWIwOTBiY2QxNjIwZmE2MmVhZWUxNTdhNzRmY2E2MzVhYTI5ZTEyY2JmZmQ2MThiNTc5MmQ4N2JjMDNhM2YiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBmZjVmNjI5MDhlOWI0ZTg1ZTJjOWJiZWY3MzgyN2VlZmNjYWQ5MGU1MGI5YzNmZDFlZDAxNGYzYmZkMjExMWYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMzOGVhM2M3MDk1OWQxYzc0ZjZlYTMwNzBjYTJiMjYzOWEyNTljOTMwMTcyYTlkYjkzMjI1MjJlZDRiM2FjY2EifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_bb692bfc912b48bc8c8d2ef3f101903f",
+      "statement": "create_batch selects the tracking branch by checking new_batch.units_remaining is None (None means weight-tracked); a payload supplying both quantity fields would pass validation and produce an IN movement mirroring the grams value, so the exactly-one-quantity rule is a UI-enforced convention, not a server-side XOR invariant.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L46-L69",
+          "version": "repo-lines-v1:sha256:e57ce23b27e935c59a6b223089084d5472bc30486527b56c4b2399cc4fa989b8:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ2YTViNjZkODdlZjc4NTFlNDM2ZmZhYjI2YjIzOWNkNGQwZDVkNzIzYmU2NjIzZjkyODc2MTY1ZmM2NmRkMDAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwM2JiMGNlMzU3MzcxMDQ1MzJiOWVjMzg2Mzk5ZWJlZjc0YzY3NjM3YzUzNTQyMGY1Zjg2ODMwYzgzZGZjMzIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA1MmFiNTE0N2M3NDViNWY4Mjc1MzU0YzdkZGE0ZDgwZDFmODA0ZTljMGUyOTNjMWFiNDgzMjUzODUzZDQ5YmEiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjIzNDYyOWY1YmM5YjU5OGEwOGM5Yzk1YTY0YjQxYTY3ZGNjYmE4ZjJmZDE4NWE0ZDNkMzY5MWEyZWQwMDIwNWIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_25b9633a2cc849b6a61fc5e541b02f5c",
+      "statement": "Both consumption endpoints (POST /scan and POST /deduct) select batches with a shared FEFO eligibility filter: variety_id match, expiry_date >= date.today() (inclusive on expiry day), positive remaining stock, ordered by expiry_date ascending, with .with_for_update() row locks so concurrent scans serialize on the same batch rows.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L152-L215",
+          "version": "repo-lines-v1:sha256:3fc9b51fa7bda6d1ce88267dad91503365e893222d0610813872ca7f1f3fa6a0:eyJzZWxlY3RlZExpbmVDb3VudCI6NjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0MTEzMmY0ZmYxZTc0MWZkOTdkYTFjZTMwODJkYTk0NWE5ZGNmZDIxODQ5ZmIxMDlhNjY5Y2NlYjM0OGE2ODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgxODRlZjZmZTFmODAyNTU3ZTBkMjlhMGY5YjRiODk1YTJhYjA1NWFiMGY1MGViZmVhYjRhZDcwOTM5NjMzYzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNiNGVlOTI0NDM0YzUwMGFkOTVlYzFhOGEwYjk2ZTQ1MzZlNjg2OWFhMTg1MTc0ZjYyMGRkZDdhZDViODM2NzQifQ"
+        },
+        {
+          "resource": "repo://main.py#L76-L132",
+          "version": "repo-lines-v1:sha256:c1cee524469de8abd092ace86b2ae83a558f614ae34f0a5c2786df3baeb272b7:eyJzZWxlY3RlZExpbmVDb3VudCI6NTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImUyNTU5NDI3M2FjMDE4OTAwMDRiYmMxMWMwOWJkMWYzMzEzYjZlZjFlNjkxNDk4ZDY1ZGE2ZTRjYzk1OWQ2YmYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjNjQ3OWNjMjMwNDQwZmQ0MWU4MjI0MjE4Njc5Njk4NTU5ZDI4OTNiZDY3YjQzODBhZmFiODExYjM4YTU1YWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImYzYmVjODk1NjNiZGMyZjU4NjdhNjQwMGY5MGJhOWZlZDIwZjE0NmY2YzA4NzAwNGMzNTI4NjlkYmRmYWE2NDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA5MGE4MTMwZjAzNzgxMGI2NmI5YmI2MGVlMjczODhiMmNmZTk5ZWNlZTM2YWFjMWJmZDAyMTYwN2NiMmE1NzYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7165068ecb3745b5afe785e35e3870da",
+      "statement": "In the /scan weight branch, the handler drains batches in expiry order writing one OUT/SALE movement per batch touched (barcode=scan.barcode), then records any uncovered shortfall as one extra OUT/SALE movement with batch_id=None so movements always sum to the full package_size_grams; the response carries stock_shortfall and status completed (shortfall 0) or stock_mismatch. A weight product without package_size_grams is a 400.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L85-L132",
+          "version": "repo-lines-v1:sha256:2f7415d66040843c20ecb6ca5c4746d9c7ae081f92472338a2024640ac21be9d:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjA2NDFjMjIzZWU1N2IxZGYxM2IwMjY3MzU3NTNiM2RkMTE2NTFiOWY1MGViNGIyZjI3Nzc0NjcxYWNiNjA3YjQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjNjQ3OWNjMjMwNDQwZmQ0MWU4MjI0MjE4Njc5Njk4NTU5ZDI4OTNiZDY3YjQzODBhZmFiODExYjM4YTU1YWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNlYjI4ZTExNDZiNDA2OTZmMzZiZjM1NDZjMzg4NzcyZmViMjhiNzdmNGZjMDZmZWZhNDExYjE4NzA1MGUyZmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA5MGE4MTMwZjAzNzgxMGI2NmI5YmI2MGVlMjczODhiMmNmZTk5ZWNlZTM2YWFjMWJmZDAyMTYwN2NiMmE1NzYifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0e56c69f70974bfaac604e953d96216d",
+      "statement": "In the /scan unit branch, exactly one unit is taken from the first non-expired batch with units_remaining > 0 (a .first() query, not a loop), one OUT/SALE movement with grams=1 is written, and no batch yields 404 'Batch not found'; the response is always units_removed=1, status completed with no shortfall concept.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L133-L150",
+          "version": "repo-lines-v1:sha256:5c1effb02d66e551c0511ce6891ce52f3f1589759b29a879c7e08d4461e58581:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU5YzcxNDk3Y2ZjODJlNmZlMGZmZmYwYjA2MjM2NWVmNDk3MTUzODhhNjU0N2I5N2ExMzAwZjdlZWEyOGYwMmQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImMzMWY5MTVkNzFjODFjNTc1MDIyNTRlMjJkNGZiZGU5NWNjNDY0ODc0YTNjYTMyMTRiYjU1OWI5MjZkYmM2MzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk1MGUzN2E4NzgyYjJjNmE0NjkyZDUyYWJiMTRkYTQ1YTRjYzM0NGExZmE5OWE4Njg4NjJlZTE4MWFiNmZiNTMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_42d7660cbcd9410ba818e60daac432c7",
+      "statement": "POST /deduct applies the same FEFO chain for both tracking types with barcode=None SALE/OUT movements: the weight branch subtracts deduct.grams across batches and always reports completed without shortfall tracking, while the unit branch chains across batches with spillover, records grams=units_removed, and reports stock_mismatch when a remainder is uncovered; DeductModal submits variety_id plus the tracking-appropriate quantity.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/DeductModal.jsx#L17-L61",
+          "version": "repo-lines-v1:sha256:c16a49e9d9ee87d08b238d2f481dd95b718fb7103ac3ac5d885fc5e89d1d6e28:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0OGNiNGEzYjgyMmEyYmE5NDM3ZDljMWVmZjY2Mzg4ZDFkZDIxNmFmMzJhMzMwMzgxNDJjZTIxMGY3OWM4OTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZhNGMwZjkzMzFlNmExZTRhOWQ4ODViMGY4NzVlOTJlNGMyODdmMzdmMmEyN2MyOGFlN2FkMjkzYjdjNzI5MDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYxN2QyMjZmMmFmOTMyODE1ZjI0YzM3MTc2MjY4ZTEwMDBkNDcxMDFmZDRiMTViNjcyNDIzNTJiNjMxOTg5MTAifQ"
+        },
+        {
+          "resource": "repo://main.py#L152-L184",
+          "version": "repo-lines-v1:sha256:7dd356421b9ed37b27e7ee06ce0020cc232897192d7889298ab479445ded2fc9:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0MTEzMmY0ZmYxZTc0MWZkOTdkYTFjZTMwODJkYTk0NWE5ZGNmZDIxODQ5ZmIxMDlhNjY5Y2NlYjM0OGE2ODIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjNjQ3OWNjMjMwNDQwZmQ0MWU4MjI0MjE4Njc5Njk4NTU5ZDI4OTNiZDY3YjQzODBhZmFiODExYjM4YTU1YWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjgxODRlZjZmZTFmODAyNTU3ZTBkMjlhMGY5YjRiODk1YTJhYjA1NWFiMGY1MGViZmVhYjRhZDcwOTM5NjMzYzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImM5N2EyNDAxOTI1ZTY1ZDg3Nzc1NDNkYjVhZjU1M2U2Y2E0ZTZhYTM3MzVlMjg0OGU3NWE0ZGY0ODczNTVhMmEifQ"
+        },
+        {
+          "resource": "repo://main.py#L185-L215",
+          "version": "repo-lines-v1:sha256:57ec4ebd676e051fdf3436bd63326040919dbb918e56b7486410d09b2852d5e6:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMwZDVhZjU4Zjg3YzUyZDYzYTFjZTUzYzU2ZmI2MzBmZDM0N2M0NDVlZDQyODk3Y2ViNGIxYjNiZTMzNDJmNWYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjI3M2RiM2ViMjdjYzQ4MTcwYjNmMDE2NWVhMTVlZDhkNWFjM2Q3Njk4ZGIyM2QwNDkxNzgwYjc2ZTRjNmRhODIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNiNGVlOTI0NDM0YzUwMGFkOTVlYzFhOGEwYjk2ZTQ1MzZlNjg2OWFhMTg1MTc0ZjYyMGRkZDdhZDViODM2NzQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_1c3e61abad594018bab11e5713183fa5",
+      "statement": "POST /batches/{batch_id}/discard guards in order: 404 for unknown batch, 409 'Batch is already 0' when grams_remaining == 0 or units_remaining == 0 (relying on None == 0 being false so only the set column can trip it), and 409 'Batch has not expired yet' when expiry_date >= date.today() — only a strictly past expiry may be discarded.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L217-L243",
+          "version": "repo-lines-v1:sha256:24b58daa6cfc416b7a36084fc4944396c87c408264c2e95dd80f7317c7d092c7:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcwN2EwM2RhOTEyMzM2ZDkwOGVmYzUxZDU5MTA1ZDIzMTA2M2Y5M2M2ZDE1YjUwMTc5NDQxYjY1MDY0ZWZiYzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA4ODY5YzQzNGM5MmI3N2U0NTAyNTMyOTU3NjY2ZDEzNzQyYWVjZDcyOTE3NDgyMzlkMTBkODZhMmUzZTVjYzciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg3ZmE2MDIyZmUwZWI3NGIxMzQxZmIwYzM3MTBkNjg3YjdlMzJiZjM5MWFlZTljZjczNWU2MjQ2ZmU1YWQ4NDMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_451889fba2374ea7837a2b14ec903c03",
+      "statement": "On successful discard, the handler zeroes whichever remaining column is not None and writes exactly one StockMovement with barcode=None, direction=OUT, reason=EXPIRED, grams equal to the full remaining quantity just zeroed; the /reports/waste endpoint aggregates these EXPIRED movements per variety.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L226-L243",
+          "version": "repo-lines-v1:sha256:c9f7ccd9571215c4943d18568b4259d5e27eb23a836a8dc640a6cc444b10ecbd:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImNiYjNiMGVkMzU5NDQ4M2M1Yjk0OTFmOWY0YjZkOTM2NjhjMWJkZWRiZmY1MDFjNjdjNDc2M2M5OTQxZWIyMDkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjU1MjJjNDJjZDE5YzZkMDNkODA4YzQ1MjcyMDU1MjgyNWI3ZWExYzViNDkxYjIxODUxMWNhYzc0MTVjZjlkOWIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUyYmRlZTJjN2I2ZTNlZmRjZTg1NmQzYjlhOWI1MzdmM2U5Nzk2ODY1NTgyNTU3OGM3MWYxODAyZDcyNmQxZTgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg3ZmE2MDIyZmUwZWI3NGIxMzQxZmIwYzM3MTBkNjg3YjdlMzJiZjM5MWFlZTljZjczNWU2MjQ2ZmU1YWQ4NDMifQ"
+        },
+        {
+          "resource": "repo://main.py#L368-L376",
+          "version": "repo-lines-v1:sha256:e9f0c714c0b4fd737d8bd533f22c79eb02482188ebdff235ad539c02f3daacf5:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNDE3NTkxY2ViY2Y5ZDJkYmI5NDFhMGI1OWRiM2M2N2UyOTVhYWM5YTFmMzA0NmM5Y2NlMmJkMGI2MGQ4ODhiZSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmZlY2E3NmM5MzgzNmU2NTMxYmY2ZmY1NzQzY2M1OWY2NGI0MDVmZTg5OWJjOTk5NWYxZGNkZTBjYTAxNzI2MiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNjU2ZTg3Yjc5Yzg0MmFhMTdlMDJkNTEwODNiNDc4MWNiNjMyMzgxNDhlMzcwY2Y3ZWIzYzY5MjAzYmUwY2Q0MyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjEsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiZGFkM2RkNDAzZTMzYTg0YjMxMzA5NWU3Y2U2OGY3M2IyMWQwZTAwMGFhMjFjOWQyM2IxZTFhM2UzMzE2NTM3NiJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_327e14b680374a95997bca7ff6c81063",
+      "statement": "POST /batches/{batch_id}/correct?counted=N guards in evaluation order: 400 'Wrong Number' for counted < 0 (checked before the batch lookup, so a negative counted with an unknown id returns 400 not 404), 404 for unknown batch, and 409 'Stock already matches' when counted equals the current remaining value; correction has no expiry guard so expired batches can still be corrected.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L245-L301",
+          "version": "repo-lines-v1:sha256:4f12160b531e94ef9a726f352f7f618b548cf034038989c9550e5060c3c55fbb:eyJzZWxlY3RlZExpbmVDb3VudCI6NTcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjE3NmM3ZmQwZDNkY2Y2NzNhMWQxZjZjNTgxMWZhNTA5YjllOGZmM2I1MDNmMGRmMzZlNTgxNTE4ZDdkNWQyNGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0N2YwYzkwZTEzN2MxYzAxMmRjY2RhZjAzNjE1NzE2MGE3NTEzOGQzMGE0NWY2NWMzYzViNjkyNmVlMWE4ZWYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg0MGM1YWNmMzIwYmJlMTdmMWY2MTY3YzlkNjRiMDMxODYxNzY0OWM5NzZiN2U2YzQzYTUzMjI3ZmM0ZTJiNzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJhNGRiNGI0ODk2YjkyZjdmMjQ3YTYwZjM5MjNiM2Q1MjU2NDJkNWNmZjYzMmVmYmEwNDU3Zjc4MzZlMjU5ZDUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0c0c711bc0dc4894b6a14baefe82919e",
+      "statement": "On a passing correction, the handler sets the remaining column (grams or units, chosen by which is not None) to counted and writes one barcode=None CORRECTION movement: direction IN with grams = counted - current when counted is higher (found stock), direction OUT with grams = current - counted when lower (missing stock).",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L254-L301",
+          "version": "repo-lines-v1:sha256:7111f4dff9d68efff8d219c660ba739687bf92f2508499515ada43df6c862fa3:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ1YmMzYmJhZjgzNjc0N2U1MTkwMDllZGE3ZjYwMDM3MzkxMTAzNmNkNjg5ZWQ1NmFiYjdhYTQyODAyY2UzNzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM0N2YwYzkwZTEzN2MxYzAxMmRjY2RhZjAzNjE1NzE2MGE3NTEzOGQzMGE0NWY2NWMzYzViNjkyNmVlMWE4ZWYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImE2NGJiOTVhOWIwNGJjZmViZDQ3MjIxMDRlZWIwMDUzODA2NDhkNDJlNjAzZjUxYjAzMDJmNzc2MDZkMDE3YmYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJhNGRiNGI0ODk2YjkyZjdmMjQ3YTYwZjM5MjNiM2Q1MjU2NDJkNWNmZjYzMmVmYmEwNDU3Zjc4MzZlMjU5ZDUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_e3e4484b5e7f4f0e8d8e4ee9714176e3",
+      "statement": "BatchRow derives daysUntil from expiry_date (date-only difference) and an urgencyLevel (expired below 0 days, critical at <= 3, soon at <= 10, else fresh) used as the row CSS modifier and days label; VarietySection lists each variety's batches sorted by expiry_date, filters to remaining stock above 0 (so emptied batches vanish), and sums the headline total only over batches with daysUntil >= 0 so expired batches stay listed for discard but don't count as sellable.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx#L30-L74",
+          "version": "repo-lines-v1:sha256:9165d3d4b51f8b9f712e0620e75042032f3862a4a0821ecb8cf99469a1e7c185:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI2YTE3NWFjNTBlZWZiMmRkNDc2MjY2MjdkMjhkNTk1ZDNhZDY3N2QzZDZkMzgzMDFmMmVkMTgyMjYzNDkzZDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY0MzZjYWJlMGRiZDZmZjg0ZmU0MTExNWQwYzM4MDQ5ZWI3YjI1ZjJjMzQyZjRlMzY0ZDQ3YjFiOTUwOTUxNzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA3ZDUyZjkxNzdkZDkzMTQ2Zjk4MTFjODE3YzY4YjUwMzc2MTEzNTU3YzFmMzllNjJjZjRlZTZmZGFjZGNlMWUifQ"
+        },
+        {
+          "resource": "repo://frontend/src/App.jsx#L76-L110",
+          "version": "repo-lines-v1:sha256:f68f992f5fcdacf6c62f9c954117ca61d7e23c8cb2c5f2e966beada7b4273620:eyJzZWxlY3RlZExpbmVDb3VudCI6MzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjJkNTZhOTk5YTM4ZTU3Mzk5YzFhMjNjMzhiYjhhOTA4Y2VmZjU0NDJkNmM1ODEzZjFmYzE3Y2U3MGUxNWFjNDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA5NGZjMGMxNzNkMWVjM2ZjNTAxZDdkZmE5Mjg1NTAxYzUyN2NmYjQ3MTI1ODNkYTNjYzM2MTgwNTY2YjRiZTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjNmYTI1MTAzNjUxOGZmYWZlYTNiMWIyMTM4MDEwMjdlZGJlZWU1ZGVhMzY4YzQzNTI4NGMzOTgxODgzMTA4MjEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ddfe9d2b5a5b48a583e5764551ee5a69",
+      "statement": "The Discard button renders only when daysUntil < 0 (an inline comment states this mirrors the API rule that a batch on its expiry day is still sold); clicking it requires a window.confirm before POSTing to /batches/{id}/discard.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx#L158-L176",
+          "version": "repo-lines-v1:sha256:573583785c0148d5d85551850089b8545447f822c4379242e58ce46700b5bd7a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJmZWM4ODQyMWM1NTExZWY0ZDc4YTdmYjRmOTBkZmE2NTc1YTliODliNjMxZmZiYjczNzIwOTBiMTVlMmY4MzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRkY2I4MTk1NjYzMmQ0YzI1MDBmN2ExNGIxMTJhZTJiNjYyODA5NjYwNDM5ZmM0ZTM1Zjk2ZTE5NTFjYTlkNWEifQ"
+        },
+        {
+          "resource": "repo://frontend/src/App.jsx#L52-L58",
+          "version": "repo-lines-v1:sha256:4cdfa34d95f0c6df7b2aa6468ad7b8af4a6ea04ed4e80872d83363f4e139a733:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiYmQ0OGI2ZDI4Y2E0NjY3N2VhMWNkNDQxZTJlYjkyYTExZDJhZTVjMDc4Zjg2ODI2ZjcyNDA2ZjRmYzNlZjM1OCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDdiOGMxMDg1Zjk1YTFhZmFiZTVkMTUyYWQ1OGRiOWRjMjYzMzZjMTIxOGUyYjg0MGFlN2FkODI2YTBkNTc0OCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNDlkMzUwNmQ2MjliNDYxNjIwMDA3ZWRjMWJlMTZkNmY3ODk1OGFmMTA2NWI3YjA4NzlmODI2NDc0NzZjMmVkYyIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiM2M4YjM1MjU3Y2E5NjVlNWVlMmVjYjcyZTMyZGExNTc4N2U1YTQyODZmOTIzNGMxYWNjMDFlODBiZDBlOGRmMCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_718c26fa97bd45ba8a55d0a3e3b48bc3",
+      "statement": "handleCorrect opens window.prompt prefilled with the current remaining value, requires a non-negative integer (Number.isInteger and >= 0, otherwise a local error and no request), then POSTs counted as a query parameter to /batches/{id}/correct and reports 'Corrected current -> counted'.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx#L178-L204",
+          "version": "repo-lines-v1:sha256:c8e02c90f7f242fcd61c1ad277e9ad973a0f8adf1276790a72e4be15108faa69:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg3MmI0ZWZjODZhMGExOWU2NmRhNmMwMmZkM2EwMDI2M2FlMDc2MzY5NmE5ODk1NzI3ZjZlNTk5OWRmMGRjMTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhlNmNkNWZkYjI1N2YwZGRkYWJmNTljNGUyNzczNDE5NTNmNDgwMWY0MjYxNDYyNDRjOGFiNTIxMzU1MDU3OTgifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3ee2896d39cb481f9ef7c3f2b6a6c4e9",
+      "statement": "handleDiscard and handleCorrect both call loadData() in a finally block so failures also trigger a refresh — deliberate because a 409 means the on-screen list was stale (e.g. a concurrent scan emptied the batch); the server's detail message is surfaced via scanMessage and the dashboard re-fetches /varieties and /batches, which are also polled every 10 seconds as a baseline.",
+      "evidence": [
+        {
+          "resource": "repo://frontend/src/App.jsx#L158-L176",
+          "version": "repo-lines-v1:sha256:573583785c0148d5d85551850089b8545447f822c4379242e58ce46700b5bd7a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJmZWM4ODQyMWM1NTExZWY0ZDc4YTdmYjRmOTBkZmE2NTc1YTliODliNjMxZmZiYjczNzIwOTBiMTVlMmY4MzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjRkY2I4MTk1NjYzMmQ0YzI1MDBmN2ExNGIxMTJhZTJiNjYyODA5NjYwNDM5ZmM0ZTM1Zjk2ZTE5NTFjYTlkNWEifQ"
+        },
+        {
+          "resource": "repo://frontend/src/App.jsx#L178-L204",
+          "version": "repo-lines-v1:sha256:c8e02c90f7f242fcd61c1ad277e9ad973a0f8adf1276790a72e4be15108faa69:eyJzZWxlY3RlZExpbmVDb3VudCI6MjcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg3MmI0ZWZjODZhMGExOWU2NmRhNmMwMmZkM2EwMDI2M2FlMDc2MzY5NmE5ODk1NzI3ZjZlNTk5OWRmMGRjMTYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI3ZTU3ODhkNWQ5ZDczZDI0YTgxZGJjMGE1YTc0YmZhODJjOWMzYjNhZjk5ZTUyYWY3OTZlOTBiNDY4YThhM2QiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhlNmNkNWZkYjI1N2YwZGRkYWJmNTljNGUyNzczNDE5NTNmNDgwMWY0MjYxNDYyNDRjOGFiNTIxMzU1MDU3OTgifQ"
+        },
+        {
+          "resource": "repo://frontend/src/App.jsx#L206-L238",
+          "version": "repo-lines-v1:sha256:c703337844519c01ca1b0a15f0c2320e98ee93004dcc3bac30b3c3205c777039:eyJzZWxlY3RlZExpbmVDb3VudCI6MzMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY3Yjc1NTA0NDdlOTRmODhjZjI3Y2UxZDdmZDZkYmVlMTM5Y2JmOGM0ZDRlNGJjMmY1NTM0NDE2OGI3YTg2MzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZkYzUyZjA4YjM5YjA4YjAxYzhkMzA4YmY4ODBiMGJlZjAyZmQxZGZjYzlkOWFhOTNhNGQxYjVmNGQ1OGI2Y2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk3ZDg2MzJlNTRlOTI5OGFiYjk1ODcyN2UyZDUxNDA4YWJhZjEzNjYwMzUzNzkxMDE0MGFiZjY1YjMwYWI2MTMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlY2UzYTI0ZGE2MDZlNmI2MjU5ZjMyNjYzNGQyNGEwNzdiOGFkMWY2NzNlYWRkM2I0NGVkMzExOTg1OGNmYzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_c86f0bd5ea684272b29bb8e4f392317e",
+      "statement": "StockMovement.grams is an overloaded integer column across all five write paths (restock, scan, deduct, discard, correct): it carries grams for weight-tracked quantities and the unit count for unit-tracked quantities, so audit-trail consumers such as the low-stock script stay correct only while every handler keeps this convention.",
+      "evidence": [
+        {
+          "resource": "repo://main.py#L172-L208",
+          "version": "repo-lines-v1:sha256:0805e64e244d431336eb5e83b64f00d6432210e99cbcdb5faae68b137f698839:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI0NGI2OGU3MWJjZDNhNGEwZjg2YTc3ZjE4ZDU2ZTJmOTQ3YTg2ZTVlNjE1YzQ0MzExNDViZGY1MTEzZTYwYTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEzNGM1NDNhZDI3YzMzODFhNTAzMjMxOTk2Y2Y2MjIyNjVkMWQzOTMzMzUxMGEyZGEzZjFjZDBjMTBhZTdmMDQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZmZWM2OTBiMWI3Y2NjYzllYzJiYzI5ZmNlMDQ1OGUyZjA4YzkzN2EwOTRlZWVmYjA4YzliOGY3ZTEzOGNlMzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjYzM2M3OGRjMGU0MzEyMGQxN2U5MGRlYjZiNzk5MTQzMzIyNzc4MDhhZTUwZGJlN2QyYWY2M2ZkODU5YWRjNWYifQ"
+        },
+        {
+          "resource": "repo://main.py#L232-L238",
+          "version": "repo-lines-v1:sha256:ad40e888efbfbf311779decb1f77b80540c6630f2ba65b47ae2c266d58b236ef:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiNTM2ZTE3ZWI0ZjhlY2Q4NjJhMjNjNmUyNWM4NmNhN2YxYTAwZTRhY2ZhZmUyZjhkNmIyOWEyOTE5YjliMDI0OSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNWU2ZWE4NDlhMmIzY2YwMjZmZWFlY2ZkNmM4MGZjM2RiMjIxZDIyYzhhYTU1N2EwN2M5ZThkNDhlYjBhY2ZiZSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiNzEyODk3YzcxYzU4NDM3NDA5OTAzNjI3Nzg2MGUwODkyODc1M2VmNzMyODNhNmVmMDI2MjM5Nzk3OGNkNmU0MSIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiOWUzM2QxYjQ2ZDljZTRkZDNhN2M3NTI1M2VlNjlkNjdhNGUyZmZiZDcyMjUwNmQ4ODUwMWRlYjVhNjk5NmQzNyJ9"
+        },
+        {
+          "resource": "repo://main.py#L257-L298",
+          "version": "repo-lines-v1:sha256:c81a6f9c84534d7da2b0d4211a3dc64e41a4ec3941dd889a64fcbcf1a0f3776f:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI5ZTY3ODkzMzRiODk4ZGZiMjhjNTBkYzFhODc0MmU1NjE5ZTJkYjhkMDg3OTQyNTk2ZDU3OGE2MjliZjVhODMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwYzllNDI1M2UxYzI1ZjMzMjU5NmJhNDJiODcwNTBmYmExZWIzZjc2ZjVmMTFiNTQ1OWI4Y2ZkNjdjZDg3ZWMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQ3Mzg5NjlhMWE1MTVmMDg5M2VkNWZiNjQ5ZWQwYmQ3ODRjZjAxOTBiNjBmYTk3NDQ1MDU1OWNkZmNmMTNjMmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjBlMzU2MmUwMGZiMGFiZmFhMTUwNjk3NDU1MjE5YThlY2ZhNDYyY2NlMTc2NzliNDY0YjcwNjkxYTg4ZDM3YTUifQ"
+        },
+        {
+          "resource": "repo://main.py#L51-L65",
+          "version": "repo-lines-v1:sha256:df6311cbbcf90d5a254a8ddff2fda078ac86da69af24931e2914d29409940762:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlZTY0ZDQ1NDcyODUyZmFhNzY3NDY5NGE1MmJjNGI4ODAwNDJkMzcwZDVjYjcwMjNmMWRlNjMyZDZhNjM1ZDIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwMDEwNWUwYTY4NTIxYzNkMzMyNjE1MzkwZTg1OWUzOWNmMjQxMjc0YTdkNzgxZDE5NmEzYWRhMDdiMTBmZDciLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjViYmY2ODY0NjIyZDBlMGQwNDVjNzkxMTdmNzIyMTA2ZGE1OTVmOTAzNWU2ZmUyMGI3NDNlNjkwNDFiZTViMjkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQyMzhlNGRhNjc2NWY5Y2VhNmUxMDI0NGIyMzVkYWY4MTBkOWJjY2VhZjVlN2U2NmY5YmQzZWE5NjliYjZjZjMifQ"
+        },
+        {
+          "resource": "repo://main.py#L99-L120",
+          "version": "repo-lines-v1:sha256:7176c44138de5f722da05b715f26590e49c929cd155ce19934dd8acbca4c77bc:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI0NGI2OGU3MWJjZDNhNGEwZjg2YTc3ZjE4ZDU2ZTJmOTQ3YTg2ZTVlNjE1YzQ0MzExNDViZGY1MTEzZTYwYTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNmMTVmZGNiMjIyNjg3NDgwYzI5Y2Q4YTI3MjgyNzJmNmY2OWRjNzc1ZTM0ZGFlNjdkMWVmOTUyOTQyNWFiZWQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZmZWM2OTBiMWI3Y2NjYzllYzJiYzI5ZmNlMDQ1OGUyZjA4YzkzN2EwOTRlZWVmYjA4YzliOGY3ZTEzOGNlMzkiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVmODgwYWNkMDMwZmNjYTcxM2RhNmYyYmM1NDE5NWM0MjhjOGVkMmE1YjA4YjQ3YTFhYjE4ODIzYjRlNmQxMWIifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.7.1",
+    "at": "2026-11-01T12:53:33.182Z"
+  }
+}
