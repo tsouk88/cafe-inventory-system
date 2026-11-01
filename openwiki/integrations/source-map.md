@@ -37,9 +37,6 @@ sources:
   - id: openwiki-source-7ed2d9b3005cd559f37189d1
     resource: repo://scripts/low_stock.py
 generated: { by: "openwiki/0.6.1", at: "2026-10-01T12:43:49.948Z" }
-verified:
-  - by: openwiki/0.6.1
-    at: 2026-10-01T12:43:49.948Z
 ---
 
 # Source Map
